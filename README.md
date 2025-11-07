@@ -23,16 +23,17 @@ This repository shares a clean **project structure**, **data instructions**, and
 
 ## Repository layout
 
-.
-├─ README.md
-├─ .gitignore
+exoskeleton-high-level-control-ml/
 ├─ data/
-│ ├─ README.md # sources + schéma HDF5 (datasetV2.h5) + mapping CSV
-│ └─ samples/ # petits échantillons synthétiques (pour illustrations/tests légers)
 ├─ docs/
-│ └─ figures/ # ControllerModelV2.png, gpr_gait_period.png, interp_rel_rmse.png, …
+│  └─ figures/
+├─ research/
+├─ simulation_models/
 ├─ src/
-│ └─ exo_ml/ # (optionnel) utilitaires si vous ajoutez un CLI plus tard
+│  └─ exo_ml/
+├─ .gitignore
+└─ README.md
+
 
 
 
