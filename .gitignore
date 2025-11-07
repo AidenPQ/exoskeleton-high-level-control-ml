@@ -1,3 +1,28 @@
+simulation_models/scaler_intent_recognition_non_transformed.pkl
+simulation_models/scaler_intent_recognition_transformed.pkl
 data/samples/datasetV2.h5
 simulation_models/best_gp_model_intent_recognition_non_transformed.pkl
 simulation_models/best_gp_model_intent_recognition_transformed.pkl
+
+
+# Research (ne pas committer de PDFs soumis à droits)
+research/literature/**
+!research/literature/_placeholders.txt
+
+# LaTeX artefacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+research/thesis/latex_src/build/**
+
+# MATLAB / Simulink temporaires
+simulation_models/**/*.asv
+simulation_models/**/slprj/
+simulation_models/**/work/
