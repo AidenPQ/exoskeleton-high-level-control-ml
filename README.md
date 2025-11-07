@@ -23,16 +23,21 @@ This repository shares a clean **project structure**, **data instructions**, and
 
 ## Repository layout
 
-exoskeleton-high-level-control-ml/
-├─ data/
-├─ docs/
-│  └─ figures/
-├─ research/
-├─ simulation_models/
-├─ src/
-│  └─ exo_ml/
-├─ .gitignore
-└─ README.md
+```text
+    exoskeleton-high-level-control-ml/
+    ├─ data/
+    │  ├─ README.md
+    │  └─ samples/
+    ├─ docs/
+    │  └─ figures/
+    ├─ research/
+    ├─ simulation_models/
+    ├─ src/
+    │  └─ exo_ml/
+    ├─ .gitignore
+    └─ README.md
+```
+
 
 
 
