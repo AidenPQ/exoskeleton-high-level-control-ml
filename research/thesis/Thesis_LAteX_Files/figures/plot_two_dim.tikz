@@ -1,0 +1,25 @@
+\small%
+\pgfplotstableread{figures/datatable2d.dat}{\datatableTwoDim}%
+\begin{tikzpicture}[scale=1]%
+    \begin{axis}[width = 9cm, height = 6cm, scale only axis=true%
+                 ,xmin = 0%
+                 ,xmax = 10%
+                 ,xlabel = {$t$ [s]}%
+                 ,xtick distance = 1%
+                 ,ymin = -1.2%
+                 ,ymax = 1.2%
+                 ,ylabel = {y-Label}%
+                 ,ytick distance = 0.5%
+                 ,grid = both%
+                 ,grid style = {line width = .1pt, draw = TUMBlack!10}%
+                 ,legend style = {at = {(0.1cm,0.1cm)}, anchor = south west,font=\small}%
+                 ,\AMlangGerEng{/pgf/number format/use comma}{}%
+                 ]%
+        \addplot [TUMBlue,very thick] table [x={X}, y={Y1}] {\datatableTwoDim};%
+        \addplot [TUMBlue3,very thick,dashed] table [x={X}, y={Y2}] {\datatableTwoDim};%
+        \addplot [TUMBlack,very thick,dotted] table [x={X}, y={Y3}] {\datatableTwoDim};%
+        \legend{$\sin(t)$,$\cos(t)$,$0.5$};%
+    \end{axis}%
+\end{tikzpicture}%
+%
+%

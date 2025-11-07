@@ -1,0 +1,27 @@
+4 layers
+best_params = {
+    'batch_size': 50,
+    'epochs': 200,
+    'model__learning_rate': 0.001,
+    'model__neurons': 32,
+    'model__dropout_rate': 0.0,
+    'model__activation': 'leakyrelu',
+    'model__regularizer': None,
+    'model__initializer': 'he_normal'
+}
+
+Knee flexion
+Test MSE: 2.7354768146179036
+Test MAE: 0.8620620088448557
+Test R^2: 0.5967038196915894
+
+Hip flexion
+Test MSE: 2.652721734086223
+Test MAE: 0.625325552071259
+Test R^2: 0.5472221730132067
+
+Hip Abduction
+Test MSE: 0.37475338465955943
+Test MAE: 0.32131525937365957
+Test R^2: 0.656347504599359
+

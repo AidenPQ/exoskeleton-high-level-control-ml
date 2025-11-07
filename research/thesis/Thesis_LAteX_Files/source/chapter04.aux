@@ -1,0 +1,250 @@
+\relax 
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Design and Implementation}{41}{chapter.4}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Controller Overview}{41}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Gait Phase Estimation}{42}{subsection.4.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Concept of model for gait phase estimation}}{42}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:IntentRecognitionModel}{{4.2}{42}{Concept of model for gait phase estimation}{figure.caption.44}{}}
+\newlabel{fig:IntentRecognitionModel@cref}{{[figure][2][4]4.2}{[1][42][]42}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Key points selection}{43}{subsection.4.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Neural Network model}{43}{subsection.4.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Concept for the trajectory generation for one DoF}}{44}{figure.caption.45}\protected@file@percent }
+\newlabel{fig:NNModel}{{4.3}{44}{Concept for the trajectory generation for one DoF}{figure.caption.45}{}}
+\newlabel{fig:NNModel@cref}{{[figure][3][4]4.3}{[1][43][]44}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Gait Period Estimation}{44}{subsection.4.1.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Concept for gait period estimation}}{44}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:GaitPeriodEstiamtion}{{4.4}{44}{Concept for gait period estimation}{figure.caption.46}{}}
+\newlabel{fig:GaitPeriodEstiamtion@cref}{{[figure][4][4]4.4}{[1][44][]44}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Controller Implementation}{44}{section.4.2}\protected@file@percent }
+\newlabel{sec:ControllerImplementation}{{4.2}{44}{Controller Implementation}{section.4.2}{}}
+\newlabel{sec:ControllerImplementation@cref}{{[section][2][4]4.2}{[1][44][]44}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Databases Selection}{45}{subsection.4.2.1}\protected@file@percent }
+\newlabel{subsec:DatabasesSelection}{{4.2.1}{45}{Databases Selection}{subsection.4.2.1}{}}
+\newlabel{subsec:DatabasesSelection@cref}{{[subsection][1][4,2]4.2.1}{[1][44][]45}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Data Organization framework}}{46}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:firstVersionDatabase}{{4.5}{46}{Data Organization framework}{figure.caption.47}{}}
+\newlabel{fig:firstVersionDatabase@cref}{{[figure][5][4]4.5}{[1][45][]46}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Key Points Extraction}{46}{subsection.4.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Example of a representation for the same subject of trajectories with a more “classic” form of the desired DoFs}}{48}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:ExtremumInfletionPointsRepresentation}{{4.6}{48}{Example of a representation for the same subject of trajectories with a more “classic” form of the desired DoFs}{figure.caption.48}{}}
+\newlabel{fig:ExtremumInfletionPointsRepresentation@cref}{{[figure][6][4]4.6}{[1][46][]48}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Another example of a representation for the same subject of trajectories with a shape further removed from the usual shape of the desired DoFs}}{49}{figure.caption.49}\protected@file@percent }
+\newlabel{fig:AbnormalExtremumInfletionPointsRepresentation}{{4.7}{49}{Another example of a representation for the same subject of trajectories with a shape further removed from the usual shape of the desired DoFs}{figure.caption.49}{}}
+\newlabel{fig:AbnormalExtremumInfletionPointsRepresentation@cref}{{[figure][7][4]4.7}{[1][49][]49}}
+\@writefile{toc}{\contentsline {subsubsection}{Knee flexion key points}{50}{subsubsection*.50}\protected@file@percent }
+\newlabel{subsubsec:KneeflexionKeyPoints}{{4.2.2}{50}{Knee flexion key points}{subsubsection*.50}{}}
+\newlabel{subsubsec:KneeflexionKeyPoints@cref}{{[subsection][2][4,2]4.2.2}{[1][50][]50}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Key points representation for the knee flexion}}{51}{figure.caption.51}\protected@file@percent }
+\newlabel{fig:KeyPointsKneeFlexion}{{4.8}{51}{Key points representation for the knee flexion}{figure.caption.51}{}}
+\newlabel{fig:KeyPointsKneeFlexion@cref}{{[figure][8][4]4.8}{[1][51][]51}}
+\@writefile{toc}{\contentsline {subsubsection}{Hip flexion key points}{51}{subsubsection*.52}\protected@file@percent }
+\newlabel{subsubsec:HipflexionKeyPoints}{{4.2.2}{51}{Hip flexion key points}{subsubsection*.52}{}}
+\newlabel{subsubsec:HipflexionKeyPoints@cref}{{[subsection][2][4,2]4.2.2}{[1][51][]51}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Key points representation for the hip flexion.}}{52}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:KeyPointsHipFlexion}{{4.9}{52}{\AMlangGerEng {Beschreibung des Bilds}{Key points representation for the hip flexion}}{figure.caption.53}{}}
+\newlabel{fig:KeyPointsHipFlexion@cref}{{[figure][9][4]4.9}{[1][52][]52}}
+\@writefile{toc}{\contentsline {subsubsection}{Hip abduction key points}{52}{subsubsection*.54}\protected@file@percent }
+\newlabel{subsubsec:HipAbductionKeyPoints}{{4.2.2}{52}{Hip abduction key points}{subsubsection*.54}{}}
+\newlabel{subsubsec:HipAbductionKeyPoints@cref}{{[subsection][2][4,2]4.2.2}{[1][52][]52}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Key points representation for the hip abduction.}}{53}{figure.caption.55}\protected@file@percent }
+\newlabel{fig:KeyPointsHipAbduction}{{4.10}{53}{\AMlangGerEng {Beschreibung des Bilds}{Key points representation for the hip abduction}}{figure.caption.55}{}}
+\newlabel{fig:KeyPointsHipAbduction@cref}{{[figure][10][4]4.10}{[1][52][]53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Neural Networks Training}{53}{subsection.4.2.3}\protected@file@percent }
+\newlabel{subsec:NNTraining}{{4.2.3}{53}{Neural Networks Training}{subsection.4.2.3}{}}
+\newlabel{subsec:NNTraining@cref}{{[subsection][3][4,2]4.2.3}{[1][53][]53}}
+\@writefile{toc}{\contentsline {subsubsection}{Data Preparation}{53}{subsubsection*.56}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Training Set-up}{54}{subsubsection*.57}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Hyperparameters and their choice of values}}{55}{table.caption.58}\protected@file@percent }
+\newlabel{tab:hyperparameters}{{4.1}{55}{Hyperparameters and their choice of values}{table.caption.58}{}}
+\newlabel{tab:hyperparameters@cref}{{[table][1][4]4.1}{[1][55][]55}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Gaussian Process Regression Training}{56}{subsection.4.2.4}\protected@file@percent }
+\newlabel{subsec:GaussianProcessRegressionTraining}{{4.2.4}{56}{Gaussian Process Regression Training}{subsection.4.2.4}{}}
+\newlabel{subsec:GaussianProcessRegressionTraining@cref}{{[subsection][4][4,2]4.2.4}{[1][56][]56}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.5}Interpolation Choices}{57}{subsection.4.2.5}\protected@file@percent }
+\newlabel{subsec:InterpolationChoices}{{4.2.5}{57}{Interpolation Choices}{subsection.4.2.5}{}}
+\newlabel{subsec:InterpolationChoices@cref}{{[subsection][5][4,2]4.2.5}{[1][57][]57}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Initial concept for a high-level machine learning controller for a single degree of freedom (DoF)}}{58}{figure.caption.43}\protected@file@percent }
+\newlabel{fig:GrandScheme}{{4.1}{58}{Initial concept for a high-level machine learning controller for a single degree of freedom (DoF)}{figure.caption.43}{}}
+\newlabel{fig:GrandScheme@cref}{{[figure][1][4]4.1}{[1][42][]58}}
+\@setckpt{source/chapter04}{
+\setcounter{page}{59}
+\setcounter{equation}{0}
+\setcounter{enumi}{4}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{SelectedStyles}{1}
+\setcounter{SelectedModules}{13}
+\setcounter{part}{0}
+\setcounter{chapter}{4}
+\setcounter{section}{2}
+\setcounter{subsection}{5}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{10}
+\setcounter{table}{1}
+\setcounter{AM@survey}{0}
+\setcounter{mdf@globalstyle@cnt}{1}
+\setcounter{mdfcountframes}{0}
+\setcounter{mdf@env@i}{0}
+\setcounter{mdf@env@ii}{0}
+\setcounter{mdf@zref@counter}{0}
+\setcounter{parentequation}{0}
+\setcounter{tabx@nest}{0}
+\setcounter{listtotal}{0}
+\setcounter{listcount}{0}
+\setcounter{liststart}{0}
+\setcounter{liststop}{0}
+\setcounter{citecount}{0}
+\setcounter{citetotal}{0}
+\setcounter{multicitecount}{0}
+\setcounter{multicitetotal}{0}
+\setcounter{instcount}{198}
+\setcounter{maxnames}{99}
+\setcounter{minnames}{1}
+\setcounter{maxitems}{3}
+\setcounter{minitems}{1}
+\setcounter{citecounter}{0}
+\setcounter{maxcitecounter}{0}
+\setcounter{savedcitecounter}{0}
+\setcounter{uniquelist}{0}
+\setcounter{uniquename}{0}
+\setcounter{refsection}{0}
+\setcounter{refsegment}{0}
+\setcounter{maxextratitle}{0}
+\setcounter{maxextratitleyear}{0}
+\setcounter{maxextraname}{0}
+\setcounter{maxextradate}{0}
+\setcounter{maxextraalpha}{0}
+\setcounter{abbrvpenalty}{50}
+\setcounter{highnamepenalty}{50}
+\setcounter{lownamepenalty}{25}
+\setcounter{maxparens}{3}
+\setcounter{parenlevel}{0}
+\setcounter{blx@maxsection}{0}
+\setcounter{mincomprange}{10}
+\setcounter{maxcomprange}{100000}
+\setcounter{mincompwidth}{1}
+\setcounter{afterword}{0}
+\setcounter{savedafterword}{0}
+\setcounter{annotator}{0}
+\setcounter{savedannotator}{0}
+\setcounter{author}{0}
+\setcounter{savedauthor}{0}
+\setcounter{bookauthor}{0}
+\setcounter{savedbookauthor}{0}
+\setcounter{commentator}{0}
+\setcounter{savedcommentator}{0}
+\setcounter{editor}{0}
+\setcounter{savededitor}{0}
+\setcounter{editora}{0}
+\setcounter{savededitora}{0}
+\setcounter{editorb}{0}
+\setcounter{savededitorb}{0}
+\setcounter{editorc}{0}
+\setcounter{savededitorc}{0}
+\setcounter{foreword}{0}
+\setcounter{savedforeword}{0}
+\setcounter{holder}{0}
+\setcounter{savedholder}{0}
+\setcounter{introduction}{0}
+\setcounter{savedintroduction}{0}
+\setcounter{namea}{0}
+\setcounter{savednamea}{0}
+\setcounter{nameb}{0}
+\setcounter{savednameb}{0}
+\setcounter{namec}{0}
+\setcounter{savednamec}{0}
+\setcounter{translator}{0}
+\setcounter{savedtranslator}{0}
+\setcounter{shortauthor}{0}
+\setcounter{savedshortauthor}{0}
+\setcounter{shorteditor}{0}
+\setcounter{savedshorteditor}{0}
+\setcounter{labelname}{0}
+\setcounter{savedlabelname}{0}
+\setcounter{institution}{0}
+\setcounter{savedinstitution}{0}
+\setcounter{lista}{0}
+\setcounter{savedlista}{0}
+\setcounter{listb}{0}
+\setcounter{savedlistb}{0}
+\setcounter{listc}{0}
+\setcounter{savedlistc}{0}
+\setcounter{listd}{0}
+\setcounter{savedlistd}{0}
+\setcounter{liste}{0}
+\setcounter{savedliste}{0}
+\setcounter{listf}{0}
+\setcounter{savedlistf}{0}
+\setcounter{location}{0}
+\setcounter{savedlocation}{0}
+\setcounter{organization}{0}
+\setcounter{savedorganization}{0}
+\setcounter{origlocation}{0}
+\setcounter{savedoriglocation}{0}
+\setcounter{origpublisher}{0}
+\setcounter{savedorigpublisher}{0}
+\setcounter{publisher}{0}
+\setcounter{savedpublisher}{0}
+\setcounter{language}{0}
+\setcounter{savedlanguage}{0}
+\setcounter{origlanguage}{0}
+\setcounter{savedoriglanguage}{0}
+\setcounter{pageref}{0}
+\setcounter{savedpageref}{0}
+\setcounter{textcitecount}{0}
+\setcounter{textcitetotal}{0}
+\setcounter{textcitemaxnames}{0}
+\setcounter{biburlbigbreakpenalty}{100}
+\setcounter{biburlbreakpenalty}{200}
+\setcounter{biburlnumpenalty}{0}
+\setcounter{biburlucpenalty}{0}
+\setcounter{biburllcpenalty}{0}
+\setcounter{smartand}{1}
+\setcounter{bbx:relatedcount}{0}
+\setcounter{bbx:relatedtotal}{0}
+\setcounter{cbx@tempcnta}{0}
+\setcounter{cbx@tempcntb}{44}
+\setcounter{cbx@tempcntc}{0}
+\setcounter{cbx@tempcntd}{-1}
+\setcounter{blindtext}{1}
+\setcounter{Blindtext}{5}
+\setcounter{blind@countparstart}{0}
+\setcounter{blindlist}{0}
+\setcounter{blindlistlevel}{0}
+\setcounter{blindlist@level}{0}
+\setcounter{blind@listcount}{0}
+\setcounter{blind@levelcount}{0}
+\setcounter{blind@randomcount}{0}
+\setcounter{blind@randommax}{0}
+\setcounter{blind@pangramcount}{0}
+\setcounter{blind@pangrammax}{0}
+\setcounter{pc@count@i}{0}
+\setcounter{pc@count@ii}{0}
+\setcounter{pc@count@iii}{0}
+\setcounter{pc@count@iv}{0}
+\setcounter{zref@unique}{0}
+\setcounter{mn@abspage}{69}
+\setcounter{section@level}{0}
+\setcounter{Item}{7}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{46}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{float@type}{8}
+\setcounter{algorithm}{0}
+\setcounter{ALG@line}{0}
+\setcounter{ALG@rem}{0}
+\setcounter{ALG@nested}{0}
+\setcounter{ALG@Lnr}{1}
+\setcounter{ALG@blocknr}{1}
+\setcounter{ALG@storecount}{0}
+\setcounter{ALG@tmpcounter}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+}

@@ -1,0 +1,4 @@
+\begin{tikzpicture}[inner sep=0pt, outer sep=0pt]%
+    \fill [draw=TUMBlue,line width=5mm,fill=none] (0mm,0mm) rectangle (95mm,95mm);%
+    \node at (50mm,50mm) {\fontsize{60}{60}\selectfont TIKZ};%
+\end{tikzpicture}%

@@ -1,0 +1,32 @@
+% !TeX spellcheck = en_US
+\chapter{Summary}
+%
+After the work that has been done for this project, it is necessary to draw the appropriate conclusions.
+%
+\section{Discussion}
+The different components of the controller produce quite varied results. The estimation of the gait period works the best, with a maximum error of 50 ms. The estimation of the gait period requires further investigation to find solutions for boundary errors or to test other types of machine learning models for this estimation.
+
+The central part of this controller, the trajectory generation, shows results aligned with those in the literature, potentially even better than the work it is most inspired by, that of Moissenet \cite{Moissenet.2019}. Indeed, the model obtained after the latest modifications provides generally satisfactory results, with only a small percentage of results (<10\%) having errors greater than 10\% of the actual curve amplitude. The error in trajectory generation is on average 5\% across the DoFs, indicating an average RMSE of 3° for knee flexion, 2.5° for hip flexion, and 0.6° for hip flexion. These results are in line with the literature and slightly better than those of Moissenet \cite{Moissenet.2019}. Additionally, the ease of varying subjects seems to be achieved since it is sufficient to modify the subject's biomechanical parameters as input.
+
+However, for real-time applications, further developments are needed. Trajectories with relative RMSEs greater than 10\% can pose a danger to the exoskeleton user. Furthermore, complete controller tests with all its components working in tandem remain to be done, whether offline or on the exoskeleton.
+%
+%
+\section{Conclusion}
+The field of robotics, and exoskeletons in particular, has been booming in recent years. Exoskeletons are being used in a wide variety of fields: in industry, to alleviate fatigue and limit injuries, for haptic interaction in VR, and for rehabilitation and assistance for the disabled. The field has become so popular that competitions such as the Cybathlon exist to shed light on the integration of disabled people into our society, and to bring together students, engineers and researchers from all walks of life to discuss exoskeletons to help these people. This also leads to the creation of student initiatives such as TUM DASH, whose aim is to create their own exoskeleton. To do this, they need to develop a sophisticated control framework.
+
+For this control framework, there is a typical hierarchy with three levels of controllers: high level, which estimates the user's intention, mid level, which translates this intention into a trajectory to drive the actuators, and low level, which ensures that the trajectories are precisely followed by the actuators. These controllers can also be categorized according to their structure, resulting in model-based controllers and physical parameters-based controllers.
+
+In this work, the objective was to create a high-level controller capable of generating the trajectories for 3 DoFs (Knee flexion, Hip flexion, and Hip abduction) over the course of a gait cycle, in the context of walking on a flat surface. To achieve this, the foundational components of the controller were built using Machine Learning models, particularly Gaussian Process Regression (GPR) and Neural Networks. The concept was to identify key points on the trajectories and generate these key points using a neural network, with the current joint position and the corresponding gait percentage as inputs, along with the pilot's biomechanical parameters (age, gender, height, weight). This neural network is complemented by a GPR to estimate the pilot's current percentage of the gait cycle, a GPR to estimate the gait period, and a spline interpolation method to reconstruct the curve from the key points. The results obtained seem promising for future development.
+%
+%
+%
+\section{Outlook}
+Although it is functional for a start, the controller has areas for improvement. It is possible to expand the database to include more subjects of varying sizes, weights, and ages. The most important aspect of the database would be to determine additional filtering criteria. Here, the only criterion was the presence of potential candidates for key points. Another approach would be to remove trajectories where the error between the actual trajectory and the interpolated trajectory is too large.
+
+Regarding interpolation, other methods can be explored. Specifically, the chosen key points impose certain conditions on the curve, such as the first derivative being zero at the extremum and the second derivative being zero at the inflection points. Using a curve reconstruction method that takes these constraints into account could lead to better results. It is also possible to increase the number of key points.
+
+The neural network would require more optimization time to try different hyperparameter values. Additionally, to better capture the non-linearity of the relationships between the data, concepts such as Wavelet Neural Networks (Wavelets NN), which use wavelets to better capture non-linear relationships, can be employed.
+
+The area that requires the most improvement is the estimation of the gait percentage. Using a GPR is very resource-intensive during training. It would be possible to use a neural network, or to stay on the same path, applying the method from \cite{A.Seyfarth.2014} to avoid boundary errors is also an idea worth exploring.
+%
+%

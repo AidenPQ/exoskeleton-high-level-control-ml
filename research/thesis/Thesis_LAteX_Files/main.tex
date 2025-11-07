@@ -1,0 +1,78 @@
+% !TeX spellcheck = en_US
+\documentclass[AMstudentthesis%     style
+              ,optCharter%          font
+              %,optCMYK%            color model
+              ,optBibtex% 	        bibliography tool
+              ,optEnglish% 		    language
+              %,optTikzExternalize% compiles faster for large tikz images
+              ]{AMlatex}%
+%
+% Load additional LaTeX packages - remove what you do not need
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{booktabs}%
+\usepackage{enumitem}%
+\usepackage{tabularx}%
+\usepackage{float}%
+\usepackage{subcaption}%
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{adjustbox}
+\usepackage{multirow}
+%
+%
+% Set paths
+\graphicspath{{figures/}}%
+\addbibresource{source/literature.bib}%
+\addbibresource{source/biblio.bib}%
+%
+%
+\begin{document}%
+% Titlepage
+% ---------
+\frontmatter%
+% Info: separate multiple supervisors by \newline
+%\AMstudentthesisTitlePageCustomDiplomarbeit{German Title}{English Title}{Martin Mustermann \newline Musterweg 20 (optional)\newline 80999 München (optional)\newline +49 89 123 456 89 (optional)}{\AMnamesProfRixen}{Musterbetreuer, M.Sc.}{\AMutilsDate{1}{1}{2021}}%
+%\AMstudentthesisTitlePageCustomBachelorsThesis{German Title}{English Title}{Martin Mustermann \newline Musterweg 20 (optional)\newline 80999 München (optional)\newline +49 89 123 456 89 (optional)}{\AMnamesProfRixen}{Musterbetreuer, M.Sc.}{\AMutilsDate{1}{1}{2021}}%
+%\AMstudentthesisTitlePageCustomSemesterThesis{German Title}{English Title}{Martin Mustermann \newline Musterweg 20 (optional)\newline 80999 München (optional)\newline +49 89 123 456 89 (optional)}{\AMnamesProfRixen}{Musterbetreuer, M.Sc.}{\AMutilsDate{1}{1}{2021}}%
+%\AMstudentthesisTitlePageCustomIDP{German Title}{English Title}{Martin Mustermann \newline Musterweg 20 (optional)\newline 80999 München (optional)\newline +49 89 123 456 89 (optional)}{\AMnamesProfRixen}{Musterbetreuer, M.Sc.}{\AMutilsDate{1}{1}{2021}}%
+\AMstudentthesisTitlePageCustomMastersThesis{Auf maschinellem Lernen basierende High Level \newline Steuerung für Exoskelette der unteren Gliedmaßen}{Machine Learning-based High Level Control for Lower Limb Exoskeletons}{Pierre Quentin Ngandjui Tiako}{\AMnamesProfRixen}{Arian Kist, M.Sc.}{\AMutilsDate{5}{8}{2024}}%
+%\AMstudentthesisTitlePageCustomProjectSeminarReport{Title of the Project Seminar}{Specific Project Title}{Martin Musterstudent \newline Martina Musterstudentin}{Michaela Musterbetreuerin, M.Sc. \newline Michael Musterbetreuer, M.Sc.\newline\AMlangChairEDAM}{\AMutilsDate{1}{1}{2022}}{\AMutilsDate{1}{8}{2022}}%
+
+%
+% Abstract
+% --------
+\include{source/abstract}%
+%
+% Content
+% -------
+\AMstudentthesisPrintTableOfContents%
+%
+% List of figures
+\listoffigures%
+\listoftables%
+%
+%
+\mainmatter%
+\include{source/chapter01}%
+\include{source/chapter02}%
+\include{source/chapter03}%
+\include{source/chapter04}%
+\include{source/chapter05}%
+\include{source/chapter06}%
+%
+% Appendix
+% --------
+%
+% References
+% ----------
+{%
+    %\sloppy% "Word"-like typesetting in order to improve breaking lines with long URLs/DOIs
+    \printbibliography[heading=bibintoc]%
+}%
+%
+%
+\end{document}%
+%
+%

@@ -1,0 +1,34 @@
+Knee flexion
+Test MSE: 3.47
+Test MAE: 0.91
+Test R^2: 0.47
+Percentage of false cases: 10.785686503306106
+Mean RMSE on predicted trajectories: 7.22824427489557
+Std RMSE on predicted trajectories: 376.912365929355
+Relative Mean RMSE on predicted trajectories: 0.11867039113785018
+
+
+Hip flexion
+Test MSE: 3.573087275317894
+Test MAE: 0.7411404162517066
+Test R^2: 0.5350471861551469
+Percentage of false cases: 4.759821081291326
+Mean RMSE on predicted trajectories: 3.541211290770258
+Std RMSE on predicted trajectories: 117.79691719946398
+
+Mean RMSE on predicted trajectories: 0.08577094060575029
+Std RMSE on predicted trajectories: 1.7931673612362062
+
+
+
+Hip abduction
+Test MSE: 0.6635787241161982
+Test MAE: 0.38926112472683877
+Test R^2: 0.45869480357670683
+
+Percentage of false cases: 0.6796966161026837
+Mean RMSE on predicted trajectories: 1.24660591584358
+Std RMSE on predicted trajectories: 6.905842990220854
+
+Mean RMSE on predicted trajectories: 0.10090327527689517
+Std RMSE on predicted trajectories: 0.1258801048234159

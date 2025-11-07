@@ -1,0 +1,75 @@
+4 layers
+best_params = {
+    'batch_size': 40,
+    'epochs': 150,
+    'model__learning_rate': 0.001,
+    'model__neurons': 32,
+    'model__dropout_rate': 0.0,
+    'model__activation': 'leakyrelu',
+    'model__regularizer': None,
+    'model__initializer': 'he_normal'
+}
+split: 0.8 Train, 0.2 Test
+N = 90
+
+Knee flexion
+Data sorting time: 144.33 seconds
+Number of samples: 47610
+Test MSE: 2.818501679724387
+Test MAE: 0.850258780315115
+Test R^2: 0.48351313580011723
+
+Training time: 416.55 seconds
+Prediction time: 0.51 seconds
+
+Percentage of false cases: 0.6490233144297417
+Mean RMSE on predicted trajectories: 0.06065760150034971
+Std RMSE on predicted trajectories: 0.13397315593701098
+Best error estimation: 0.013618771593909057
+Worst error estimation: 19.298407114364704
+Typical error estimation: 0.04500534446710696
+Percentage of cases where the error on predicted traj > 10%: 0.05128855626730936
+Mean RMSE on gait phase 0.01726360483445629, STD 0.008255961930891809
+Mean relative RMSE on joint position 0.034981752708986076, STD 0.019156674959624163
+
+
+Hip flexion
+Data sorting time: 143.49 seconds
+Number of samples: 47610
+Test MSE: 2.6239138667507595
+Test MAE: 0.6142841167761387
+Test R^2: 0.4542186334186624
+
+Training time: 368.85 seconds
+Prediction time: 0.59 seconds
+
+Percentage of false cases: 0.3402646502835539
+Mean RMSE on predicted trajectories: 0.05668004705353687
+Std RMSE on predicted trajectories: 0.05173413438592286
+Best error estimation: 0.011911474390642557
+Worst error estimation: 5.788110130294431
+Typical error estimation: 0.0534405454137548
+Percentage of cases where the error on predicted traj > 10%: 0.06029758893947058
+Mean RMSE on gait phase 0.022672825034892284, STD 0.013569295838508634
+Mean relative RMSE on joint position 0.04322286935302197, STD 0.03260919786534513
+
+Hip abduction
+Data sorting time: 143.69 seconds
+Number of samples: 47610
+
+Test MSE: 0.3424975906674221
+Test MAE: 0.3028365438362363
+Test R^2: 0.6456042825177829
+
+Training time: 394.26 seconds
+Prediction time: 0.55 seconds
+
+Percentage of false cases: 0.0
+Mean RMSE on predicted trajectories: 0.06512535284541936
+Std RMSE on predicted trajectories: 0.04037375284536753
+Best error estimation: 0.018340608353798065
+Worst error estimation: 0.3728500634186324
+Typical error estimation: 0.07280645752545165
+Percentage of cases where the error on predicted traj > 10%: 0.13110691031295946
+Mean RMSE on gait phase 0.010308740174156531, STD 0.005054321404722669
+Mean relative RMSE on joint position 0.057796035221365887, STD 0.03831800093864028

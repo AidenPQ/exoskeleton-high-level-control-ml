@@ -1,0 +1,41 @@
+2 layers
+best_params = {
+    'batch_size': 64,
+    'epochs': 150,
+    'model__learning_rate': 0.001,
+    'model__neurons': 64,
+    'model__dropout_rate': 0.0,
+    'model__activation': 'leakyrelu',
+    'model__regularizer': None,
+    'model__initializer': 'he_normal'
+}
+ R² = 0.62
+Percentage of false cases: 0.18767016725009725
+Mean RMSE on predicted trajectories: 3.5215790540972187
+Std RMSE on predicted trajectories: 1.8158024134907136
+
+Mean RMSE on predicted trajectories: 0.057235519483944806
+Std RMSE on predicted trajectories: 0.04015513733453015
+
+Test MSE: 0.0017387409754586064
+Test MAE: 0.02220973619858593
+Test R^2: 0.6548630372433308
+
+Percentage of false cases: 0.06417736289381563
+Mean RMSE on predicted trajectories: 2.7001036216986436
+Std RMSE on predicted trajectories: 1.3325799824142033
+
+Mean RMSE on predicted trajectories: 0.06418639974216142
+Std RMSE on predicted trajectories: 0.02918574599882726
+
+Test MSE: 0.0004805637463261263
+Test MAE: 0.013699395870910772
+Test R^2: 0.608462395918361
+
+Percentage of false cases: 0.0038895371450797353
+Mean RMSE on predicted trajectories: 1.2562296216807094
+Std RMSE on predicted trajectories: 0.6320508331939969
+
+Percentage of false cases: 0.0029171528588098016
+Mean RMSE on predicted trajectories: 0.10473414797286382
+Std RMSE on predicted trajectories: 0.05928046235695909

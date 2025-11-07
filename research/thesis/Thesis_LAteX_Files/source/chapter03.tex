@@ -1,0 +1,281 @@
+% !TeX spellcheck = en_US
+\chapter{Related Work}%
+\label{chap:RelatedWork}
+In recent years, high-level control systems have been developed based on machine learning for lower-limb exoskeletons. In this background research, the various methodologies and contributions from the literature are reviewed, emphasizing machine learning techniques applied to this domain. This chapter present the specific Machine Learning techniques carried out in this study: Gaussian Process Regression, Neural Networks, Extreme Learning Machines, multiple regression methods, Nonlinear Autoregressive models, Neuro-fuzzy systems, and Support Vector Regression, among others. Specifically, it explains in what way each one advances the development of adaptive and personalized exoskeleton control systems.
+%
+%
+\section{Gaussian Process Regression Models}%
+GPR is a very powerful machine learning technique for modeling and predicting continuous data. One of the central ideas of GPR is how, through a non-parametric approach, models of relationships between input variables and output variables can be built flexibly and accurately, even with nonlinear data.
+
+Huang et al. \cite{Huang.2023} applied GPR combined with the Fourier series to model continuous kinematics at joints. The authors' method was based on utilizing the Fourier series to capture periodicity of gait cycles and leveraging the flexibility of GPR in modeling nonlinear relations between gait parameters and joint angles. The mathematical formulation of their approach can be summarized as follows:
+
+\begin{enumerate}
+	\item Fourier Series Representation: They used a Fourier series to represent the periodic components of the gait cycle. The joint angle $q(\phi, \chi)$ as a function of time $t$ can be expressed as:
+	\[
+	q(\phi, \chi) = a_1(\chi) + \sum_{i=1}^{E} \left( a_{2i}(\chi) \cos(i \phi) + a_{2i+1}(\chi) \sin(i \phi) \right) = \mathbf{b}^T(\phi) \mathbf{A}(\chi)
+	\]
+	\begin{itemize}
+		\item \(q(\phi, \chi)\): This represents the predicted joint kinematics as a function of phase (\(\phi\)) and task variable (\(\chi\)).
+		\item \(\phi\): The phase variable, typically representing the percent gait cycle.
+		\item \(\chi\): The task variable, which includes parameters such as speed and slope of walking.
+		\item \(a_1(\chi)\), \(a_{2i}(\chi)\), \(a_{2i+1}(\chi)\): Fourier coefficients as functions of the task variable (\(\chi\)).
+		\item \(E\): The order of the Fourier series, selected to match the significant frequency content of human kinematics.
+		\item \(\cos(i \phi)\), \(\sin(i \phi)\): The cosine and sine functions of the phase variable, which form the Fourier basis functions.
+		\item \(\mathbf{b}(\phi)\): The Fourier basis vector, defined as \([1, \cos(1\phi), \sin(1\phi), \ldots, \cos(E\phi), \sin(E\phi)]^T\).
+		\item \(\mathbf{A}(\chi)\): The Fourier coefficients vector, defined as \([a_1(\chi), a_2(\chi), \ldots, a_{2E+1}(\chi)]^T\).
+	\end{itemize}
+	\item Gaussian Process Regression: GPR was then used to model the relationship between the Fourier coefficients and the input gait parameters whit are walking speed and slope. The GP defined to expressed the Fourier coefficients are:
+	\[
+	\hat{f}_{k}(\chi) \sim GP \left( \mu_{\hat{f}_{k}}(\chi), k_{\hat{f}_{k}}(\chi, \chi') \right)
+	\]
+	
+	where:
+	\begin{itemize}
+		\item \(\hat{f}_{k}(\chi)\): The predicted Fourier coefficient for the \(k\)-th dimension as a function of the task variable \(\chi\).
+		\item \(\mu_{\hat{f}_{k}}(\chi)\): The mean function of the Gaussian Process for the \(k\)-th Fourier coefficient.
+		\item \(k_{\hat{f}_{k}}(\chi, \chi')\): The kernel (covariance) function that defines the covariance between two task variables \(\chi\) and \(\chi'\).
+		\item \(D_{k}\): The training dataset for the \(k\)-th Fourier coefficient.
+		\item \(\chi_*\): The new task input for prediction.
+		\item \(k_{\hat{f}_{k}} = k_{\hat{f}_{k}}(D_{k}, \chi_*)\): The kernel vector.
+		\item \(K_{\hat{f}_{k}}\): The kernel matrix with entries \(K_{ij}^{\hat{f}_{k}} = k_{\hat{f}_{k}}(\chi_i, \chi_j)\).
+		\item \(\sigma_f\): The signal standard deviation.
+		\item \(\sigma_l\): The characteristic length scale.
+	\end{itemize}
+	\item Objective: An essential element in their approach was the development of a model capable of accurately predicting trajectories of joints at various walking speeds and slopes. Their approach combined periodicity representation in the gait cycle with the flexibility of GPR in a nonparametric sense, thus providing a robust solution for modeling human gait in an adaptive way.
+\end{enumerate}
+%
+For a new task input \(\chi_*\), the prediction for the \(k\)-th Fourier coefficient is given by:
+\begin{equation}
+	p(\hat{f}_{k}(\chi_*) | D_{k}, \chi_*) = \mathcal{N} \left( \mu_{\hat{f}_{k}}(\chi_*), \sigma_{\hat{f}_{k}}^2(\chi_*) \right)
+\end{equation}
+where:
+\begin{itemize}
+	\item \(D_{k}\): The training dataset for the \(k\)-th Fourier coefficient.
+	\item \(\mu_{\hat{f}_{k}}(\chi_*)\): The mean prediction at the new task input \(\chi_*\).
+	\item \(\sigma_{\hat{f}_{k}}^2(\chi_*)\): The variance of the prediction at the new task input \(\chi_*\).
+\end{itemize}
+
+The mean and variance predictions are computed using a kernel vector \(k_{\hat{f}_{k}} = k_{\hat{f}_{k}}(D_{k}, \chi_*)\) and a kernel matrix \(K_{\hat{f}_{k}}\) with entries \(K_{ij}^{\hat{f}_{k}} = k_{\hat{f}_{k}}(\chi_i, \chi_j)\):
+
+\begin{equation}
+	\mu_{\hat{f}_{k}}(\chi_*) = k_{\hat{f}_{k}}^T K_{\hat{f}_{k}}^{-1} D_{k}
+\end{equation}
+
+\begin{equation}
+	\sigma_{\hat{f}_{k}}^2(\chi_*) = k_{\hat{f}_{k}}(\chi_*, \chi_*) - k_{\hat{f}_{k}}^T K_{\hat{f}_{k}}^{-1} k_{\hat{f}_{k}}
+\end{equation}
+
+The kernel function used is the exponential kernel with automatic relevance determination (ARD):
+
+\begin{equation}
+	k_{\hat{f}_{k}}(\chi, \chi') = \sigma_f^2 \exp \left( -\frac{1}{2} (\chi - \chi')^T (\chi - \chi') / \sigma_l^2 \right)
+\end{equation}
+where:
+\begin{itemize}
+	\item \(\sigma_f\): The signal standard deviation.
+	\item \(\sigma_l\): The characteristic length scale.
+\end{itemize}
+
+The hyperparameters \(\theta = [\sigma_f, \sigma_l]\) are determined by maximizing the log marginal likelihood function:
+
+\begin{equation}
+	\log P(D_{k} | x_{ob}, \Theta) = -\frac{1}{2} \left( D_{k}^T K_{\hat{f}_{k}}^{-1} D_{k} + \log |K_{\hat{f}_{k}}| + n \log 2\pi \right)
+\end{equation}
+where \(n\) is the number of recorded tasks.
+
+The results show major decreases, in terms of root mean squared error and maximum error, respectively, after individualization of the model. Precisely, the average reduction in RMSE/Max-Error at the hip, knee, and ankle joints comes to 2.94°/5.059°, 1.822°/5.82°, and 1.156°/4.51° degrees, respectively. The Gaussian Process Enhanced Fourier Series (GPEFS) model is very promising for the powered prosthesis continuous control paradigm, especially for creating a unified controller across the whole gait cycle. This approach avoids the discretization of the control paradigms, which requires manual tuning of the parameters for every single task.
+
+While the transformation into Fourier coefficient space reduces computational load, this method still requires some huge computational resources, especially in real-time applications. Some methods related to this work show relatively good predictive performance but require extensive computational resources, which are really not suitable for real-time applications. On the other hand, the GPEFS seeks to balance predictive accuracy and computational efficiency; however, it is challenging to reach such a balance.
+
+Eslamy and Rastgaar \cite{Eslamy.2023} estimated multi-joint leg moments while walking using GPR. In that direction, their aim was to give a model able to predict, with high accuracy, the required joint moments at different phases of the gait to improve the control of exoskeletons. Their approach uses the following inputs and outputs:
+\begin{itemize}
+	\item Inputs: The primary inputs to the GPR model were thigh and shank angles. These angles are one of the important parameters, which carry information about the kinematic state of the lower limb related to walking.
+	\item Outputs: The output variables from the GPR model were the estimated joint moments. These are forces which are required at joints such as the hip, knee, and ankle to create the desired movements during various phases of the gait cycle.
+\end{itemize}
+They essentially worked towards predicting the joint moments from the kinematic data input. The potential of this capability in exoskeleton control is huge because very fine-tuned adjustments in applied assistive forces by the device would be achieved and, subsequently, so the user's gait stability and comfort. \cref{tab:EslamyResults} presents the results of the model:
+
+\begin{table}[h!]
+	\centering
+	\caption[Results of Multi-Joint Leg Moment Estimation]{Results of Multi-Joint Leg Moment Estimation from \cite{Eslamy.2023}}
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Walking Speed} & \textbf{RMS Errors [Nm/kg]} & \textbf{MAEs [Nm/kg]}\\ 
+		\midrule
+		\multicolumn{3}{c}{\textbf{Hip Moment Estimation Using Thigh Angles}} \\
+		0.5 m/s & 0.13±0.05 & 0.10±0.04\\
+		1.0 m/s & 0.13±0.05 & 0.10±0.04\\
+		1.5 m/s & 0.15±0.05 & 0.11±0.04 \\
+		\midrule
+		\multicolumn{3}{c}{\textbf{Knee Moment Estimation Using Thigh Angles}} \\
+		0.5 m/s & 0.13±0.05 & 0.10±0.04 \\
+		1.0 m/s & 0.13±0.06 & 0.10±0.05 \\
+		1.5 m/s & 0.13±0.06 & 0.09±0.05 \\
+		\midrule
+		\multicolumn{3}{c}{\textbf{Ankle Moment Estimation Using Thigh Angles}} \\
+		0.5 m/s & 0.13±0.05 & 0.10±0.04 \\
+		1.0 m/s & 0.12±0.04 & 0.08±0.02 \\
+		1.5 m/s & 0.10±0.04 & 0.07±0.03 \\
+		\midrule
+		\multicolumn{3}{c}{\textbf{Ankle Moment Estimation Using Shank Angles}} \\
+		0.5 m/s & 0.15±0.05 & 0.11±0.03 \\
+		1.0 m/s & 0.10±0.02 & 0.07±0.02 \\
+		1.5 m/s & 0.95±0.03 & 0.97±0.01 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:EslamyResults}
+\end{table}
+
+Some disadvantages from this method are observed by the authors. The estimation quality tends to be lower at lower speeds, especially for the knee joint. This indicates a potential limitation in the robustness of the method across different walking speeds. The method's accuracy is highly dependent on the input signals. Variability in the input quality can significantly affect the estimation results.
+%
+\section{Neural Networks Models}%
+Neural networks, especially the BNN (Back Propagation Neural Networks) and Long Short Term Memory (LSTM), have a good promise in predicting joint movements for the control of exoskeletons.
+
+\subsection{Back Propagation Neural Networks}
+A BNN is an artificial neural network in which the error, or the difference between the predicted and actual output, is passed backward in order to update the weights \cite{Werbos.1990}. It is through this process, backpropagation, that the network will learn how to choose with the best weights that ensure a minimized error.
+
+Sá Cunha et al. \cite{PedroSaCunhaJoaoFerreiraA.PauloCoimbra.} used BNN to estimate subject-specific knee and hip joint angles . The authors trained the BNN on data containing a number of subject-specific parameters, including age, height, weight, and gait speed as represented in \cref{fig:PedroBNN}. It is easy to see how through its deep architecture the neural network could learn mappings between such inputs and the desired joint angles so as to output personalized gait patterns adapting to characteristics of individual users.
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=120mm]{figures/PedroBNN.png}%
+	%
+	\caption[BNN representation from \cite{PedroSaCunhaJoaoFerreiraA.PauloCoimbra.}]{\AMlangGerEng{Beschreibung des Bilds}{BNN representation from \cite{PedroSaCunhaJoaoFerreiraA.PauloCoimbra.}. As inputs there is the age, height, Weight and walking speed of the subject as inputs, and as outputs there are the different points of the joint trajectory taken at 0, 1, 2, 3, ... 100 percent of the gait cycle}.}%
+	\label{fig:PedroBNN}%
+\end{figure}%
+The mean on the MSE of the results is 0.002. The methods used in this study are applicable in the fields of biomechanics and medicine, particularly for the detection of gait pathologies and rehabilitation. By generating subject-specific joint angle reference profiles based on parameters such as height, weight, age, and walking speed, the study provides more accurate comparisons and diagnoses compared to using generalized healthy reference curves. The main disadvantage of the BNN method noted in the study is the lack of smoothness in the generated curves for subjects at the edge of the training dataset. While BNNs showed higher accuracy in most cases, they struggled to produce smooth joint angle curves for these subjects.
+
+\subsection{Long Short-Term Memory (LSTM) Networks}
+Long Short-Term Memory (LSTM) networks are a type of recurrent neural network (RNN) designed to capture long-term dependencies in sequential data \cite{Greff.2017}. Unlike traditional RNNs, LSTMs use a unique structure with gates that control the flow of information, allowing them to remember and forget information over long sequences.
+
+
+Liang et al. \cite{Liang.2018} used LSTM networks for online adaptive trajectory generation in lower limb exoskeletons. The main motivation behind using LSTMs in their case was that they can effectively model temporal dependencies between cycles of gait, as the variables to predict depend on the time and LSTM are efficient in those case, which is a core component of being able to predict future positions of joints from past movement. The inputs to this LSTM network contained past joint angles and velocities. This sequential data fed back information about the current and previous states of the joints to the network. The outputs of the LSTM network were the predicted joint angles at the moment there are needed. Such were then used to create adaptive trajectories for the exoskeleton, enabling smooth and natural movements. These advantages that LSTMs provide for this include handling the sequential nature of gait data, capturing long-term dependencies robustly, and real-time prediction ability. The exploitation of these advantages would make the LSTM-based system quickly adapt to changes in the user's gait, hence improving control and performance of the exoskeleton.
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=100mm]{figures/LSTMLiang.png}%
+	%
+	\caption[Structure of an LSTM Cell]{\AMlangGerEng{Beschreibung des Bilds}{Structure of an LSTM Cell from \cite{Liang.2018}. This figure illustrates the architecture of a Long Short-Term Memory (LSTM) cell, which includes the following components:
+			\textbf{Input Gate (\(i^{(t)}\))}: Controls the extent to which a new value flows into the cell.
+			\textbf{Forget Gate (\(f^{(t)}\))}: Determines what portion of the cell state should be forgotten.
+			\textbf{Cell State (\(s^{(t)}\))}: Represents the memory of the cell, combining the previous cell state \(s^{(t-1)}\), the current input \(g^{(t)}\), and the forget gate \(f^{(t)}\).
+			\textbf{Output Gate (\(o^{(t)}\))}: Modulates the cell state to produce the output \(v^{(t)}\).
+			\textbf{Activation Functions (\(\sigma\) and \(\tanh\))}: Non-linear functions applied to the gates and cell state.\\
+			The formula inside the cell indicates how the cell state is updated: $s^{(t)} = g^{(t)} \cdot i^{(t)} + s^{(t-1)} \cdot f^{(t)}$ And the final output of the cell is calculated as: $v^{(t)} = s^{(t)} \cdot o^{(t)}$}.}%
+	\label{fig:LTSM}%
+\end{figure}%
+%
+The mean RMSE obtain at the end and there are 1.21° for the Hip and 2.23° for the knee. Despite the promising results, the method has several disadvantages. The LSTM-based approach requires significant computational resources for training and real-time adaptation, which may limit its applicability in resource-constrained environments. he effectiveness of the method is highly dependent on the quality and quantity of the training data, which may not be readily available in all clinical settings.
+%
+\section{Extreme Learning Machine (ELM)}%
+ELMs are a much faster in training and in terms of computation time in prediction and efficient alternative to traditional neural networks \cite{Huang.2011}. The extreme learning machine consists of a single hidden layer feedforward network where the weights get assigned randomly. It reduces drastically the training time compared to conventional neural networks. An important notion here would be the setting of random weights between the input and the hidden layers. Those weights are fixed, and only the weights between the hidden and output layers are learned.
+
+An autoencoder is an artificial neural network architectural variant used to learn efficient codings, here a representation of data from one dimnesional space to another (smaller), in an unsupervised manner \cite{Hinton.2006}. It consists of an encoder which maps the input data into a lower dimensional space and a decoder that tries to reconstruct the input data from the encoded representation. Autoencoders are applied in unsupervised learning for the dimensionality reduction and feature learning.
+
+He et al. \cite{He.uuuuuuuu} combined ELMs with autoencoders to enhance the modeling of subject-specific gait profiles. The primary objective of their study was to develop a fast and accurate method for generating rehabilitation gait trajectories for lower extremity exoskeletons. The goal was to create a system that could quickly adapt to the user's gait patterns and provide personalized assistance. ELM was chosen due to its fast learning speed and good generalization performance, with the capability to handle a large amount of data in an effective way, so it is suitable for real-time applications like exoskeleton control. By combining ELM with autoencoders, the authors enhanced the model's ability to extract relevant features from the input data, improving the accuracy of the predictions.
+
+
+The inputs to the ELM were various features extracted from the user's gait data, such as joint angles, velocities, and accelerations. The outputs of the ELM were the predicted angle joint trajectories, which were used to control the exoskeleton. The model representation can be seen in \cref{fig:ELMHe}.
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=130mm]{figures/ELMHe.png}%
+	%
+	\caption[The framework of the Gait Cell based Individualized Gait Trajectory Generation (GC-IGTG) algorithm]{\AMlangGerEng{Beschreibung des Bilds}{The framework of the Gait Cell based Individualized Gait Trajectory Generation (GC-IGTG) algorithm. The GC-IGTG method employs extreme learning machines (ELM) and AutoEncoders to generate individualized gait trajectories for lower limb exoskeletons used in stroke rehabilitation. The process involves collecting body parameters and normal gait trajectory data from normal humans at various walking speeds to create a training set. This training set is then used to train the ELM model, which, in conjunction with the AutoEncoder, generates individualized gait trajectories based on the new body parameters and walking speed of the patient. The algorithm also includes a limitations filter to ensure the generated trajectories are safe and feasible for practical use}.}%
+	\label{fig:ELMHe}%
+\end{figure}%
+
+The deviation error (Cocl), which is the absolute value of the error on one gait length between predicted and real trajectory divided by the real trajectory, for the one-cycle gait length was less than 4\%, indicating high precision. he GC-IGTG algorithm can be used to enhance the control and effectiveness of lower limb exoskeletons, providing customized rehabilitation exercises for stroke patients. The algorithm requires significant computational resources for training and real-time adaptation, which may limit its applicability in resource-constrained environments.
+
+\section{Multiples Regressions}
+
+One of the most used statistical techniques in modeling the relationship between a dependent variable and multiple independent variables is multiple regression. In gait analysis, multiple regression techniques are applied in the prediction of gait parameters, such as joint angles and velocities, using various demographic and biomechanical inputs \cite{Moissenet.2019}.
+
+Moissenet et al. \cite{Moissenet.2019} recorded the data for walking speed, gender, age, and BMI of each subject and their corresponding joint angles during gait cycles. The multiple regression model was defined to predict key points of the joint angle trajectories using the following equation:
+\begin{equation}
+	Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_nX_n + \epsilon
+\end{equation}
+where \(Y\) represents the key points of the joint angles, \(X_1, X_2, \ldots, X_n\) are the independent variables (walking speed, gender, age, BMI), \(\beta_0, \beta_1, \ldots, \beta_n\) The regression factors.
+
+Specific key points within the gait cycle, corresponding to critical events such as heel strike, mid-stance, and toe-off, were identified for each joint angle. It is the multiple regression analysis that predicted these key point values with demographic and biomechanical inputs. Spline interpolation was used to generate continuous joint angle trajectories from the predicted key points, ensuring smooth transitions between them.
+
+The outputs are continuous trajectories of joint angles, generated through the interpolation of key points predicted by the multiple regression model. These outputs are used to personalize the control strategies for lower limb exoskeletons, enhancing their adaptability and effectiveness.
+
+Root mean square error (RMSE) for timing and angle at the hip, knee, and ankle joints were as follows:
+\begin{itemize}
+	\item Hip: 1.42\% of gait cycle, 5.55° for angles.
+	\item Knee: 1.65\% of gait cycle, 4.79° for angles.
+	\item Ankle: 1.65\% of gait cycle, 3.36° for angles.
+\end{itemize}
+The regression model showed increased errors at walking speeds below 0.2 and above 0.7 dimensionless walking speed, indicating that the model may not be suitable for very slow or very fast walking speeds. The study suggested that a nonlinear approach might be required for accurately describing transition phases at these walking speeds.
+
+
+\section{Nonlinear Autoregressive Models}
+Nonlinear Autoregressive models are time-series models used for the forecasting of future values with respect to their past values, capturing the nonlinear relationship that exists within them. Therefore, they can be applied in modeling dynamic systems such as human gait \cite{Farmer.2014}.
+
+Farmer et al. \cite{Farmer.2014} sought to design a model that could predict continuous ankle kinematics of powered transtibial prostheses users, allowing real-time control and improving the walking experience. Here are the inputs and outputs of their model represented in \cref{fig:NARXFarmer}:
+\begin{itemize}
+	\item Inputs: Past values of the time series 10 - 100 ms before t(e.g., joint angles, velocities, EMG signals).
+	\item Outputs: Predicted future values of the time series at time t (e.g., joint angles or velocities).
+\end{itemize}
+The Nonlinear autoregressive model can be define as:
+\[
+y(t) = f(y(t-1), y(t-2), \ldots, y(t-n)) + \epsilon(t)
+\]
+where \(y(t)\) is the time series value at time \(t\), \(f\) is a nonlinear function, and \(\epsilon(t)\) is the error term. They must then train the model using historical data to fit the nonlinear function \(f\) using techniques such as neural networks or polynomial regression.
+
+The nonlinear autoregressive model successfully predicted the ankle kinematics of the prosthesis during level treadmill walking in three transtibial amputees. For prediction intervals up to 150 ms, the root mean square error (RMSE) between the predicted and actual ankle angle ranged from 0.7° to 6.3°, depending on the prediction interval and the subject.
+
+Some weaknesses fo the moden can be observed. Model performance varied across subjects, indicating that the approach may need individual calibration to achieve optimal results. While the model performed well for prediction intervals up to 150 ms, errors increased systematically with larger prediction intervals. The model's applicability to a larger cohort of amputee subjects and different types of prosthetic devices remains to be validated. 
+%
+\section{Neuro-fuzzy systems}
+Neurofuzzy systems combine the human-like reasoning style of fuzzy systems with the learning and connectionist structure from neural networks \cite{Jang.1993}. Such a system will hence be able to inherit the intrinsic advantages of both: fuzzy systems to deal with uncertainty and imprecision, and neural networks to learn from data. Here are the key features of neuro-fuzzy systems \cite{Jang.1993}:
+\begin{itemize}
+	\item Fuzzy Inference System (FIS): This corresponds to the fuzzy rules, membership functions, and the reasoning mechanism itself. Membership functions as in \cref{fig:KiguchiFuzzyLogic} define how each point in the input space is mapped to a degree of membership between 0 and 1 \cite{Jang.1993}. They quantify the fuzziness and represent the degree to which a given input belongs to a fuzzy set.
+	\item Neural Network Structure: Parameters of the FIS are adjusted using neural network learning algorithms.
+	\item Hybrid Learning: Combines gradient descent for parameter optimization and least squares estimation for rule parameter identification.
+\end{itemize}
+Kiguchi et al. \cite{Kiguchi.2004} developed a neuro-fuzzy control of a robotic exoskeleton using EMG signals. The methodology can be divided into different steps. The experimental setup included the collection of EMG signals from the user's muscles, providing real-time information about intended movements by the user. At the core of their approach was a fuzzy inference system that translated EMG signals into control signals for the exoskeleton, here the angles of the joints. In essence, the FIS comprised fuzzy rules and membership functions that map the EMG inputs onto the control output. Optimization of membership function parameters and the fuzzy inference system's rule weights was done using neural network learning techniques. In other words, these parameters are tuned in order to improve the accuracy of the translation by the system from EMG signals into control commands.
+
+The method has his benefits \cite{Kiguchi.2004}. This would make the control exoskeleton more robust and flexible due to learning based on the neuro-fuzzy system; adaptation to a different user or different and variable conditions would be possible. The system could process EMG signals in real-time, thus provide instant responses to the movements by the user. Introducing fuzzy logic into this system would handle the uncertainties and variabilities existing in EMG signals well.
+%
+\section{Support Vector Regression}
+Support Vector Regression is another algorithm for machine learning that addresses the problem of regression. It extends the concepts of Support Vector Machines to handle continuous valued output variables, hence making it quite suitable for real-valued outputs \cite{Smola.2004}. The key concepts of this algorithm are:
+\begin{itemize}
+	\item Margin of Tolerance: SVR finds a function that deviates from the actual observed values by no more than \(\epsilon\) (epsilon-insensitive loss function).
+	\item Support Vectors: Only the data points lying outside the tolerance margin, the so-called support vectors, contribute to a model, hence making it robust against outliers.
+	\item Kernel Trick: Nonlinear relations in SVR are taken care of by kernel functions, which transform the input space to higher dimensions for linear regression.
+\end{itemize}
+
+Dey et al. \cite{Dey.2019} further applied this to the continuous prediction of ankle angles and moments during walking using SVR. The inputs are the values of hip and knee angles and velocities the instant before. The output are the next predicted ankle angles and moments for controlling active ankle prostheses.
+
+SVR makes robust predictions even with noisy and complex data. The kernel functions will capture the nonlinear relationships, and it provides good generalization to new data. \cref{tab:svr_accuracy} present the results of the different combinations of inputs and output and their results. The R² results are very good, demonstrating that the model used has captured a good part of the variability in the data. As a reminder, the maximum value of R² is 1, which is the best value. The rest of the RMSE results are interpreted in the article as satisfactory.
+
+The experimentation and model possess certain limitations and disadvantages. The algorithm was validated on level-walking datasets from only one healthy subject. There possibility to expand it to different subjects need to be experiment and validate. Calculating velocities using the finite difference method in real-time can lead to lags. 
+
+\begin{table}[H]
+	\centering
+	\caption[Prediction Accuracy of the SVR Model for Different Input Cases from \cite{Dey.2019}]{Prediction Accuracy of the SVR Model for Different Input Cases from \cite{Dey.2019}.}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Case} & \textbf{Inputs} & \textbf{Output} & \textbf{Mean $R^2$} & \textbf{RMSE} \\ \hline
+		\multirow{2}{*}{I} & \multirow{2}{*}{$\theta_{\text{hip}}, \theta_{\text{knee}}$} & $\theta_{\text{ankle}}$ & 0.95 & 2.17° \\ \cline{3-5} 
+		&  & $\tau_{\text{ankle}}$ & 0.95 & 0.11 Nm/kg \\ \hline
+		\multirow{2}{*}{II} & \multirow{2}{*}{$\theta_{\text{hip}}, \theta_{\text{knee}}, \dot{\theta}_{\text{knee}}$} & $\theta_{\text{ankle}}$ & 0.97 & 1.67° \\ \cline{3-5} 
+		&  & $\tau_{\text{ankle}}$ & 0.96 & 0.10 Nm/kg \\ \hline
+		\multirow{2}{*}{III} & \multirow{2}{*}{$\theta_{\text{hip}}, \theta_{\text{knee}}, \dot{\theta}_{\text{knee}}, \dot{\theta}_{\text{hip}}$} & $\theta_{\text{ankle}}$ & 0.98 & 1.29° \\ \cline{3-5} 
+		&  & $\tau_{\text{ankle}}$ & 0.97 & 0.08 Nm/kg \\ \hline
+	\end{tabular}
+	\label{tab:svr_accuracy}
+\end{table}
+%
+
+\section{Comparison of Methods}
+Each of these methods has its strengths and relates to different aspects of high-level control for lower limb exoskeletons. GPR and LSTM networks show very good performance with sequential and time-series data and thus are appropriate for real-time gait prediction. Neural networks, like BNN and ELM, bring flexibility and efficiency while learning complex mappings from a wide range of input parameters. It is in these regression techniques and autoregressive models that robust frameworks can be found for the inclusion of demographic and biomechanical variables into the control system to enhance both personalization and adaptability. At the other end are hybrid approaches, like neuro-fuzzy systems, which amalgamate the best of neural networks and fuzzy logic to handle effectively the uncertainties in the input data.
+
+The most common shortcomings of these methods are adaptability to any subject and online use of the controller. Each of the methods presented has one or other of these difficulties. The controller's difference for this work will be its adaptability to any subject.

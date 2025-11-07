@@ -1,0 +1,51 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Generalized control framework for active lower limb prostheses and orthoses}}{4}{figure.caption.4}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Fuzzy Logic in the context of Kiguchi et al work \blx@tocontentsinit {0}\cite {Kiguchi.2004}}}{7}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Non Linear Autoregressive model with exogenous output used by \blx@tocontentsinit {0}\cite {Farmer.2014}}}{7}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Control system diagram using EMG signals for intent recognition}}{8}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Finite-state decomposition of level human gait}}{9}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Different DoFs for the lower limb joints}}{11}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Diagram of a controller with a gait cycle divided into phases}}{13}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Control of an active knee exoskeleton}}{13}{figure.caption.21}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Schematic diagram of a deep neural network with activation functions and weights}}{20}{figure.caption.26}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces BNN representation from \blx@tocontentsinit {0}\cite {PedroSaCunhaJoaoFerreiraA.PauloCoimbra.}}}{33}{figure.caption.39}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Structure of an LSTM Cell}}{34}{figure.caption.40}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces The framework of the Gait Cell based Individualized Gait Trajectory Generation (GC-IGTG) algorithm}}{35}{figure.caption.41}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Concept of model for gait phase estimation}}{42}{figure.caption.44}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Concept for the trajectory generation for one DoF}}{44}{figure.caption.45}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Concept for gait period estimation}}{44}{figure.caption.46}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Data Organization framework}}{46}{figure.caption.47}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Example of a representation for the same subject of trajectories with a more “classic” form of the desired DoFs}}{48}{figure.caption.48}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Another example of a representation for the same subject of trajectories with a shape further removed from the usual shape of the desired DoFs}}{49}{figure.caption.49}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Key points representation for the knee flexion}}{51}{figure.caption.51}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Key points representation for the hip flexion.}}{52}{figure.caption.53}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Key points representation for the hip abduction.}}{53}{figure.caption.55}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Initial concept for a high-level machine learning controller for a single degree of freedom (DoF)}}{58}{figure.caption.43}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Representation of gait period estimation model using Gaussian Process Regression}}{61}{figure.caption.60}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Relative RMSE of the interpolation of the different DoFs}}{63}{figure.caption.62}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Representation of the best cases of interpolation for the three DoFs}}{64}{figure.caption.63}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Representation of bad cases of interpolation for the three DoFs}}{65}{figure.caption.64}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Representation of the version of the NN used in the case of the limited population (male under 25)}}{67}{figure.caption.68}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Effect of a big learning rate on the training}}{69}{figure.caption.71}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Representation of a bad loss model}}{70}{figure.caption.72}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Representation of the loss curve for the reduced model of the 3 DoFs}}{72}{figure.caption.78}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Representation of the error made on the normalized gait percentage when predicting the key points with the reduced model}}{73}{figure.caption.79}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Representation of the relative RMSE made on the angular position when predicting the key points with the reduced model}}{74}{figure.caption.80}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Representation of the error made on the normalized gait phase when predicting the key points with the complete model}}{76}{figure.caption.85}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Representation of the error made on the angular position when predicting the key points with the complete model}}{77}{figure.caption.86}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Representation of the relative RMSE of the predicted trajectories with the complete model}}{79}{figure.caption.88}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Representation of the worst predicted trajectories with the complete model for the 3 DoF}}{80}{figure.caption.89}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Representation of the best predicted trajectories with the complete model for the 3 DoF}}{81}{figure.caption.90}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Representation of the loss curve for the model \cref {fig:NNModel} of the 3 DoFs}}{86}{figure.caption.84}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Representation of the loss curve for the modified complete model \cref {fig:NNModel} of the 3 DoFs}}{87}{figure.caption.99}%
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Representation of the relative RMSE of the predicted trajectories with the modified complete model}}{88}{figure.caption.100}%
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Representation of the worst predicted trajectories with the modified complete model for the 3 DoF}}{89}{figure.caption.101}%
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Representation of the best predicted trajectories with the complete model for the 3 DoF}}{90}{figure.caption.102}%
+\addvspace {10\p@ }
+\contentsfinish 
+\contentsfinish 

@@ -1,0 +1,27 @@
+\small%
+\pgfplotsset{colormap={mycolormap}{rgb255=(255,255,0) rgb255=(255,0,0)}}%    
+\begin{tikzpicture}%
+    \begin{axis}[width = 10cm, height = 8cm%
+                ,xmin = -1%
+                ,xmax = 1%
+                ,xlabel = {$x$ [m]}%
+                ,xtick distance = 0.5%
+                ,ymin = -1%
+                ,ymax = 1%
+                ,ylabel = {$y$ [m]}%
+                ,ytick distance = 0.5%
+                ,zmin = 0%
+                ,zmax = 1%
+                ,zlabel = {$z$ [m]}%
+                ,ztick distance = 0.2%
+                ,grid = both%
+                ,grid style = {line width = .1pt, draw = TUMBlack!10}%
+                ,colorbar%
+                ,view={60}{30}%
+                ,\AMlangGerEng{/pgf/number format/use comma}{}%
+                ]%
+        \addplot3 [surf,z buffer=sort] table[x={X}, y={Y}, z={Z}] {figures/datatable3d.dat};%
+    \end{axis}%
+\end{tikzpicture}%
+%
+%

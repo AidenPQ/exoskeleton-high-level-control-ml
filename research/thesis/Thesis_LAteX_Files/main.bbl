@@ -1,0 +1,4033 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nyt/global//global/global/global}
+  \entry{A.Seyfarth.2014}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=A}{%
+         family={{A. Seyfarth}},
+         familyi={A\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{Simon Barnikol}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=J}{%
+         family={{Jan Peters}},
+         familyi={J\bibinitperiod},
+      }}%
+      {{hash=T}{%
+         family={{Tag der Einreichung}},
+         familyi={T\bibinitperiod},
+      }}%
+      {{hash=E}{%
+         family={{Erkl{\"a}rung zur Master-Thesis}},
+         familyi={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ASJTE1}
+    \strng{fullhash}{ASJTE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    This work introduces recent supervised machine learning methods such as
+  Gaussian process regression and support vector machines for control of active
+  prosthetic devices and forms a supervisory controller that infers the user's
+  intent. In recent years active prosthetic devices emerged as research area.
+  In comparison to passive devices, active ones mimic the motion of our intact
+  limbs more perfectly. Hence, they overcome several drawbacks a user of a
+  passive devices is confronted with. Examples for benefits caused by switching
+  from a passive to an active prosthesis are a more normal gait and reduced
+  metabolic costs of transport. Even though active devices can improve
+  amputee's every day life, there are still challenges to be solved. Prosthesis
+  control is besides design one of those challenges. The controller needs to
+  decide when and how to adapt active support. Regarding, for instance, the
+  push off phase, the active push off must be aligned with the timing and
+  strength intended by the user. This work introduces recent supervised machine
+  learning methods such as Gaussian process regression and support vector
+  machines for control of active prosthetic devices. The machine learning
+  methods are used to form a supervisory controller that infers the user's
+  intent. As input to the supervisory controller, we use the data obtained by
+  an inertial measurement unit mounted at the shank of the considered active
+  ankle prosthesis. The output or rather the users intent is given by gait,
+  speed and gait percent predictions. If the intent is known, the desired nut
+  position can be determined by a lookup. To enforce the desired trajectory a
+  slave controller, here a PD controller, is applied. The supervisory
+  controller is designed, implemented and tested based on walking and running
+  data recorded on a treadmill. At first, noise free motion capturing data is
+  used to demonstrate the applicability of supervised machine learning methods
+  in context of active ankle control. Afterwards, sensor data obtained with the
+  prosthesis's intertial-measuremt unit is used to proof real-world
+  applicability of the introduced supervisory controller. The obtained
+  supervisory controller is fast and moreover accurate. For gait percent
+  prediction the error is bounded to $\pm$5{\%}. In case of speed and gait
+  prediction, accuracies close to 100{\%} and 95{\%} are achieved,
+  respectively.%
+    }
+    \field{title}{Machine Learning for Active Gait Support with a Powered Ankle
+  Prosthesis}
+    \verb{url}
+    \verb https://www.semanticscholar.org/paper/Machine-Learning-for-Active-Gai
+    \verb t-Support-with-a-Seyfarth-Barnikol/c931d476c3a0e7b429104eff2877da607d
+    \verb ceb08a
+    \endverb
+    \verb{file}
+    \verb A. Seyfarth, Simon Barnikol et al. 2014 - Machine Learning for Active
+    \verb  Gait:Attachments/A. Seyfarth, Simon Barnikol et al. 2014 - Machine L
+    \verb earning for Active Gait.pdf:application/pdf
+    \endverb
+    \field{year}{2014}
+  \endentry
+
+  \entry{AguirreOllinger.2011}{article}{}{}
+    \name{author}{4}{}{%
+      {{hash=AOG}{%
+         family={Aguirre-Ollinger},
+         familyi={A\bibinithyphendelim O\bibinitperiod},
+         given={Gabriel},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=CJE}{%
+         family={Colgate},
+         familyi={C\bibinitperiod},
+         given={J.\bibnamedelima Edward},
+         giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=PMA}{%
+         family={Peshkin},
+         familyi={P\bibinitperiod},
+         given={Michael\bibnamedelima A.},
+         giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=GA}{%
+         family={Goswami},
+         familyi={G\bibinitperiod},
+         given={Ambarish},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AOGCJEPMAGA1}
+    \strng{fullhash}{AOGCJEPMAGA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \verb{doi}
+    \verb 10.1177/0278364910385730
+    \endverb
+    \field{issn}{0278-3649}
+    \field{number}{4}
+    \field{pages}{486\bibrangedash 499}
+    \field{title}{Design of an active one-degree-of-freedom lower-limb
+  exoskeleton with inertia compensation}
+    \field{volume}{30}
+    \field{journaltitle}{The International Journal of Robotics Research}
+    \field{year}{2011}
+  \endentry
+
+  \entry{Anam.2012}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=AK}{%
+         family={Anam},
+         familyi={A\bibinitperiod},
+         given={Khairul},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=AJAA}{%
+         family={Al-Jumaily},
+         familyi={A\bibinithyphendelim J\bibinitperiod},
+         given={Adel\bibnamedelima Ali},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AKAJAA1}
+    \strng{fullhash}{AKAJAA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \verb{doi}
+    \verb 10.1016/j.proeng.2012.07.273
+    \endverb
+    \field{issn}{18777058}
+    \field{pages}{988\bibrangedash 994}
+    \field{title}{Active Exoskeleton Control Systems: State of the Art}
+    \field{volume}{41}
+    \verb{file}
+    \verb Anam, Al-Jumaily 2012 - Active Exoskeleton Control Systems:Attachment
+    \verb s/Anam, Al-Jumaily 2012 - Active Exoskeleton Control Systems.pdf:appl
+    \verb ication/pdf
+    \endverb
+    \field{journaltitle}{Procedia Engineering}
+    \field{year}{2012}
+  \endentry
+
+  \entry{Bengio.2012}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BY1}
+    \strng{fullhash}{BY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    Learning algorithms related to artificial neural networks and in particular
+  for Deep Learning may seem to involve many bells and whistles, called
+  hyper-parameters. This chapter is meant as a practical guide with
+  recommendations for some of the most commonly used...%
+    }
+    \verb{doi}
+    \verb 10.1007/978-3-642-35289-8{\textunderscore }26
+    \endverb
+    \field{issn}{1611-3349}
+    \field{pages}{437\bibrangedash 478}
+    \field{title}{Practical Recommendations for Gradient-Based Training of Deep
+  Architectures}
+    \verb{url}
+    \verb https://link.springer.com/chapter/10.1007/978-3-642-35289-8_26
+    \endverb
+    \field{volume}{7700}
+    \verb{file}
+    \verb Bengio 2012 - Practical Recommendations for Gradient-Based Training:A
+    \verb ttachments/Bengio 2012 - Practical Recommendations for Gradient-Based
+    \verb  Training.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Neural Networks: Tricks of the Trade}
+    \field{year}{2012}
+  \endentry
+
+  \entry{Bottou.2010}{incollection}{}{}
+    \name{author}{1}{}{%
+      {{hash=BL}{%
+         family={Bottou},
+         familyi={B\bibinitperiod},
+         given={L{\'e}on},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=LY}{%
+         family={Lechevallier},
+         familyi={L\bibinitperiod},
+         given={Yves},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=SG}{%
+         family={Saporta},
+         familyi={S\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{BL1}
+    \strng{fullhash}{BL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    During the last decade, the data sizes have grown faster than the speed of
+  processors. In this context, the capabilities of statistical machine learning
+  methods is limited by the computing time rather than the sample size. A more
+  precise analysis uncovers...%
+    }
+    \field{booktitle}{Proceedings of COMPSTAT'2010}
+    \verb{doi}
+    \verb 10.1007/978-3-7908-2604-3{\textunderscore }16
+    \endverb
+    \field{isbn}{978-3-7908-2604-3}
+    \field{pages}{177\bibrangedash 186}
+    \field{title}{Large-Scale Machine Learning with Stochastic Gradient
+  Descent}
+    \verb{url}
+    \verb https://link.springer.com/chapter/10.1007/978-3-7908-2604-3_16
+    \endverb
+    \list{location}{1}{%
+      {Dordrecht}%
+    }
+    \field{year}{2010}
+  \endentry
+
+  \entry{Bouzbib.2023}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=BE}{%
+         family={Bouzbib},
+         familyi={B\bibinitperiod},
+         given={Elodie},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=TM}{%
+         family={Teyssier},
+         familyi={T\bibinitperiod},
+         given={Marc},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=HT}{%
+         family={Howard},
+         familyi={H\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=PC}{%
+         family={Pacchierotti},
+         familyi={P\bibinitperiod},
+         given={Claudio},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=LA}{%
+         family={Lecuyer},
+         familyi={L\bibinitperiod},
+         given={Anatole},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BETMHTPCLA1}
+    \strng{fullhash}{BETMHTPCLA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    Haptic exoskeleton gloves are a widespread solution for providing
+  force-feedback in Virtual Reality (VR), especially for 3D object
+  manipulations. However, they are still lacking an important feature regarding
+  in-hand haptic sensations: the palmar contact. In this paper, we present
+  PalmEx, a novel approach which incorporates palmar force-feedback into
+  exoskeleton gloves to improve the overall grasping sensations and manual
+  haptic interactions in VR. PalmEx's concept is demonstrated through a
+  self-contained hardware system augmenting a hand exoskeleton with an
+  encountered palmar contact interface - physically encountering the users'
+  palm. We build upon current taxonomies to elicit PalmEx's capabilities for
+  both the exploration and manipulation of virtual objects. We first conduct a
+  technical evaluation optimising the delay between the virtual interactions
+  and their physical counterparts. We then empirically evaluate PalmEx's
+  proposed design space in a user study (n=12) to assess the potential of a
+  palmar contact for augmenting an exoskeleton. Results show that PalmEx offers
+  the best rendering capabilities to perform believable grasps in VR. PalmEx
+  highlights the importance of the palmar stimulation, and provides a low-cost
+  solution to augment existing high-end consumer hand exoskeletons.%
+    }
+    \verb{doi}
+    \verb 10.1109/TVCG.2023.3244076
+    \endverb
+    \field{title}{PalmEx: Adding Palmar Force-Feedback for 3D Manipulation with
+  Haptic Exoskeleton Gloves}
+    \field{volume}{PP}
+    \verb{file}
+    \verb Bouzbib, Teyssier et al. 2023 - PalmEx Adding Palmar Force-Feedback:A
+    \verb ttachments/Bouzbib, Teyssier et al. 2023 - PalmEx Adding Palmar Force
+    \verb -Feedback.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{IEEE transactions on visualization and computer
+  graphics}
+    \field{year}{2023}
+  \endentry
+
+  \entry{Chehab.2017}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=CEF}{%
+         family={Chehab},
+         familyi={C\bibinitperiod},
+         given={E.\bibnamedelima F.},
+         giveni={E\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=ATP}{%
+         family={Andriacchi},
+         familyi={A\bibinitperiod},
+         given={T.\bibnamedelima P.},
+         giveni={T\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=FJ}{%
+         family={Favre},
+         familyi={F\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CEFATPFJ1}
+    \strng{fullhash}{CEFATPFJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    The increased use of gait analysis has raised the need for a better
+  understanding of how walking speed and demographic variations influence
+  asymptomatic gait. Previous analyses mainly reported relationships between
+  subsets of gait features and demographic measures, rendering it difficult to
+  assess whether gait features are affected by walking speed or other
+  demographic measures. The purpose of this study was to conduct a
+  comprehensive analysis of the kinematic and kinetic profiles during
+  ambulation that tests for the effect of walking speed in parallel to the
+  effects of age, sex, and body mass index. This was accomplished by recruiting
+  a population of 121 asymptomatic subjects and analyzing characteristic
+  3-dimensional kinematic and kinetic features at the ankle, knee, hip, and
+  pelvis during walking trials at slow, normal, and fast speeds. Mixed effects
+  linear regression models were used to identify how each of 78 discrete gait
+  features is affected by variations in walking speed, age, sex, and body mass
+  index. As expected, nearly every feature was associated with variations in
+  walking speed. Several features were also affected by variations in
+  demographic measures, including age affecting sagittal-plane knee kinematics,
+  body mass index affecting sagittal-plane pelvis and hip kinematics, body mass
+  index affecting frontal-plane knee kinematics and kinetics, and sex affecting
+  frontal-plane kinematics at the pelvis, hip, and knee. These results could
+  aid in the design of future studies, as well as clarify how walking speed,
+  age, sex, and body mass index may act as potential confounders in studies
+  with small populations or in populations with insufficient demographic
+  variations for thorough statistical analyses.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.jbiomech.2017.04.014
+    \endverb
+    \field{issn}{0021-9290}
+    \field{pages}{11\bibrangedash 20}
+    \field{title}{Speed, age, sex, and body mass index provide a rigorous basis
+  for comparing the kinematic and kinetic profiles of the lower extremity
+  during walking}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0021929017302130
+    \endverb
+    \field{volume}{58}
+    \field{journaltitle}{Journal of Biomechanics}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Clevert.23112015}{misc}{}{}
+    \name{author}{3}{}{%
+      {{hash=CDA}{%
+         family={Clevert},
+         familyi={C\bibinitperiod},
+         given={Djork-Arn{\'e}},
+         giveni={D\bibinithyphendelim A\bibinitperiod},
+      }}%
+      {{hash=UT}{%
+         family={Unterthiner},
+         familyi={U\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=HS}{%
+         family={Hochreiter},
+         familyi={H\bibinitperiod},
+         given={Sepp},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CDAUTHS1}
+    \strng{fullhash}{CDAUTHS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    We introduce the {\textquotedbl}exponential linear unit{\textquotedbl}
+  (ELU) which speeds up learning in deep neural networks and leads to higher
+  classification accuracies. Like rectified linear units (ReLUs), leaky ReLUs
+  (LReLUs) and parametrized ReLUs (PReLUs), ELUs alleviate the vanishing
+  gradient problem via the identity for positive values. However, ELUs have
+  improved learning characteristics compared to the units with other activation
+  functions. In contrast to ReLUs, ELUs have negative values which allows them
+  to push mean unit activations closer to zero like batch normalization but
+  with lower computational complexity. Mean shifts toward zero speed up
+  learning by bringing the normal gradient closer to the unit natural gradient
+  because of a reduced bias shift effect. While LReLUs and PReLUs have negative
+  values, too, they do not ensure a noise-robust deactivation state. ELUs
+  saturate to a negative value with smaller inputs and thereby decrease the
+  forward propagated variation and information. Therefore, ELUs code the degree
+  of presence of particular phenomena in the input, while they do not
+  quantitatively model the degree of their absence. In experiments, ELUs lead
+  not only to faster learning, but also to significantly better generalization
+  performance than ReLUs and LReLUs on networks with more than 5 layers. On
+  CIFAR-100 ELUs networks significantly outperform ReLU networks with batch
+  normalization while batch normalization does not improve ELU networks. ELU
+  networks are among the top 10 reported CIFAR-10 results and yield the best
+  published result on CIFAR-100, without resorting to multi-view evaluation or
+  model averaging. On ImageNet, ELU networks considerably speed up learning
+  compared to a ReLU network with the same architecture, obtaining less than
+  10{\%} classification error for a single crop, single model network.%
+    }
+    \field{title}{Fast and Accurate Deep Network Learning by Exponential Linear
+  Units (ELUs)}
+    \verb{url}
+    \verb http://arxiv.org/pdf/1511.07289
+    \endverb
+    \verb{file}
+    \verb Clevert, Unterthiner et al. 23 11 2015 - Fast and Accurate Deep Netwo
+    \verb rk (2):Attachments/Clevert, Unterthiner et al. 23 11 2015 - Fast and
+    \verb Accurate Deep Network (2).pdf:application/pdf
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{Dey.2019}{article}{}{}
+    \name{author}{6}{}{%
+      {{hash=DS}{%
+         family={Dey},
+         familyi={D\bibinitperiod},
+         given={Sharmita},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=EM}{%
+         family={Eslamy},
+         familyi={E\bibinitperiod},
+         given={Mahdy},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=YT}{%
+         family={Yoshida},
+         familyi={Y\bibinitperiod},
+         given={Takashi},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=EM}{%
+         family={Ernst},
+         familyi={E\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=ST}{%
+         family={Schmalz},
+         familyi={S\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Schilling},
+         familyi={S\bibinitperiod},
+         given={ArndtF},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DSEMYTEMSTSA1}
+    \strng{fullhash}{DSEMYTEMSTSA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{abstract}{%
+    Lower limb amputations impair normal locomotion. This calls for the use of
+  prosthetic devices to restore the lost or disabled functionality. Most of the
+  commercially available prostheses offer only passive assistance with limited
+  capacity. On the other hand, active prostheses may better restore movement,
+  by supporting missing muscle function with additional motor power. The
+  control algorithms of such embedded motors must understand the users
+  locomotive intention to produce the required locomotion similar to that of an
+  able-bodied individual. For individuals with transtibial amputation, the
+  control algorithm should produce the desired locomotion by controlling an
+  active ankle joint to generate appropriate ankle angle and ankle moment. In
+  this paper, a strategy is proposed for the continuous estimation of ankle
+  angle and ankle moment during walking using a support vector regression
+  approach. Experimentally obtained hip and knee joint motion data were
+  provided as the inputs to the support vector regression model. It is shown
+  that, for level ground walking at self-selected speed, the proposed method
+  could predict the ankle angle and moment with high accuracy (mean R2 value of
+  0.98 for ankle angle and 0.97 for ankle moment).%
+    }
+    \verb{doi}
+    \verb 10.1109/ICORR.2019.8779445
+    \endverb
+    \field{pages}{727\bibrangedash 733}
+    \field{title}{A Support Vector Regression Approach for Continuous
+  Prediction of Ankle Angle and Moment During Walking: An Implication for
+  Developing a Control Strategy for Active Ankle Prostheses}
+    \field{volume}{2019}
+    \field{journaltitle}{IEEE ... International Conference on Rehabilitation
+  Robotics : [proceedings]}
+    \field{year}{2019}
+  \endentry
+
+  \entry{Dollar.2008}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=DAM}{%
+         family={Dollar},
+         familyi={D\bibinitperiod},
+         given={Aaron\bibnamedelima M.},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=HH}{%
+         family={Herr},
+         familyi={H\bibinitperiod},
+         given={Hugh},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DAMHH1}
+    \strng{fullhash}{DAMHH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \verb{doi}
+    \verb 10.1109/TRO.2008.915453
+    \endverb
+    \field{issn}{1552-3098}
+    \field{number}{1}
+    \field{pages}{144\bibrangedash 158}
+    \field{title}{Lower Extremity Exoskeletons and Active Orthoses: Challenges
+  and State-of-the-Art}
+    \field{volume}{24}
+    \field{journaltitle}{IEEE Transactions on Robotics}
+    \field{year}{2008}
+  \endentry
+
+  \entry{Eslamy.2019}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=EM}{%
+         family={Eslamy},
+         familyi={E\bibinitperiod},
+         given={Mahdy},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=AK}{%
+         family={Alipour},
+         familyi={A\bibinitperiod},
+         given={Khalil},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{EMAK1}
+    \strng{fullhash}{EMAK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{abstract}{%
+    Human gait is the result of a complex and fascinating cooperation between
+  different joints and segments in the lower extremity. This study aims at
+  investigating the existence of this cooperation or the so-called synergy
+  between the shank motion and the ankle motion. One potential use of this
+  synergy is to develop the high level controllers for active foot
+  prostheses/orthoses. The central point in this paper is to develop a high
+  level controller that is able to continuously map shank kinematics (inputs)
+  to ankle angles and torques (outputs). At the same time, it does not require
+  speed determination, gait percent identification, switching rules, and
+  look-up tables. Furthermore, having those targets in mind, an important part
+  of this study is to determine which input type is required to achieve such
+  targets. This should be fulfilled through using minimum number of inputs. To
+  do this, the Gaussian process (GP) regression has been used to estimate the
+  ankle angles and torques for 11 subjects at three walking speeds (0.5, 1, and
+  1.5 m/s) based on the shank angular velocity and angle. The results show that
+  it is possible to estimate ankle motion based on the shank motion. It was
+  found that the estimation achieved less quality with only shank angular
+  velocity or angle, whereas the aggregated angular velocity and angle resulted
+  in much higher output estimation quality. In addition, the estimation quality
+  was acceptable for the speeds that there was a training procedure before and
+  when it was tested for the untrained speeds, the estimation quality was not
+  as acceptable as before. The pros and cons of the proposed method are
+  investigated at different scenarios.%
+    }
+    \verb{doi}
+    \verb 10.1115/1.4041767
+    \endverb
+    \field{number}{2}
+    \field{title}{Synergy-Based Gaussian Process Estimation of Ankle Angle and
+  Torque: Conceptualization for High Level Controlling of Active Robotic Foot
+  Prostheses/Orthoses}
+    \field{volume}{141}
+    \verb{file}
+    \verb Eslamy, Alipour 2019 - Synergy-Based Gaussian Process Estimation:Atta
+    \verb chments/Eslamy, Alipour 2019 - Synergy-Based Gaussian Process Estimat
+    \verb ion.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Journal of biomechanical engineering}
+    \field{year}{2019}
+  \endentry
+
+  \entry{Eslamy.2020}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=EM}{%
+         family={Eslamy},
+         familyi={E\bibinitperiod},
+         given={Mahdy},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=OF}{%
+         family={Oswald},
+         familyi={O\bibinitperiod},
+         given={Felix},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=SAF}{%
+         family={Schilling},
+         familyi={S\bibinitperiod},
+         given={Arndt\bibnamedelima F.},
+         giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{EMOFSAF1}
+    \strng{fullhash}{EMOFSAF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \verb{doi}
+    \verb 10.1109/MCS.2020.2976384
+    \endverb
+    \field{issn}{1066-033X}
+    \field{number}{3}
+    \field{pages}{49\bibrangedash 61}
+    \field{title}{Estimation of Knee Angles Based on Thigh Motion: A Functional
+  Approach and Implications for High-Level Controlling of Active Prosthetic
+  Knees}
+    \field{volume}{40}
+    \field{journaltitle}{IEEE Control Systems}
+    \field{year}{2020}
+  \endentry
+
+  \entry{Eslamy.uuuuuuuu}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=EM}{%
+         family={Eslamy},
+         familyi={E\bibinitperiod},
+         given={Mahdy},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=OF}{%
+         family={Oswald},
+         familyi={O\bibinitperiod},
+         given={Felix},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=SAF}{%
+         family={Schilling},
+         familyi={S\bibinitperiod},
+         given={Arndt\bibnamedelima F.},
+         giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{EMOFSAF1}
+    \strng{fullhash}{EMOFSAF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{booktitle}{2020 8th IEEE RAS/EMBS International Conference for
+  Biomedical Robotics and Biomechatronics (BioRob)}
+    \verb{doi}
+    \verb 10.1109/BioRob49111.2020.9224433
+    \endverb
+    \field{isbn}{978-1-7281-5907-2}
+    \field{pages}{465\bibrangedash 470}
+    \field{title}{Motion Planning for Active Prosthetic Knees}
+    \field{year}{uuuu-uuuu}
+  \endentry
+
+  \entry{Eslamy.2023}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=EM}{%
+         family={Eslamy},
+         familyi={E\bibinitperiod},
+         given={Mahdy},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=RM}{%
+         family={Rastgaar},
+         familyi={R\bibinitperiod},
+         given={Mo},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{EMRM1}
+    \strng{fullhash}{EMRM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{abstract}{%
+    To reinstate human-like locomotion by using robotic prosthetics, orthotics
+  or exoskeletons, a main challenge is how to coordinate the motion of these
+  devices with that of the biological limbs. One approach to overcome this
+  challenge is to identify firstly the relationships that exist between the
+  kinematics and kinetics of the lower extremity joints and limbs. In this work
+  we aimed to continuously estimate sagittal plane ankle, knee and hip moments
+  using shank or thigh angles. For this purpose, neural network and wavelets
+  were used in a nonlinear auto-regressive model with exogenous inputs. This
+  approach circumvented the need for switching rules or intermediate
+  parameters. To assess the performance of the estimator, four case studies
+  were developed. First, thigh angles (inputs) were used to estimate hip
+  moments (outputs). Second, thigh angles were used to estimate knee moments.
+  Third, ankle moments were estimated using thigh angles, and in the fourth
+  case study, ankle moments were estimated using shank angles. Three different
+  databases involving 106 subjects at different walking speeds were used to
+  evaluate estimation quality. The testing procedure involved both
+  inter-subject and intra-subject evaluations. The best estimation performance
+  was observed when ankle moments were estimated from shank angles. The weakest
+  estimation performance was observed when knee moments were estimated using
+  thigh angles at 0.5 m/s. For this case, the estimation quality was much
+  better at 1.5 m/s. Average RMS errors were 0.13- 0.15, 0.10- 0.13, and 0.09-
+  0.12 [Nm/kg] for hip, knee and ankle moments, respectively. Average mean
+  absolute errors MAEs were 0.10- 0.11, 0.07- 0.10, and 0.06- 0.08 [Nm/kg] for
+  hip, knee and ankle moments, respectively. Average correlation coefficients
+  were 0.90- 0.98 and 0.98- 0.99 for hip and ankle moment estimations. The
+  value for knee was comparable only at high speed (0.96 for 1.5 m/s), while it
+  was less accurate at slow speed (0.71 for 0.5 m/s). In general, for all of
+  the joints, the estimation accuracy was comparable with that of other
+  studies, although one source of input was employed (either shank or thigh
+  angle).%
+    }
+    \verb{doi}
+    \verb 10.1109/TNSRE.2022.3217680
+    \endverb
+    \field{pages}{1108\bibrangedash 1118}
+    \field{title}{Multi-Joint Leg Moment Estimation During Walking Using Thigh
+  or Shank Angles}
+    \field{volume}{31}
+    \verb{file}
+    \verb Eslamy, Rastgaar 2023 - Multi-Joint Leg Moment Estimation:Attachments
+    \verb /Eslamy, Rastgaar 2023 - Multi-Joint Leg Moment Estimation.pdf:applic
+    \verb ation/pdf
+    \endverb
+    \field{journaltitle}{IEEE transactions on neural systems and rehabilitation
+  engineering : a publication of the IEEE Engineering in Medicine and Biology
+  Society}
+    \field{year}{2023}
+  \endentry
+
+  \entry{Eslamy.82620188292018}{inproceedings}{}{}
+    \name{author}{2}{}{%
+      {{hash=EM}{%
+         family={Eslamy},
+         familyi={E\bibinitperiod},
+         given={Mahdy},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SAF}{%
+         family={Schilling},
+         familyi={S\bibinitperiod},
+         given={Arndt\bibnamedelima F.},
+         giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{EMSAF1}
+    \strng{fullhash}{EMSAF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{booktitle}{2018 7th IEEE International Conference on Biomedical
+  Robotics and Biomechatronics (Biorob)}
+    \verb{doi}
+    \verb 10.1109/BIOROB.2018.8487213
+    \endverb
+    \field{isbn}{978-1-5386-8183-1}
+    \field{pages}{1224\bibrangedash 1229}
+    \field{title}{A Conceptual High Level Controller to Walk with Active Foot
+  Prostheses/Orthoses}
+    \field{year}{8/26/2018 - 8/29/2018}
+  \endentry
+
+  \entry{Farmer.2014}{article}{}{}
+    \name{author}{4}{}{%
+      {{hash=FS}{%
+         family={Farmer},
+         familyi={F\bibinitperiod},
+         given={Samuel},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=STS}{%
+         family={Silver-Thorn},
+         familyi={S\bibinithyphendelim T\bibinitperiod},
+         given={Samuel},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=VP}{%
+         family={Voglewede},
+         familyi={V\bibinitperiod},
+         given={Philip},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=BSA}{%
+         family={Beardsley},
+         familyi={B\bibinitperiod},
+         given={Scott\bibnamedelima A.},
+         giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FSSTSVPBSA1}
+    \strng{fullhash}{FSSTSVPBSA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{abstract}{%
+    OBJECTIVE Powered robotic prostheses create a need for natural-feeling user
+  interfaces and robust control schemes. Here, we examined the ability of a
+  nonlinear autoregressive model to continuously map the kinematics of a
+  transtibial prosthesis and electromyographic (EMG) activity recorded within
+  socket to the future estimates of the prosthetic ankle angle in three
+  transtibial amputees. APPROACH Model performance was examined across subjects
+  during level treadmill ambulation as a function of the size of the EMG
+  sampling window and the temporal 'prediction' interval between the
+  EMG/kinematic input and the model's estimate of future ankle angle to
+  characterize the trade-off between model error, sampling window and
+  prediction interval. MAIN RESULT Across subjects, deviations in the estimated
+  ankle angle from the actual movement were robust to variations in the EMG
+  sampling window and increased systematically with prediction interval. For
+  prediction intervals up to 150 ms, the average error in the model estimate of
+  ankle angle across the gait cycle was less than 6°. EMG contributions to the
+  model prediction varied across subjects but were consistently localized to
+  the transitions to/from single to double limb support and captured variations
+  from the typical ankle kinematics during level walking. SIGNIFICANCE The use
+  of an autoregressive modeling approach to continuously predict joint
+  kinematics using natural residual muscle activity provides opportunities for
+  direct (transparent) control of a prosthetic joint by the user. The model's
+  predictive capability could prove particularly useful for overcoming delays
+  in signal processing and actuation of the prosthesis, providing a more
+  biomimetic ankle response.%
+    }
+    \verb{doi}
+    \verb 10.1088/1741-2560/11/5/056027
+    \endverb
+    \field{number}{5}
+    \field{pages}{056027}
+    \field{title}{Within-socket myoelectric prediction of continuous ankle
+  kinematics for control of a powered transtibial prosthesis}
+    \field{volume}{11}
+    \verb{file}
+    \verb Farmer, Silver-Thorn et al. 2014 - Within-socket myoelectric predicti
+    \verb on of continuous:Attachments/Farmer, Silver-Thorn et al. 2014 - Withi
+    \verb n-socket myoelectric prediction of continuous.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Journal of neural engineering}
+    \field{year}{2014}
+  \endentry
+
+  \entry{Fukuchi.2018}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=FCA}{%
+         family={Fukuchi},
+         familyi={F\bibinitperiod},
+         given={Claudiane\bibnamedelima A.},
+         giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=FRK}{%
+         family={Fukuchi},
+         familyi={F\bibinitperiod},
+         given={Reginaldo\bibnamedelima K.},
+         giveni={R\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=DM}{%
+         family={Duarte},
+         familyi={D\bibinitperiod},
+         given={Marcos},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FCAFRKDM1}
+    \strng{fullhash}{FCAFRKDM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{abstract}{%
+    In a typical clinical gait analysis, the gait patterns of pathological
+  individuals are commonly compared with the typically faster, comfortable pace
+  of healthy subjects. However, due to potential bias related to gait speed,
+  this comparison may not be valid. Publicly available gait datasets have
+  failed to address this issue. Therefore, the goal of this study was to
+  present a publicly available dataset of 42 healthy volunteers (24 young
+  adults and 18 older adults) who walked both overground and on a treadmill at
+  a range of gait speeds. Their lower-extremity and pelvis kinematics were
+  measured using a three-dimensional (3D) motion-capture system. The external
+  forces during both overground and treadmill walking were collected using
+  force plates and an instrumented treadmill, respectively. The results include
+  both raw and processed kinematic and kinetic data in different file formats:
+  c3d and ASCII files. In addition, a metadata file is provided that contain
+  demographic and anthropometric data and data related to each file in the
+  dataset. All data are available at Figshare (DOI:
+  10.6084/m9.figshare.5722711). We foresee several applications of this public
+  dataset, including to examine the influences of speed, age, and environment
+  (overground vs. treadmill) on gait biomechanics, to meet educational needs,
+  and, with the inclusion of additional participants, to use as a normative
+  dataset.%
+    }
+    \verb{doi}
+    \verb 10.7717/peerj.4640
+    \endverb
+    \field{issn}{2167-8359}
+    \field{pages}{e4640}
+    \field{title}{A public dataset of overground and treadmill walking
+  kinematics and kinetics in healthy individuals}
+    \field{volume}{6}
+    \verb{file}
+    \verb Fukuchi, Fukuchi et al. 2018 - A public dataset of overground:Attachm
+    \verb ents/Fukuchi, Fukuchi et al. 2018 - A public dataset of overground.pd
+    \verb f:application/pdf
+    \endverb
+    \field{journaltitle}{PeerJ}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Gal.06062015}{misc}{}{}
+    \name{author}{2}{}{%
+      {{hash=GY}{%
+         family={Gal},
+         familyi={G\bibinitperiod},
+         given={Yarin},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=GZ}{%
+         family={Ghahramani},
+         familyi={G\bibinitperiod},
+         given={Zoubin},
+         giveni={Z\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GYGZ1}
+    \strng{fullhash}{GYGZ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    Deep learning tools have gained tremendous attention in applied machine
+  learning. However such tools for regression and classification do not capture
+  model uncertainty. In comparison, Bayesian models offer a mathematically
+  grounded framework to reason about model uncertainty, but usually come with a
+  prohibitive computational cost. In this paper we develop a new theoretical
+  framework casting dropout training in deep neural networks (NNs) as
+  approximate Bayesian inference in deep Gaussian processes. A direct result of
+  this theory gives us tools to model uncertainty with dropout NNs --
+  extracting information from existing models that has been thrown away so far.
+  This mitigates the problem of representing uncertainty in deep learning
+  without sacrificing either computational complexity or test accuracy. We
+  perform an extensive study of the properties of dropout's uncertainty.
+  Various network architectures and non-linearities are assessed on tasks of
+  regression and classification, using MNIST as an example. We show a
+  considerable improvement in predictive log-likelihood and RMSE compared to
+  existing state-of-the-art methods, and finish by using dropout's uncertainty
+  in deep reinforcement learning.%
+    }
+    \field{title}{Dropout as a Bayesian Approximation: Representing Model
+  Uncertainty in Deep Learning}
+    \verb{url}
+    \verb http://arxiv.org/pdf/1506.02142
+    \endverb
+    \verb{file}
+    \verb Gal, Ghahramani 06 06 2015 - Dropout as a Bayesian Approximation:Atta
+    \verb chments/Gal, Ghahramani 06 06 2015 - Dropout as a Bayesian Approximat
+    \verb ion.pdf:application/pdf
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{Golabchi.2023}{article}{}{}
+    \name{author}{6}{}{%
+      {{hash=GA}{%
+         family={Golabchi},
+         familyi={G\bibinitperiod},
+         given={Ali},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=RN}{%
+         family={Riahi},
+         familyi={R\bibinitperiod},
+         given={Negar},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=FM}{%
+         family={Fix},
+         familyi={F\bibinitperiod},
+         given={Mackenzie},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=ML}{%
+         family={Miller},
+         familyi={M\bibinitperiod},
+         given={Linda},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=RH}{%
+         family={Rouhani},
+         familyi={R\bibinitperiod},
+         given={Hossein},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=TM}{%
+         family={Tavakoli},
+         familyi={T\bibinitperiod},
+         given={Mahdi},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GARNFMMLRHTM1}
+    \strng{fullhash}{GARNFMMLRHTM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    Work-related Musculoskeletal Disorders (WMSDs) account for a significant
+  portion of worker illnesses and injuries, resulting in high costs and
+  productivity losses to employers globally. In recent years, there has been an
+  increased interest in the use of exoskeleton technology to reduce rates of
+  WMSDs in industrial worksites. Despite the potential of exoskeletons to
+  mitigate the risks of WMSDs, the required steps to properly assess and
+  implement the technology for industrial applications are not clear. This
+  paper proposes a framework that can help organizations successfully evaluate
+  and adopt industrial exoskeletons. Through a focus group of industry
+  professionals, researchers, and exoskeleton experts, and by building on
+  existing literature, an overarching adoption framework is developed. The
+  identified stages and tasks within the framework enable an organization to
+  evaluate and adopt exoskeletons through a systematic approach and to identify
+  the existing gaps in their technology adoption process. The findings also
+  highlight the areas where further studies are needed to promote the adoption
+  of industrial exoskeletons, including large-scale field studies and long-term
+  monitoring.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.apergo.2023.104103
+    \endverb
+    \field{pages}{104103}
+    \field{title}{A framework for evaluation and adoption of industrial
+  exoskeletons}
+    \field{volume}{113}
+    \field{journaltitle}{Applied ergonomics}
+    \field{year}{2023}
+  \endentry
+
+  \entry{Greff.2017}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=GK}{%
+         family={Greff},
+         familyi={G\bibinitperiod},
+         given={Klaus},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=SRK}{%
+         family={Srivastava},
+         familyi={S\bibinitperiod},
+         given={Rupesh\bibnamedelima K.},
+         giveni={R\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=KJ}{%
+         family={Koutnik},
+         familyi={K\bibinitperiod},
+         given={Jan},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SBR}{%
+         family={Steunebrink},
+         familyi={S\bibinitperiod},
+         given={Bas\bibnamedelima R.},
+         giveni={B\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Schmidhuber},
+         familyi={S\bibinitperiod},
+         given={Jurgen},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GKSRKKJSBRSJ1}
+    \strng{fullhash}{GKSRKKJSBRSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    Several variants of the long short-term memory (LSTM) architecture for
+  recurrent neural networks have been proposed since its inception in 1995. In
+  recent years, these networks have become the state-of-the-art models for a
+  variety of machine learning problems. This has led to a renewed interest in
+  understanding the role and utility of various computational components of
+  typical LSTM variants. In this paper, we present the first large-scale
+  analysis of eight LSTM variants on three representative tasks: speech
+  recognition, handwriting recognition, and polyphonic music modeling. The
+  hyperparameters of all LSTM variants for each task were optimized separately
+  using random search, and their importance was assessed using the powerful
+  functional ANalysis Of VAriance framework. In total, we summarize the results
+  of 5400 experimental runs ( $\approx$ 15 years of CPU time), which makes our
+  study the largest of its kind on LSTM networks. Our results show that none of
+  the variants can improve upon the standard LSTM architecture significantly,
+  and demonstrate the forget gate and the output activation function to be its
+  most critical components. We further observe that the studied hyperparameters
+  are virtually independent and derive guidelines for their efficient
+  adjustment.%
+    }
+    \verb{doi}
+    \verb 10.1109/TNNLS.2016.2582924
+    \endverb
+    \field{issn}{2162-2388}
+    \field{number}{10}
+    \field{pages}{2222\bibrangedash 2232}
+    \field{title}{LSTM: A Search Space Odyssey}
+    \field{volume}{28}
+    \verb{file}
+    \verb Greff, Srivastava et al. 2017 - LSTM A Search Space Odyssey:Attachmen
+    \verb ts/Greff, Srivastava et al. 2017 - LSTM A Search Space Odyssey.pdf:ap
+    \verb plication/pdf
+    \endverb
+    \field{journaltitle}{IEEE Transactions on Neural Networks and Learning
+  Systems}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Hastie.2017}{book}{}{}
+    \name{author}{3}{}{%
+      {{hash=HT}{%
+         family={Hastie},
+         familyi={H\bibinitperiod},
+         given={Trevor},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=FJ}{%
+         family={Friedman},
+         familyi={F\bibinitperiod},
+         given={Jerome},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=TR}{%
+         family={Tisbshirani},
+         familyi={T\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{HTFJTR1}
+    \strng{fullhash}{HTFJTR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \verb{doi}
+    \verb 10.1007/978-0-387-84858-7
+    \endverb
+    \field{edition}{2nd ed., 12th repr}
+    \field{isbn}{978-0-387-84857-0}
+    \field{series}{Springer series in statistics}
+    \field{title}{The Elements of statistical learning: Data mining, inference,
+  and prediction}
+    \list{location}{1}{%
+      {New York}%
+    }
+    \verb{file}
+    \verb Hastie, Friedman et al. 2017 - The Elements of statistical learning:A
+    \verb ttachments/Hastie, Friedman et al. 2017 - The Elements of statistical
+    \verb  learning.pdf:application/pdf
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{He.06022015}{misc}{}{}
+    \name{author}{4}{}{%
+      {{hash=HK}{%
+         family={He},
+         familyi={H\bibinitperiod},
+         given={Kaiming},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=ZX}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Xiangyu},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=RS}{%
+         family={Ren},
+         familyi={R\bibinitperiod},
+         given={Shaoqing},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Sun},
+         familyi={S\bibinitperiod},
+         given={Jian},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HKZXRSSJ1}
+    \strng{fullhash}{HKZXRSSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    Rectified activation units (rectifiers) are essential for state-of-the-art
+  neural networks. In this work, we study rectifier neural networks for image
+  classification from two aspects. First, we propose a Parametric Rectified
+  Linear Unit (PReLU) that generalizes the traditional rectified unit. PReLU
+  improves model fitting with nearly zero extra computational cost and little
+  overfitting risk. Second, we derive a robust initialization method that
+  particularly considers the rectifier nonlinearities. This method enables us
+  to train extremely deep rectified models directly from scratch and to
+  investigate deeper or wider network architectures. Based on our PReLU
+  networks (PReLU-nets), we achieve 4.94{\%} top-5 test error on the ImageNet
+  2012 classification dataset. This is a 26{\%} relative improvement over the
+  ILSVRC 2014 winner (GoogLeNet, 6.66{\%}). To our knowledge, our result is the
+  first to surpass human-level performance (5.1{\%}, Russakovsky et al.) on
+  this visual recognition challenge.%
+    }
+    \field{title}{Delving Deep into Rectifiers: Surpassing Human-Level
+  Performance on ImageNet Classification}
+    \verb{url}
+    \verb http://arxiv.org/pdf/1502.01852
+    \endverb
+    \verb{file}
+    \verb He, Zhang et al. 06 02 2015 - Delving Deep into Rectifiers (2):Attach
+    \verb ments/He, Zhang et al. 06 02 2015 - Delving Deep into Rectifiers (2).
+    \verb pdf:application/pdf
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{He.uuuuuuuu}{inproceedings}{}{}
+    \name{author}{7}{}{%
+      {{hash=HY}{%
+         family={He},
+         familyi={H\bibinitperiod},
+         given={Yong},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=WX}{%
+         family={Wu},
+         familyi={W\bibinitperiod},
+         given={Xinyu},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=MY}{%
+         family={Ma},
+         familyi={M\bibinitperiod},
+         given={Yue},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CW}{%
+         family={Cao},
+         familyi={C\bibinitperiod},
+         given={Wujing},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=LN}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Nan},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Jinke},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FW}{%
+         family={Feng},
+         familyi={F\bibinitperiod},
+         given={Wei},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{HYWXMYCWLNLJFW1}
+    \strng{fullhash}{HYWXMYCWLNLJFW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{booktitle}{2019 IEEE International Conference on Robotics and
+  Biomimetics (ROBIO)}
+    \verb{doi}
+    \verb 10.1109/ROBIO49542.2019.8961762
+    \endverb
+    \field{isbn}{978-1-7281-6321-5}
+    \field{pages}{2031\bibrangedash 2036}
+    \field{title}{GC-IGTG: A Rehabilitation Gait Trajectory Generation
+  Algorithm for Lower Extremity Exoskeleton}
+    \field{year}{uuuu-uuuu}
+  \endentry
+
+  \entry{Hinton.2006}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=HGE}{%
+         family={Hinton},
+         familyi={H\bibinitperiod},
+         given={G.\bibnamedelima E.},
+         giveni={G\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=SRR}{%
+         family={Salakhutdinov},
+         familyi={S\bibinitperiod},
+         given={R.\bibnamedelima R.},
+         giveni={R\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HGESRR1}
+    \strng{fullhash}{HGESRR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    High-dimensional data can be converted to low-dimensional codes by training
+  a multilayer neural network with a small central layer to reconstruct
+  high-dimensional input vectors. Gradient descent can be used for fine-tuning
+  the weights in such {\textquotedbl}autoencoder{\textquotedbl} networks, but
+  this works well only if the initial weights are close to a good solution. We
+  describe an effective way of initializing the weights that allows deep
+  autoencoder networks to learn low-dimensional codes that work much better
+  than principal components analysis as a tool to reduce the dimensionality of
+  data.%
+    }
+    \verb{doi}
+    \verb 10.1126/science.1127647
+    \endverb
+    \field{issn}{1095-9203}
+    \field{number}{5786}
+    \field{pages}{504\bibrangedash 507}
+    \field{title}{Reducing the dimensionality of data with neural networks}
+    \field{volume}{313}
+    \field{journaltitle}{Science}
+    \field{year}{2006}
+  \endentry
+
+  \entry{Huang.2011}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=HGB}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Guang-Bin},
+         giveni={G\bibinithyphendelim B\bibinitperiod},
+      }}%
+      {{hash=WDH}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Dian\bibnamedelima Hui},
+         giveni={D\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=LY}{%
+         family={Lan},
+         familyi={L\bibinitperiod},
+         given={Yuan},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HGBWDHLY1}
+    \strng{fullhash}{HGBWDHLY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \verb{doi}
+    \verb 10.1007/s13042-011-0019-y
+    \endverb
+    \field{issn}{1868-8071}
+    \field{number}{2}
+    \field{pages}{107\bibrangedash 122}
+    \field{title}{Extreme learning machines: a survey}
+    \field{volume}{2}
+    \verb{file}
+    \verb Huang, Wang et al. 2011 - Extreme learning machines:Attachments/Huang
+    \verb , Wang et al. 2011 - Extreme learning machines.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{International Journal of Machine Learning and
+  Cybernetics}
+    \field{year}{2011}
+  \endentry
+
+  \entry{Huang.2023}{article}{}{}
+    \name{author}{4}{}{%
+      {{hash=HY}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Yongshan},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=AH}{%
+         family={An},
+         familyi={A\bibinitperiod},
+         given={Honglei},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=MH}{%
+         family={Ma},
+         familyi={M\bibinitperiod},
+         given={Hongxu},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=WQ}{%
+         family={Wei},
+         familyi={W\bibinitperiod},
+         given={Qing},
+         giveni={Q\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HYAHMHWQ1}
+    \strng{fullhash}{HYAHMHWQ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    Prosthetic discrete controller relies on finite state machines to switch
+  between a set of predefined task-specific controllers. Therefore the
+  prosthesis can only perform a limited number of discrete locomotion tasks and
+  need hours to tune the parameters for each user. In contrast, the continuous
+  controller treats a gait cycle in a unified way. Thus it is expected to
+  better facilitate normative biomechanics by providing a gait predictive model
+  to contribute a non-switching controller that supports a continuum of tasks.
+  Furthermore, a better method is to train a personalized trajectory prediction
+  model suitable for personal characteristics according to personal walking
+  data. This paper proposes a Gaussian process enhanced Fourier series (GPEFS)
+  method to construct a gait prediction model that represents the human
+  locomotion as a continuous function of phase, speed and slope. Firstly the
+  joint trajectories are transformed into the Fourier coefficient space by
+  least square method. Then the relationship between each Fourier coefficient
+  and task input can be learned by multiple Gaussian process regression (GPRs)
+  model respectively. Compared with directly using GPR to fit the joint
+  trajectory under multi task, our method greatly reduces the computational
+  burden, so as to meet the real-time application scenario. In addition, in
+  Fourier coefficient space, the difference in all tasks between the Fourier
+  coefficient of personal data and the one of statistical data follows the same
+  trend. Therefore, a personalized prediction model is built to predict an
+  individual's kinematics over a continuous range of slopes and speeds given
+  only one personalized task at level ground and normal speed. The experimental
+  results show that the gait prediction model and the personalized prediction
+  model are feasible and effective.%
+    }
+    \verb{doi}
+    \verb 10.1109/TNSRE.2022.3223992
+    \endverb
+    \field{pages}{779\bibrangedash 788}
+    \field{title}{Modeling and Individualizing Continuous Joint Kinematics
+  Using Gaussian Process Enhanced Fourier Series}
+    \field{volume}{31}
+    \verb{file}
+    \verb Huang, An et al. 2023 - Modeling and Individualizing Continuous Joint
+    \verb :Attachments/Huang, An et al. 2023 - Modeling and Individualizing Con
+    \verb tinuous Joint.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{IEEE transactions on neural systems and rehabilitation
+  engineering : a publication of the IEEE Engineering in Medicine and Biology
+  Society}
+    \field{year}{2023}
+  \endentry
+
+  \entry{IanGoodfellow.2016}{misc}{}{}
+    \name{author}{3}{}{%
+      {{hash=I}{%
+         family={{Ian Goodfellow}},
+         familyi={I\bibinitperiod},
+      }}%
+      {{hash=Y}{%
+         family={{Yoshua Bengio}},
+         familyi={Y\bibinitperiod},
+      }}%
+      {{hash=A}{%
+         family={{Aaron Courville}},
+         familyi={A\bibinitperiod},
+      }}%
+    }
+    \name{editor}{1}{}{%
+      {{hash=M}{%
+         family={{MIT Press}},
+         familyi={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{IYA1}
+    \strng{fullhash}{IYA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{title}{Deep Learning}
+    \verb{url}
+    \verb https://www.deeplearningbook.org/
+    \endverb
+    \field{year}{2016}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{James.2013}{book}{}{}
+    \name{author}{4}{}{%
+      {{hash=JG}{%
+         family={James},
+         familyi={J\bibinitperiod},
+         given={Gareth},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=HT}{%
+         family={Hastie},
+         familyi={H\bibinitperiod},
+         given={Trevor},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=WD}{%
+         family={Witten},
+         familyi={W\bibinitperiod},
+         given={Daniela},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=TR}{%
+         family={Tibshirani},
+         familyi={T\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Springer New York}}%
+    }
+    \strng{namehash}{JGHTWDTR1}
+    \strng{fullhash}{JGHTWDTR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \verb{doi}
+    \verb 10.1007/978-1-4614-7138-7
+    \endverb
+    \field{edition}{2013 Edition}
+    \field{isbn}{978-1-4614-7137-0}
+    \field{title}{An Introduction to Statistical Learning: with Applications in
+  R (Springer Texts in Statistics)}
+    \field{volume}{103}
+    \list{location}{1}{%
+      {Springer, 2013.}%
+    }
+    \verb{file}
+    \verb James, Hastie et al. 2013 - An Introduction to Statistical Learning:A
+    \verb ttachments/James, Hastie et al. 2013 - An Introduction to Statistical
+    \verb  Learning.pdf:application/pdf
+    \endverb
+    \field{year}{2013}
+  \endentry
+
+  \entry{Jang.1993}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=JJS}{%
+         family={Jang},
+         familyi={J\bibinitperiod},
+         given={J.-S.R.},
+         giveni={J\bibinithyphendelim S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JJS1}
+    \strng{fullhash}{JJS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \verb{doi}
+    \verb 10.1109/21.256541
+    \endverb
+    \field{issn}{0018-9472}
+    \field{number}{3}
+    \field{pages}{665\bibrangedash 685}
+    \field{title}{ANFIS: adaptive-network-based fuzzy inference system}
+    \field{volume}{23}
+    \field{journaltitle}{IEEE Transactions on Systems, Man, and Cybernetics}
+    \field{year}{1993}
+  \endentry
+
+  \entry{JimenezFabian.2012}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=JFR}{%
+         family={Jim{\'e}nez-Fabi{\'a}n},
+         familyi={J\bibinithyphendelim F\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=VO}{%
+         family={Verlinden},
+         familyi={V\bibinitperiod},
+         given={O.},
+         giveni={O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JFRVO1}
+    \strng{fullhash}{JFRVO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{abstract}{%
+    This review focuses on control strategies for robotic ankle systems in
+  active and semiactive lower-limb orthoses, prostheses, and exoskeletons.
+  Special attention is paid to algorithms for gait phase identification,
+  adaptation to different walking conditions, and motion intention recognition.
+  The relevant aspects of hardware configuration and hardware-level controllers
+  are discussed as well. Control algorithms proposed for other actuated
+  lower-limb joints (knee and/or hip), with potential applicability to the
+  development of ankle devices, are also included.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.medengphy.2011.11.018
+    \endverb
+    \field{issn}{1350-4533}
+    \field{number}{4}
+    \field{pages}{397\bibrangedash 408}
+    \field{title}{Review of control algorithms for robotic ankle systems in
+  lower-limb orthoses, prostheses, and exoskeletons}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S1350453311003092
+    \endverb
+    \field{volume}{34}
+    \field{journaltitle}{Medical Engineering {\&} Physics}
+    \field{year}{2012}
+  \endentry
+
+  \entry{K.Embry.2018}{misc}{}{}
+    \name{author}{4}{}{%
+      {{hash=K}{%
+         family={{K. Embry}},
+         familyi={K\bibinitperiod},
+      }}%
+      {{hash=D}{%
+         family={{D. Villarreal}},
+         familyi={D\bibinitperiod},
+      }}%
+      {{hash=R}{%
+         family={{R. Macaluso}},
+         familyi={R\bibinitperiod},
+      }}%
+      {{hash=R}{%
+         family={{R. Gregg}},
+         familyi={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{IEEE DataPort}}%
+    }
+    \strng{namehash}{KDRR1}
+    \strng{fullhash}{KDRR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    This dataset contains leg joint kinematics, kinetics, and EMG activity from
+  an experimental protocol approved by the Institutional Review Board at the
+  University of Texas at Dallas. Ten able-bodied subjects walked at steady
+  speeds and inclines on a Bertec instrumented treadmill for one minute per
+  trial. Each subject walked at every combination of the speeds 0.8 m/s, 1.0
+  m/s, and 1.2 m/s and inclines from -10 degrees to +10 degrees at 2.5 degree
+  increments, for a total of 27 trials. During each trial, a 10-camera Vicon
+  motion capture system recorded leg kinematics, while force plates in the
+  Bertec treadmill recorded ground reaction forces, and a Delsys Trigno EMG
+  system recorded muscle activation of the rectus femoris, biceps femoris,
+  tibialis anterior, and gastrocnemius. This data can be used to test many
+  hypotheses and models of human locomotion at varying speeds and inclines.
+  This kinematic data has been used to train a predictive model that represents
+  gait kinematics as a continuous function of gait cycle percentage, speed, and
+  incline:~K. Embry, D. Villarreal, R. Macaluso, and R. Gregg, ``Modeling the
+  Kinematics of Human Locomotion over Continuously Varying Speeds and
+  Inclines,'' IEEE Transactions on Neural Systems and Rehabilitation
+  Engineering%
+    }
+    \verb{doi}
+    \verb 10.21227/GK32-E868
+    \endverb
+    \field{title}{The Effect of Walking Incline and Speed on Human Leg
+  Kinematics, Kinetics, and EMG}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Kalita.2021}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=KB}{%
+         family={Kalita},
+         familyi={K\bibinitperiod},
+         given={Bhaben},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=NJ}{%
+         family={Narayan},
+         familyi={N\bibinitperiod},
+         given={Jyotindra},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=DSK}{%
+         family={Dwivedy},
+         familyi={D\bibinitperiod},
+         given={Santosha\bibnamedelima Kumar},
+         giveni={S\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KBNJDSK1}
+    \strng{fullhash}{KBNJDSK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \verb{doi}
+    \verb 10.1007/s12369-020-00662-9
+    \endverb
+    \field{issn}{1875-4791}
+    \field{number}{4}
+    \field{pages}{775\bibrangedash 793}
+    \field{title}{Development of Active Lower Limb Robotic-Based Orthosis and
+  Exoskeleton Devices: A Systematic Review}
+    \field{volume}{13}
+    \verb{file}
+    \verb Kalita, Narayan et al. 2021 - Development of Active Lower Limb:Attach
+    \verb ments/Kalita, Narayan et al. 2021 - Development of Active Lower Limb.
+    \verb pdf:application/pdf
+    \endverb
+    \field{journaltitle}{International Journal of Social Robotics}
+    \field{year}{2021}
+  \endentry
+
+  \entry{Kazerooni.2005}{inproceedings}{}{}
+    \name{author}{4}{}{%
+      {{hash=KH}{%
+         family={Kazerooni},
+         familyi={K\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=RJL}{%
+         family={Racine},
+         familyi={R\bibinitperiod},
+         given={J.-L.},
+         giveni={J\bibinithyphendelim L\bibinitperiod},
+      }}%
+      {{hash=HL}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Lihua},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=SR}{%
+         family={Steger},
+         familyi={S\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{KHRJLHLSR1}
+    \strng{fullhash}{KHRJLHLSR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{booktitle}{Robotics and Automation, 2005. ICRA 2005. Proceedings of
+  the 2005 IEEE International Conference on}
+    \verb{doi}
+    \verb 10.1109/ROBOT.2005.1570790
+    \endverb
+    \field{isbn}{0-7803-8914-X}
+    \field{pages}{4353\bibrangedash 4360}
+    \field{title}{On the Control of the Berkeley Lower Extremity Exoskeleton
+  (BLEEX)}
+    \field{year}{2005}
+  \endentry
+
+  \entry{Kiguchi.2004}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=KK}{%
+         family={Kiguchi},
+         familyi={K\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=TT}{%
+         family={Tanaka},
+         familyi={T\bibinitperiod},
+         given={T.},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=FT}{%
+         family={Fukuda},
+         familyi={F\bibinitperiod},
+         given={T.},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KKTTFT1}
+    \strng{fullhash}{KKTTFT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \verb{doi}
+    \verb 10.1109/TFUZZ.2004.832525
+    \endverb
+    \field{issn}{1063-6706}
+    \field{number}{4}
+    \field{pages}{481\bibrangedash 490}
+    \field{title}{Neuro-Fuzzy Control of a Robotic Exoskeleton With EMG
+  Signals}
+    \field{volume}{12}
+    \field{journaltitle}{IEEE Transactions on Fuzzy Systems}
+    \field{year}{2004}
+  \endentry
+
+  \entry{Kingma.22122014}{misc}{}{}
+    \name{author}{2}{}{%
+      {{hash=KDP}{%
+         family={Kingma},
+         familyi={K\bibinitperiod},
+         given={Diederik\bibnamedelima P.},
+         giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=BJ}{%
+         family={Ba},
+         familyi={B\bibinitperiod},
+         given={Jimmy},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KDPBJ1}
+    \strng{fullhash}{KDPBJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    We introduce Adam, an algorithm for first-order gradient-based optimization
+  of stochastic objective functions, based on adaptive estimates of lower-order
+  moments. The method is straightforward to implement, is computationally
+  efficient, has little memory requirements, is invariant to diagonal rescaling
+  of the gradients, and is well suited for problems that are large in terms of
+  data and/or parameters. The method is also appropriate for non-stationary
+  objectives and problems with very noisy and/or sparse gradients. The
+  hyper-parameters have intuitive interpretations and typically require little
+  tuning. Some connections to related algorithms, on which Adam was inspired,
+  are discussed. We also analyze the theoretical convergence properties of the
+  algorithm and provide a regret bound on the convergence rate that is
+  comparable to the best known results under the online convex optimization
+  framework. Empirical results demonstrate that Adam works well in practice and
+  compares favorably to other stochastic optimization methods. Finally, we
+  discuss AdaMax, a variant of Adam based on the infinity norm.%
+    }
+    \field{title}{Adam: A Method for Stochastic Optimization}
+    \verb{url}
+    \verb http://arxiv.org/pdf/1412.6980v9
+    \endverb
+    \verb{file}
+    \verb Kingma, Ba 22 12 2014 - Adam A Method for Stochastic:Attachments/King
+    \verb ma, Ba 22 12 2014 - Adam A Method for Stochastic.pdf:application/pdf;
+    \verb Kingma, Ba 22 12 2014 - Adam A Method for Stochastic (2):Attachments/
+    \verb Kingma, Ba 22 12 2014 - Adam A Method for Stochastic (2).pdf:applicat
+    \verb ion/pdf
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{Koller.2017}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=KJR}{%
+         family={Koller},
+         familyi={K\bibinitperiod},
+         given={Jeffrey\bibnamedelima R.},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=DC}{%
+         family={{David Remy}},
+         familyi={D\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=FDP}{%
+         family={Ferris},
+         familyi={F\bibinitperiod},
+         given={Daniel\bibnamedelima P.},
+         giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KJRDCFDP1}
+    \strng{fullhash}{KJRDCFDP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    There are an infinite number of ways to control an assistive robotic
+  device; however, there is little consensus on which ways are better than
+  others and why. We designed this study to compare the control of powered
+  ankle exoskeletons using neural measurements to drive control versus that
+  using mechanically intrinsic measurements. The controller driven by neural
+  measurements was a dynamic gain proportional myoelectric controller using
+  user's soleus muscle activity for an actuation signal. The controller driven
+  by mechanically intrinsic measurements was a timing-based controller using
+  detected heel-strikes of the user to appropriately time actuation. We
+  designed these two controllers in such a way that both had the same average
+  actuation signal and tested them with 8 healthy subjects. Results show no
+  significant difference in metabolic work rate between the two controllers.
+  Both controllers resulted in reductions in metabolic work rate of 19{\%}
+  below walking in the devices unpowered. We found that subjects using the
+  timing-based mechanically intrinsic controller exhibited less positive and
+  negative total ankle power than when using the dynamic gain proportional
+  myoelectric controller. This finding was coupled with a reduction of 11.8{\%}
+  in soleus muscle activity. We believe these finding can have large
+  implications for applications in rehabilitation and lend insight to when one
+  controller is more appropriate to use than another.%
+    }
+    \verb{doi}
+    \verb 10.1109/ICORR.2017.8009262
+    \endverb
+    \field{pages}{294\bibrangedash 299}
+    \field{title}{Comparing neural control and mechanically intrinsic control
+  of powered ankle exoskeletons}
+    \field{volume}{2017}
+    \field{journaltitle}{IEEE ... International Conference on Rehabilitation
+  Robotics : [proceedings]}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Koopman.2014}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=KB}{%
+         family={Koopman},
+         familyi={K\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=vEHF}{%
+         family={{van Asseldonk}},
+         familyi={v\bibinitperiod},
+         given={E.\bibnamedelima H.\bibnamedelima F.},
+         giveni={E\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim
+  F\bibinitperiod},
+      }}%
+      {{hash=vH}{%
+         family={{van der Kooij}},
+         familyi={v\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KBvEHFvH1}
+    \strng{fullhash}{KBvEHFvH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    For the control of actuated orthoses, or gait rehabilitation robotics,
+  kinematic reference trajectories are often required. These trajectories,
+  consisting of joint angles, angular velocities and accelerations, are highly
+  dependent on walking-speed. We present and evaluate a novel method to
+  reconstruct body-height and speed-dependent joint trajectories. First, we
+  collected gait kinematics in fifteen healthy (middle) aged subjects (47-68),
+  at a wide range of walking-speeds (0.5-5 kph). For each joint trajectory
+  multiple key-events were selected (among which its extremes). Second, we
+  derived regression-models that predict the timing, angle, angular velocity
+  and acceleration for each key-event, based on walking-speed and the
+  subject׳s body-height. Finally, quintic splines were fitted between the
+  predicted key-events to reconstruct a full gait cycle. Regression-models were
+  obtained for hip ab-/adduction, hip flexion/extension, knee flexion/extension
+  and ankle plantar-/dorsiflexion. Results showed that the majority of the
+  key-events were dependent on walking-speed, both in terms of timing and
+  amplitude, whereas the body-height had less effect. The reconstructed
+  trajectories matched the measured trajectories very well, in terms of angle,
+  angular velocity and acceleration. For the angles the RMSE between the
+  reconstructed and measured trajectories was 2.6°. The mean correlation
+  coefficient between the reconstructed and measured angular trajectories was
+  0.91. The method and the data presented in this paper can be used to generate
+  speed-dependent gait patterns. These patterns can be used for the control of
+  several robotic gait applications. Alternatively they can assist the
+  assessment of pathological gait, where they can serve as a reference for
+  {\textquotedbl}normal{\textquotedbl} gait.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.jbiomech.2014.01.037
+    \endverb
+    \field{issn}{0021-9290}
+    \field{number}{6}
+    \field{pages}{1447\bibrangedash 1458}
+    \field{title}{Speed-dependent reference joint trajectory generation for
+  robotic gait support}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0021929014000682
+    \endverb
+    \field{volume}{47}
+    \verb{file}
+    \verb Koopman, van Asseldonk et al. 2014 - Speed-dependent reference joint
+    \verb trajectory generation:Attachments/Koopman, van Asseldonk et al. 2014
+    \verb - Speed-dependent reference joint trajectory generation.pdf:applicati
+    \verb on/pdf
+    \endverb
+    \field{journaltitle}{Journal of Biomechanics}
+    \field{year}{2014}
+  \endentry
+
+  \entry{LeCun.2015}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=LY}{%
+         family={LeCun},
+         familyi={L\bibinitperiod},
+         given={Yann},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=HG}{%
+         family={Hinton},
+         familyi={H\bibinitperiod},
+         given={Geoffrey},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LYBYHG1}
+    \strng{fullhash}{LYBYHG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{abstract}{%
+    Deep learning allows computational models that are composed of multiple
+  processing layers to learn representations of data with multiple levels of
+  abstraction. These methods have dramatically improved the state-of-the-art in
+  speech recognition, visual object recognition, object detection and many
+  other domains such as drug discovery and genomics. Deep learning discovers
+  intricate structure in large data sets by using the backpropagation algorithm
+  to indicate how a machine should change its internal parameters that are used
+  to compute the representation in each layer from the representation in the
+  previous layer. Deep convolutional nets have brought about breakthroughs in
+  processing images, video, speech and audio, whereas recurrent nets have shone
+  light on sequential data such as text and speech.%
+    }
+    \verb{doi}
+    \verb 10.1038/nature14539
+    \endverb
+    \field{issn}{1476-4687}
+    \field{number}{7553}
+    \field{pages}{436\bibrangedash 444}
+    \field{title}{Deep learning}
+    \verb{url}
+    \verb https://www.nature.com/articles/nature14539
+    \endverb
+    \field{volume}{521}
+    \verb{file}
+    \verb LeCun, Bengio et al. 2015 - Deep learning:Attachments/LeCun, Bengio e
+    \verb t al. 2015 - Deep learning.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Nature}
+    \field{year}{2015}
+  \endentry
+
+  \entry{LeCun.2012}{article}{}{}
+    \name{author}{4}{}{%
+      {{hash=LYA}{%
+         family={LeCun},
+         familyi={L\bibinitperiod},
+         given={Yann\bibnamedelima A.},
+         giveni={Y\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=BL}{%
+         family={Bottou},
+         familyi={B\bibinitperiod},
+         given={L{\'e}on},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=OGB}{%
+         family={Orr},
+         familyi={O\bibinitperiod},
+         given={Genevieve\bibnamedelima B.},
+         giveni={G\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+      {{hash=MKR}{%
+         family={M{\"u}ller},
+         familyi={M\bibinitperiod},
+         given={Klaus-Robert},
+         giveni={K\bibinithyphendelim R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LYABLOGBMKR1}
+    \strng{fullhash}{LYABLOGBMKR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{abstract}{%
+    The convergence of back-propagation learning is analyzed so as to explain
+  common phenomenon observed by practitioners. Many undesirable behaviors of
+  backprop can be avoided with tricks that are rarely exposed in serious
+  technical publications. This paper gives some...%
+    }
+    \verb{doi}
+    \verb 10.1007/978-3-642-35289-8{\textunderscore }3
+    \endverb
+    \field{issn}{1611-3349}
+    \field{pages}{9\bibrangedash 48}
+    \field{title}{Efficient BackProp}
+    \verb{url}
+    \verb https://link.springer.com/chapter/10.1007/978-3-642-35289-8_3
+    \endverb
+    \field{volume}{7700}
+    \verb{file}
+    \verb LeCun, Bottou et al. 2012 - Efficient BackProp:Attachments/LeCun, Bot
+    \verb tou et al. 2012 - Efficient BackProp.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Neural Networks: Tricks of the Trade}
+    \field{year}{2012}
+  \endentry
+
+  \entry{LeMoyne.2024b}{book}{}{}
+    \name{editor}{1}{}{%
+      {{hash=LRMT}{%
+         family={LEMOYNE},
+         familyi={L\bibinitperiod},
+         given={ROBERT. MASTROIANNI\bibnamedelima TIMOTHY},
+         giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim
+  T\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Springer Nature}}%
+    }
+    \strng{namehash}{LRMT1}
+    \strng{fullhash}{LRMT1}
+    \field{labelnamesource}{editor}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb 10.1007/978-981-97-2439-0
+    \endverb
+    \field{isbn}{978-981-97-2438-3}
+    \field{series}{Smart Sensors, Measurement and Instrumentation}
+    \field{title}{WEARABLE AND WIRELESS SYSTEMS FOR HEALTHCARE I {\_}. (AND
+  FURTHER) EDITION(S): Gait and reflex... response quantification}
+    \list{location}{1}{%
+      {[S.l.]}%
+    }
+    \field{year}{2024}
+  \endentry
+
+  \entry{Liang.2018}{inproceedings}{}{}
+    \name{author}{7}{}{%
+      {{hash=LFY}{%
+         family={Liang},
+         familyi={L\bibinitperiod},
+         given={Feng-Yan},
+         giveni={F\bibinithyphendelim Y\bibinitperiod},
+      }}%
+      {{hash=ZCH}{%
+         family={Zhong},
+         familyi={Z\bibinitperiod},
+         given={Chun-Hao},
+         giveni={C\bibinithyphendelim H\bibinitperiod},
+      }}%
+      {{hash=ZX}{%
+         family={Zhao},
+         familyi={Z\bibinitperiod},
+         given={Xuan},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=LD}{%
+         family={{Lo Castro}},
+         familyi={L\bibinitperiod},
+         given={Davide},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CB}{%
+         family={Chen},
+         familyi={C\bibinitperiod},
+         given={Bing},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=GF}{%
+         family={Gao},
+         familyi={G\bibinitperiod},
+         given={Fei},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=LWH}{%
+         family={Liao},
+         familyi={L\bibinitperiod},
+         given={Wei-Hsin},
+         giveni={W\bibinithyphendelim H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{LFYZCHZXLDCBGFLWH1}
+    \strng{fullhash}{LFYZCHZXLDCBGFLWH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{booktitle}{IEEE ROBIO 2018}
+    \verb{doi}
+    \verb 10.1109/ROBIO.2018.8664778
+    \endverb
+    \field{isbn}{978-1-7281-0377-8}
+    \field{pages}{27\bibrangedash 32}
+    \field{title}{Online Adaptive and LSTM-Based Trajectory Generation of Lower
+  Limb Exoskeletons for Stroke Rehabilitation}
+    \list{location}{1}{%
+      {[Piscataway, New Jersey]}%
+    }
+    \field{year}{2018}
+  \endentry
+
+  \entry{Lo.2012}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=LHS}{%
+         family={Lo},
+         familyi={L\bibinitperiod},
+         given={Ho\bibnamedelima Shing},
+         giveni={H\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=XSQ}{%
+         family={Xie},
+         familyi={X\bibinitperiod},
+         given={Sheng\bibnamedelima Quan},
+         giveni={S\bibinitperiod\bibinitdelim Q\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LHSXSQ1}
+    \strng{fullhash}{LHSXSQ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{abstract}{%
+    Current health services are struggling to provide optimal rehabilitation
+  therapy to victims of stroke. This has motivated researchers to explore the
+  use of robotic devices to provide rehabilitation therapy for strokepatients.
+  This paper reviews the recent progress of upper limb exoskeleton robots for
+  rehabilitation treatment of patients with neuromuscular disorders. Firstly, a
+  brief introduction to rehabilitation robots will be given along with examples
+  of existing commercial devices. The advancements in upper limb exoskeleton
+  technology and the fundamental challenges in developing these devices are
+  described. Potential areas for future research are discussed.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.medengphy.2011.10.004
+    \endverb
+    \field{issn}{1350-4533}
+    \field{number}{3}
+    \field{pages}{261\bibrangedash 268}
+    \field{title}{Exoskeleton robots for upper-limb rehabilitation: state of
+  the art and future prospects}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S1350453311002694
+    \endverb
+    \field{volume}{34}
+    \field{journaltitle}{Medical Engineering {\&} Physics}
+    \field{year}{2012}
+  \endentry
+
+  \entry{MarcG.Genton.2001}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=M}{%
+         family={{Marc G. Genton}},
+         familyi={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{M1}
+    \strng{fullhash}{M1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \verb{doi}
+    \verb 10.1162/15324430260185646
+    \endverb
+    \field{title}{Classes of Kernels for Machine Learning: A Statistics
+  Perspective}
+    \field{volume}{1}
+    \field{journaltitle}{ournal of Machine Learning Research 2}
+    \field{year}{2001}
+  \endentry
+
+  \entry{Moissenet.2019}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=MF}{%
+         family={Moissenet},
+         familyi={M\bibinitperiod},
+         given={Florent},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=LF}{%
+         family={Leboeuf},
+         familyi={L\bibinitperiod},
+         given={Fabien},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=AS}{%
+         family={Armand},
+         familyi={A\bibinitperiod},
+         given={St{\'e}phane},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MFLFAS1}
+    \strng{fullhash}{MFLFAS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{abstract}{%
+    Clinical gait analysis attempts to provide, in a pathological context, an
+  objective record that quantifies the magnitude of deviations from normal
+  gait. However, the identification of deviations is highly dependent with the
+  characteristics of the normative database used. In particular, a mismatch
+  between patient characteristics and an asymptomatic population database in
+  terms of walking speed, demographic and anthropometric parameters may lead to
+  misinterpretation during the clinical process. Rather than developing a new
+  normative data repository that may require considerable of resources and
+  time, this study aims to assess a method for predicting lower limb sagittal
+  kinematics using multiple regression models based on walking speed, gender,
+  age and BMI as predictors. With this approach, we were able to predict
+  kinematics with an error within 1 standard deviation of the mean of the
+  original waveforms recorded on fifty-four participants. Furthermore, the
+  proposed approach allowed us to estimate the relative contribution to angular
+  variations of each predictor, independently from the others. It appeared that
+  a mismatch in walking speed, but also age, sex and BMI may lead to errors
+  higher than 5° on lower limb sagittal kinematics and should thus be taken
+  into account before any clinical interpretation.%
+    }
+    \verb{doi}
+    \verb 10.1038/s41598-019-45397-4
+    \endverb
+    \field{number}{1}
+    \field{pages}{9510}
+    \field{title}{Lower limb sagittal gait kinematics can be predicted based on
+  walking speed, gender, age and BMI}
+    \field{volume}{9}
+    \verb{file}
+    \verb Moissenet, Leboeuf et al. 2019 - Lower limb sagittal gait kinematics:
+    \verb Attachments/Moissenet, Leboeuf et al. 2019 - Lower limb sagittal gait
+    \verb  kinematics.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Scientific reports}
+    \field{year}{2019}
+  \endentry
+
+  \entry{Moreira.2021}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=ML}{%
+         family={Moreira},
+         familyi={M\bibinitperiod},
+         given={Lu{\'i}s},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=FJ}{%
+         family={Figueiredo},
+         familyi={F\bibinitperiod},
+         given={Joana},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FP}{%
+         family={Fonseca},
+         familyi={F\bibinitperiod},
+         given={Pedro},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=VBJP}{%
+         family={Vilas-Boas},
+         familyi={V\bibinithyphendelim B\bibinitperiod},
+         given={Jo{\~a}o\bibnamedelima P.},
+         giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=SCP}{%
+         family={Santos},
+         familyi={S\bibinitperiod},
+         given={Cristina\bibnamedelima P.},
+         giveni={C\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MLFJFPVBJPSCP1}
+    \strng{fullhash}{MLFJFPVBJPSCP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{abstract}{%
+    Understanding the lower limb kinematic, kinetic, and electromyography (EMG)
+  data interrelation in controlled speeds is challenging for fully assessing
+  human locomotion conditions. This paper provides a complete dataset with the
+  above-mentioned raw and processed data simultaneously recorded for sixteen
+  healthy participants walking on a 10 meter-flat surface at seven controlled
+  speeds (1.0, 1.5, 2.0, 2.5, 3.0, 3.5, and 4.0 km/h). The raw data include
+  3D joint trajectories of 24 retro-reflective markers, ground reaction forces
+  (GRF), force plate moments, center of pressures, and EMG signals from
+  Tibialis Anterior, Gastrocnemius Lateralis, Biceps Femoris, and Vastus
+  Lateralis. The processed data present gait cycle-normalized data including
+  filtered EMG signals and their envelope, 3D GRF, joint angles, and torques.
+  This study details the experimental setup and presents a brief validation of
+  the data quality. The presented dataset may contribute to (i) validate and
+  enhance human biomechanical gait models, and (ii) serve as a reference
+  trajectory for personalized control of robotic assistive devices, aiming an
+  adequate assistance level adjusted to the gait speed and user's
+  anthropometry.%
+    }
+    \verb{doi}
+    \verb 10.1038/s41597-021-00881-3
+    \endverb
+    \field{issn}{2052-4463}
+    \field{number}{1}
+    \field{pages}{103}
+    \field{title}{Lower limb kinematic, kinetic, and EMG data from young
+  healthy humans during walking at controlled speeds}
+    \verb{url}
+    \verb https://www.nature.com/articles/s41597-021-00881-3
+    \endverb
+    \field{volume}{8}
+    \verb{file}
+    \verb Moreira, Figueiredo et al. 2021 - Lower limb kinematic:Attachments/Mo
+    \verb reira, Figueiredo et al. 2021 - Lower limb kinematic.pdf:application/
+    \verb pdf
+    \endverb
+    \field{journaltitle}{Scientific Data}
+    \field{year}{2021}
+  \endentry
+
+  \entry{Nwankpa.08112018}{misc}{}{}
+    \name{author}{4}{}{%
+      {{hash=NC}{%
+         family={Nwankpa},
+         familyi={N\bibinitperiod},
+         given={Chigozie},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=IW}{%
+         family={Ijomah},
+         familyi={I\bibinitperiod},
+         given={Winifred},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=GA}{%
+         family={Gachagan},
+         familyi={G\bibinitperiod},
+         given={Anthony},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MS}{%
+         family={Marshall},
+         familyi={M\bibinitperiod},
+         given={Stephen},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NCIWGAMS1}
+    \strng{fullhash}{NCIWGAMS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{abstract}{%
+    Deep neural networks have been successfully used in diverse emerging
+  domains to solve real world complex problems with may more deep learning(DL)
+  architectures, being developed to date. To achieve these state-of-the-art
+  performances, the DL architectures use activation functions (AFs), to perform
+  diverse computations between the hidden layers and the output layers of any
+  given DL architecture. This paper presents a survey on the existing AFs used
+  in deep learning applications and highlights the recent trends in the use of
+  the activation functions for deep learning applications. The novelty of this
+  paper is that it compiles majority of the AFs used in DL and outlines the
+  current trends in the applications and usage of these functions in practical
+  deep learning deployments against the state-of-the-art research results. This
+  compilation will aid in making effective decisions in the choice of the most
+  suitable and appropriate activation function for any given application, ready
+  for deployment. This paper is timely because most research papers on AF
+  highlights similar works and results while this paper will be the first, to
+  compile the trends in AF applications in practice against the research
+  results from literature, found in deep learning research to date.%
+    }
+    \field{title}{Activation Functions: Comparison of trends in Practice and
+  Research for Deep Learning}
+    \verb{url}
+    \verb http://arxiv.org/pdf/1811.03378v1
+    \endverb
+    \verb{file}
+    \verb Nwankpa, Ijomah et al. 08 11 2018 - Activation Functions:Attachments/
+    \verb Nwankpa, Ijomah et al. 08 11 2018 - Activation Functions.pdf:applicat
+    \verb ion/pdf
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{PedroSaCunhaJoaoFerreiraA.PauloCoimbra.}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=P}{%
+         family={{Pedro S{\'a} Cunha, Jo{\~a}o Ferreira, A. Paulo Coimbra}},
+         familyi={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{P1}
+    \strng{fullhash}{P1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{title}{Computational Intelligence generation of subject-specific
+  knee and hip healthy joint angles reference curves}
+  \endentry
+
+  \entry{Qian.1999}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=QN}{%
+         family={Qian},
+         familyi={Q\bibinitperiod},
+         given={Ning},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{QN1}
+    \strng{fullhash}{QN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Q}
+    \field{sortinithash}{Q}
+    \field{abstract}{%
+    A momentum term is usually included in the simulations of connectionist
+  learning algorithms. Although it is well known that such a term greatly
+  improves the speed of learning, there have been few rigorous studies of its
+  mechanisms. In this paper, I show that in the limit of continuous time, the
+  momentum parameter is analogous to the mass of Newtonian particles that move
+  through a viscous medium in a conservative force field. The behavior of the
+  system near a local minimum is equivalent to a set of coupled and damped
+  harmonic oscillators. The momentum term improves the speed of convergence by
+  bringing some eigen components of the system closer to critical damping.
+  Similar results can be obtained for the discrete time case used in computer
+  simulations. In particular, I derive the bounds for convergence on
+  learning-rate and momentum parameters, and demonstrate that the momentum term
+  can increase the range of learning rate over which the system converges. The
+  optimal condition for convergence is also analyzed.%
+    }
+    \verb{doi}
+    \verb 10.1016/S0893-6080(98)00116-6
+    \endverb
+    \field{number}{1}
+    \field{pages}{145\bibrangedash 151}
+    \field{title}{On the momentum term in gradient descent learning algorithms}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0893608098001166
+    \endverb
+    \field{volume}{12}
+    \field{journaltitle}{Neural networks : the official journal of the
+  International Neural Network Society}
+    \field{year}{1999}
+  \endentry
+
+  \entry{Rahman.2006}{inproceedings}{}{}
+    \name{author}{4}{}{%
+      {{hash=RMH}{%
+         family={Rahman},
+         familyi={R\bibinitperiod},
+         given={Mohammad\bibnamedelima Habibur},
+         giveni={M\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=KK}{%
+         family={Kiguchi},
+         familyi={K\bibinitperiod},
+         given={Kazuo},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=RMM}{%
+         family={Rahman},
+         familyi={R\bibinitperiod},
+         given={Md.\bibnamedelima Mozasser},
+         giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Sasaki},
+         familyi={S\bibinitperiod},
+         given={Makoto},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{RMHKKRMMSM1}
+    \strng{fullhash}{RMHKKRMMSM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{booktitle}{ICIIS 2006}
+    \verb{doi}
+    \verb 10.1109/ICIIS.2006.365731
+    \endverb
+    \field{isbn}{1-4244-0322-7}
+    \field{pages}{241\bibrangedash 246}
+    \field{title}{Robotic Exoskeleton for Rehabilitation and Motion Assist}
+    \list{location}{1}{%
+      {[Piscataway, NJ]}%
+    }
+    \field{year}{2006}
+  \endentry
+
+  \entry{Ramachandran.16102017}{misc}{}{}
+    \name{author}{3}{}{%
+      {{hash=RP}{%
+         family={Ramachandran},
+         familyi={R\bibinitperiod},
+         given={Prajit},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=ZB}{%
+         family={Zoph},
+         familyi={Z\bibinitperiod},
+         given={Barret},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=LQ}{%
+         family={{Le V}},
+         familyi={L\bibinitperiod},
+         given={Quoc},
+         giveni={Q\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RPZBLQ1}
+    \strng{fullhash}{RPZBLQ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    The choice of activation functions in deep networks has a significant
+  effect on the training dynamics and task performance. Currently, the most
+  successful and widely-used activation function is the Rectified Linear Unit
+  (ReLU). Although various hand-designed alternatives to ReLU have been
+  proposed, none have managed to replace it due to inconsistent gains. In this
+  work, we propose to leverage automatic search techniques to discover new
+  activation functions. Using a combination of exhaustive and reinforcement
+  learning-based search, we discover multiple novel activation functions. We
+  verify the effectiveness of the searches by conducting an empirical
+  evaluation with the best discovered activation function. Our experiments show
+  that the best discovered activation function, {\$}f(x) = x $\backslash$cdot
+  \text{sigmoid}($\backslash$beta x){\$}, which we name Swish, tends to work
+  better than ReLU on deeper models across a number of challenging datasets.
+  For example, simply replacing ReLUs with Swish units improves top-1
+  classification accuracy on ImageNet by 0.9\% for Mobile NASNet-A and 0.6\%
+  for Inception-ResNet-v2. The simplicity of Swish and its similarity to ReLU
+  make it easy for practitioners to replace ReLUs with Swish units in any
+  neural network.%
+    }
+    \field{title}{Searching for Activation Functions}
+    \verb{url}
+    \verb http://arxiv.org/pdf/1710.05941v2
+    \endverb
+    \verb{file}
+    \verb Ramachandran, Zoph et al. 16 10 2017 - Searching for Activation Funct
+    \verb ions:Attachments/Ramachandran, Zoph et al. 16 10 2017 - Searching for
+    \verb  Activation Functions.pdf:application/pdf
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{Rasmussen.2004}{incollection}{}{}
+    \name{author}{1}{}{%
+      {{hash=RCE}{%
+         family={Rasmussen},
+         familyi={R\bibinitperiod},
+         given={Carl\bibnamedelima Edward},
+         giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \name{editor}{3}{}{%
+      {{hash=BO}{%
+         family={Bousquet},
+         familyi={B\bibinitperiod},
+         given={Olivier},
+         giveni={O\bibinitperiod},
+      }}%
+      {{hash=vLU}{%
+         prefix={von},
+         prefixi={v\bibinitperiod},
+         family={Luxburg},
+         familyi={L\bibinitperiod},
+         given={Ulrike},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=RG}{%
+         family={R{\"a}tsch},
+         familyi={R\bibinitperiod},
+         given={Gunnar},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Springer Nature}}%
+    }
+    \strng{namehash}{RCE1}
+    \strng{fullhash}{RCE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{booktitle}{Advanced Lectures On Machine Learning}
+    \verb{doi}
+    \verb 10.1007/978-3-540-28650-9{\textunderscore }4
+    \endverb
+    \field{isbn}{978-3-540-23122-6}
+    \field{pages}{63\bibrangedash 71}
+    \field{series}{Lecture Notes in Computer Science}
+    \field{title}{Gaussian Processes in Machine Learning}
+    \field{volume}{3176}
+    \list{location}{1}{%
+      {Berlin, Heidelberg}%
+    }
+    \verb{file}
+    \verb Rasmussen 2004 - Gaussian Processes in Machine Learning:Attachments/R
+    \verb asmussen 2004 - Gaussian Processes in Machine Learning.pdf:applicatio
+    \verb n/pdf
+    \endverb
+    \field{year}{2004}
+  \endentry
+
+  \entry{Rasmussen.2006}{book}{}{}
+    \name{author}{2}{}{%
+      {{hash=RCE}{%
+         family={Rasmussen},
+         familyi={R\bibinitperiod},
+         given={Carl\bibnamedelima Edward},
+         giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=WCKI}{%
+         family={Williams},
+         familyi={W\bibinitperiod},
+         given={Christopher K.\bibnamedelima I.},
+         giveni={C\bibinitperiod\bibinitdelim K\bibinitperiod\bibinitdelim
+  I\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{The MIT Press}}%
+    }
+    \strng{namehash}{RCEWCKI1}
+    \strng{fullhash}{RCEWCKI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    {\textquotedbl}Gaussian processes (GPs) provide a principled, practical,
+  probabilistic approach to learning in kernel machines. GPs have received
+  increased attention in the machine-learning community over the past decade,
+  and this book provides a long-needed systematic and unified treatment of
+  theoretical and practical aspects of GPs in machine learning. The treatment
+  is comprehensive and self-contained, targeted at researchers and students in
+  machine learning and applied statistics.{\textquotedbl}--BOOK JACKET.%
+    }
+    \field{edition}{3. print}
+    \field{isbn}{9780262182539}
+    \field{series}{Adaptive computation and machine learning}
+    \field{title}{Gaussian process for machine learning}
+    \list{location}{1}{%
+      {London, England}%
+    }
+    \field{year}{2006}
+  \endentry
+
+  \entry{Rosen.1999}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=RJ}{%
+         family={Rosen},
+         familyi={R\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FMB}{%
+         family={Fuchs},
+         familyi={F\bibinitperiod},
+         given={M.\bibnamedelima B.},
+         giveni={M\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+      {{hash=AM}{%
+         family={Arcan},
+         familyi={A\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RJFMBAM1}
+    \strng{fullhash}{RJFMBAM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    Muscle models are the essential components of any musculoskeletal
+  simulation. In addition, muscle models which are incorporated in neural-based
+  prosthetic and orthotic devices may significantly improve their performance.
+  The aim of the study was to compare the performances of two types of muscle
+  models in terms of predicting the moments developed at the human elbow joint
+  complex based on joint kinematics and neuromuscular activity. The performance
+  evaluation of the muscle models was required to implement them in a powered
+  myosignal-driven exoskeleton (orthotic device). The experimental setup
+  included a passive exoskeleton capable of measuring the joint kinematics and
+  dynamics in addition to the muscle myosignal activity (EMG). Two types of
+  models were developed and analyzed: (i) a Hill-based model and (ii) a neural
+  network. The task, which was selected for evaluating the muscle models
+  performance, was the flexion-extension movement of the forearm with a
+  hand-held weight. For this task the muscle model inputs were the normalized
+  neural activation levels of the four main flexor-extensor muscles of the
+  elbow joint, and the elbow joint angle and angular velocity. Using this
+  inputs, the muscle model predicted the moment applied on the elbow joint
+  during the movement. Results indicated a good performance of the Hill model,
+  although the neural network predictions appeared to be superior. Relative
+  advantages and shortcomings of both approaches were presented and discussed.%
+    }
+    \verb{doi}
+    \verb 10.1006/cbmr.1999.1524
+    \endverb
+    \field{issn}{0010-4809}
+    \field{number}{5}
+    \field{pages}{415\bibrangedash 439}
+    \field{title}{Performances of hill-type and neural network muscle
+  models-toward a myosignal-based exoskeleton}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0010480999915240
+    \endverb
+    \field{volume}{32}
+    \field{journaltitle}{Computers and Biomedical Research}
+    \field{year}{1999}
+  \endentry
+
+  \entry{Ruder.15092016}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=RS}{%
+         family={Ruder},
+         familyi={R\bibinitperiod},
+         given={Sebastian},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RS1}
+    \strng{fullhash}{RS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    Gradient descent optimization algorithms, while increasingly popular, are
+  often used as black-box optimizers, as practical explanations of their
+  strengths and weaknesses are hard to come by. This article aims to provide
+  the reader with intuitions with regard to the behaviour of different
+  algorithms that will allow her to put them to use. In the course of this
+  overview, we look at different variants of gradient descent, summarize
+  challenges, introduce the most common optimization algorithms, review
+  architectures in a parallel and distributed setting, and investigate
+  additional strategies for optimizing gradient descent.%
+    }
+    \field{title}{An overview of gradient descent optimization algorithms}
+    \verb{url}
+    \verb http://arxiv.org/pdf/1609.04747v2
+    \endverb
+    \verb{file}
+    \verb Ruder 15 09 2016 - An overview of gradient descent:Attachments/Ruder
+    \verb 15 09 2016 - An overview of gradient descent.pdf:application/pdf
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{Schmidhuber.2015}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=SJ}{%
+         family={Schmidhuber},
+         familyi={S\bibinitperiod},
+         given={J{\"u}rgen},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SJ1}
+    \strng{fullhash}{SJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    In recent years, deep artificial neural networks (including recurrent ones)
+  have won numerous contests in pattern recognition and machine learning. This
+  historical survey compactly summarizes relevant work, much of it from the
+  previous millennium. Shallow and Deep Learners are distinguished by the depth
+  of their credit assignment paths, which are chains of possibly learnable,
+  causal links between actions and effects. I review deep supervised learning
+  (also recapitulating the history of backpropagation), unsupervised learning,
+  reinforcement learning {\&} evolutionary computation, and indirect search for
+  short programs encoding deep and large networks.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.neunet.2014.09.003
+    \endverb
+    \field{pages}{85\bibrangedash 117}
+    \field{title}{Deep learning in neural networks: an overview}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0893608014002135
+    \endverb
+    \field{volume}{61}
+    \verb{file}
+    \verb Schmidhuber 2015 - Deep learning in neural networks:Attachments/Schmi
+    \verb dhuber 2015 - Deep learning in neural networks.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Neural networks : the official journal of the
+  International Neural Network Society}
+    \field{year}{2015}
+  \endentry
+
+  \entry{Schulz.2018}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=SE}{%
+         family={Schulz},
+         familyi={S\bibinitperiod},
+         given={Eric},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Speekenbrink},
+         familyi={S\bibinitperiod},
+         given={Maarten},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=KA}{%
+         family={Krause},
+         familyi={K\bibinitperiod},
+         given={Andreas},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SESMKA1}
+    \strng{fullhash}{SESMKA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    This tutorial introduces the reader to Gaussian process regression as an
+  expressive tool to model, actively explore and exploit unknown functions.
+  Gaussian process regression is a powerful, non-parametric Bayesian approach
+  towards regression problems that can be utilized in exploration and
+  exploitation scenarios. This tutorial aims to provide an accessible
+  introduction to these techniques. We will introduce Gaussian processes which
+  generate distributions over functions used for Bayesian non-parametric
+  regression, and demonstrate their use in applications and didactic examples
+  including simple regression problems, a demonstration of kernel-encoded prior
+  assumptions and compositions, a pure exploration scenario within an optimal
+  design framework, and a bandit-like exploration--exploitation scenario where
+  the goal is to recommend movies. Beyond that, we describe a situation
+  modelling risk-averse exploration in which an additional constraint (not to
+  sample below a certain threshold) needs to be accounted for. Lastly, we
+  summarize recent psychological experiments utilizing Gaussian processes.
+  Software and literature pointers are also provided.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.jmp.2018.03.001
+    \endverb
+    \field{issn}{0022-2496}
+    \field{pages}{1\bibrangedash 16}
+    \field{title}{A tutorial on Gaussian process regression: Modelling,
+  exploring, and exploiting functions}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0022249617302158
+    \endverb
+    \field{volume}{85}
+    \verb{file}
+    \verb Schulz, Speekenbrink et al. 2018 - A tutorial on Gaussian process:Att
+    \verb achments/Schulz, Speekenbrink et al. 2018 - A tutorial on Gaussian pr
+    \verb ocess.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Journal of Mathematical Psychology}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Scikitlearn.05082024}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=Sl}{%
+         family={Scikit-learn},
+         familyi={S\bibinithyphendelim l\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{Sl1}
+    \strng{fullhash}{Sl1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{scikit-learn: machine learning in Python --- scikit-learn
+  1.5.1 documentation}
+    \verb{url}
+    \verb https://scikit-learn.org/stable/
+    \endverb
+    \field{year}{05/08/2024}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Scipy.24062024}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=S}{%
+         family={Scipy},
+         familyi={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{S1}
+    \strng{fullhash}{S1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{SciPy documentation --- SciPy v1.14.0 Manual}
+    \verb{url}
+    \verb https://docs.scipy.org/doc/scipy/
+    \endverb
+    \field{year}{24/06/2024}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Shorter.2013}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=SKA}{%
+         family={Shorter},
+         familyi={S\bibinitperiod},
+         given={Kenneth\bibnamedelima Alex},
+         giveni={K\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=XJ}{%
+         family={Xia},
+         familyi={X\bibinitperiod},
+         given={Jicheng},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=HWET}{%
+         family={Hsiao-Wecksler},
+         familyi={H\bibinithyphendelim W\bibinitperiod},
+         given={Elizabeth\bibnamedelima T.},
+         giveni={E\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+      {{hash=DWK}{%
+         family={Durfee},
+         familyi={D\bibinitperiod},
+         given={William\bibnamedelima K.},
+         giveni={W\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=KGF}{%
+         family={Kogler},
+         familyi={K\bibinitperiod},
+         given={G{\'e}za\bibnamedelima F.},
+         giveni={G\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SKAXJHWETDWKKGF1}
+    \strng{fullhash}{SKAXJHWETDWKKGF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \verb{doi}
+    \verb 10.1109/TMECH.2011.2174799
+    \endverb
+    \field{issn}{1083-4435}
+    \field{number}{1}
+    \field{pages}{337\bibrangedash 347}
+    \field{title}{Technologies for Powered Ankle-Foot Orthotic Systems:
+  Possibilities and Challenges}
+    \field{volume}{18}
+    \field{journaltitle}{IEEE/ASME Transactions on Mechatronics}
+    \field{year}{2013}
+  \endentry
+
+  \entry{Singh.2013}{article}{}{}
+    \name{author}{7}{}{%
+      {{hash=SH}{%
+         family={Singh},
+         familyi={S\bibinitperiod},
+         given={Harpreet},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=GMM}{%
+         family={Gupta},
+         familyi={G\bibinitperiod},
+         given={Madan\bibnamedelima M.},
+         giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=MT}{%
+         family={Meitzler},
+         familyi={M\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=HZG}{%
+         family={Hou},
+         familyi={H\bibinitperiod},
+         given={Zeng-Guang},
+         giveni={Z\bibinithyphendelim G\bibinitperiod},
+      }}%
+      {{hash=GKK}{%
+         family={Garg},
+         familyi={G\bibinitperiod},
+         given={Kum\bibnamedelima Kum},
+         giveni={K\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=SAMG}{%
+         family={Solo},
+         familyi={S\bibinitperiod},
+         given={Ashu M.\bibnamedelima G.},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim
+  G\bibinitperiod},
+      }}%
+      {{hash=ZLA}{%
+         family={Zadeh},
+         familyi={Z\bibinitperiod},
+         given={Lotfi\bibnamedelima A.},
+         giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SHGMMMTHZGGKKSAMGZLA1}
+    \strng{fullhash}{SHGMMMTHZGGKKSAMGZLA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \verb{doi}
+    \verb 10.1155/2013/581879
+    \endverb
+    \field{issn}{1687-7101}
+    \field{pages}{1\bibrangedash 3}
+    \field{title}{Real-Life Applications of Fuzzy Logic}
+    \field{volume}{2013}
+    \verb{file}
+    \verb Singh, Gupta et al. 2013 - Real-Life Applications of Fuzzy Logic:Atta
+    \verb chments/Singh, Gupta et al. 2013 - Real-Life Applications of Fuzzy Lo
+    \verb gic.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Advances in Fuzzy Systems}
+    \field{year}{2013}
+  \endentry
+
+  \entry{Singh.2024b}{incollection}{}{}
+    \name{author}{1}{}{%
+      {{hash=SRE}{%
+         family={Singh},
+         familyi={S\bibinitperiod},
+         given={Rajat\bibnamedelima Emanuel},
+         giveni={R\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \name{editor}{1}{}{%
+      {{hash=SRE}{%
+         family={Singh},
+         familyi={S\bibinitperiod},
+         given={Rajat\bibnamedelima Emanuel},
+         giveni={R\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{SRE1}
+    \strng{fullhash}{SRE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{MOTION ANALYSIS OF BIOLOGICAL SYSTEMS}
+    \verb{doi}
+    \verb 10.1007/978-3-031-52977-1{\textunderscore }8
+    \endverb
+    \field{isbn}{978-3-031-52976-4}
+    \field{pages}{125\bibrangedash 139}
+    \field{title}{Gait Analysis}
+    \list{location}{1}{%
+      {[S.l.]}%
+    }
+    \verb{file}
+    \verb Singh 2024 - Gait Analysis:Attachments/Singh 2024 - Gait Analysis.pdf
+    \verb :application/pdf
+    \endverb
+    \field{year}{2024}
+  \endentry
+
+  \entry{Smola.2004}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=SAJ}{%
+         family={Smola},
+         familyi={S\bibinitperiod},
+         given={Alex\bibnamedelima J.},
+         giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sch{\"o}lkopf},
+         familyi={S\bibinitperiod},
+         given={Bernhard},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SAJSB1}
+    \strng{fullhash}{SAJSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    In this tutorial we give an overview of the basic ideas underlying Support
+  Vector (SV) machines for function estimation. Furthermore, we include a
+  summary of currently used algorithms for training SV machines, covering both
+  the quadratic (or convex) programming part and advanced methods for dealing
+  with large datasets. Finally, we mention some modifications and extensions
+  that have been applied to the standard SV algorithm, and discuss the aspect
+  of regularization from a SV perspective.%
+    }
+    \verb{doi}
+    \verb 10.1023/B:STCO.0000035301.49549.88
+    \endverb
+    \field{issn}{1573-1375}
+    \field{number}{3}
+    \field{pages}{199\bibrangedash 222}
+    \field{title}{A tutorial on support vector regression}
+    \verb{url}
+    \verb https://link.springer.com/article/10.1023/B:STCO.0000035301.49549.88
+    \endverb
+    \field{volume}{14}
+    \verb{file}
+    \verb Smola, Sch{\"o}lkopf 2004 - A tutorial on support vector:Attachments/
+    \verb Smola, Sch{\"o}lkopf 2004 - A tutorial on support vector.pdf:applicat
+    \verb ion/pdf
+    \endverb
+    \field{journaltitle}{Statistics and Computing}
+    \field{year}{2004}
+  \endentry
+
+  \entry{Srivastava.2014}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=SN}{%
+         family={Srivastava},
+         familyi={S\bibinitperiod},
+         given={Nitish},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=HG}{%
+         family={Hinton},
+         familyi={H\bibinitperiod},
+         given={Geoffrey},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=KA}{%
+         family={Krizhevsky},
+         familyi={K\bibinitperiod},
+         given={Alex},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SI}{%
+         family={Sutskever},
+         familyi={S\bibinitperiod},
+         given={Ilya},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=SR}{%
+         family={Salakhutdinov},
+         familyi={S\bibinitperiod},
+         given={Ruslan},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SNHGKASISR1}
+    \strng{fullhash}{SNHGKASISR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{pages}{1929\bibrangedash 1958}
+    \field{title}{Dropout: A Simple Way to Prevent Neural Networks from
+  Overfitting}
+    \field{volume}{15}
+    \field{journaltitle}{Journal of Machine Learning Research}
+    \field{year}{2014}
+  \endentry
+
+  \entry{TensorFlow.06032024}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=T}{%
+         family={TensorFlow},
+         familyi={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{T1}
+    \strng{fullhash}{T1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{abstract}{%
+    An end-to-end open source machine learning platform for everyone. Discover
+  TensorFlow's flexible ecosystem of tools, libraries and community resources.%
+    }
+    \field{title}{TensorFlow}
+    \verb{url}
+    \verb https://www.tensorflow.org/
+    \endverb
+    \field{year}{06/03/2024}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Tibshirani.2021}{book}{}{}
+    \name{author}{4}{}{%
+      {{hash=TR}{%
+         family={Tibshirani},
+         familyi={T\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=HT}{%
+         family={Hastie},
+         familyi={H\bibinitperiod},
+         given={Trevor},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=WD}{%
+         family={Witten},
+         familyi={W\bibinitperiod},
+         given={Daniela},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=JG}{%
+         family={James},
+         familyi={J\bibinitperiod},
+         given={Gareth},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{TRHTWDJG1}
+    \strng{fullhash}{TRHTWDJG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \verb{doi}
+    \verb 10.1007/978-1-0716-1418-1
+    \endverb
+    \field{isbn}{978-1-0716-1417-4}
+    \field{title}{An Introduction to Statistical Learning: With Applications in
+  R}
+    \list{location}{1}{%
+      {New York, NY}%
+    }
+    \verb{file}
+    \verb Tibshirani, Hastie et al. 2021 - An Introduction to Statistical Learn
+    \verb ing:Attachments/Tibshirani, Hastie et al. 2021 - An Introduction to S
+    \verb tatistical Learning.pdf:application/pdf
+    \endverb
+    \field{year}{2021}
+  \endentry
+
+  \entry{Tucker.2015}{article}{}{}
+    \name{author}{10}{}{%
+      {{hash=TMR}{%
+         family={Tucker},
+         familyi={T\bibinitperiod},
+         given={Michael\bibnamedelima R.},
+         giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=OJ}{%
+         family={Olivier},
+         familyi={O\bibinitperiod},
+         given={Jeremy},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=PA}{%
+         family={Pagel},
+         familyi={P\bibinitperiod},
+         given={Anna},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BH}{%
+         family={Bleuler},
+         familyi={B\bibinitperiod},
+         given={Hannes},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=BM}{%
+         family={Bouri},
+         familyi={B\bibinitperiod},
+         given={Mohamed},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=LO}{%
+         family={Lambercy},
+         familyi={L\bibinitperiod},
+         given={Olivier},
+         giveni={O\bibinitperiod},
+      }}%
+      {{hash=DJR}{%
+         family={{Del Mill{\'a}n}},
+         familyi={D\bibinitperiod},
+         given={Jos{\'e}\bibnamedelima R.},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=RR}{%
+         family={Riener},
+         familyi={R\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=VH}{%
+         family={Vallery},
+         familyi={V\bibinitperiod},
+         given={Heike},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=GR}{%
+         family={Gassert},
+         familyi={G\bibinitperiod},
+         given={Roger},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TMROJPABHBMLODJRRRVHGR1}
+    \strng{fullhash}{TMROJPABHBMLODJRRRVHGR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{abstract}{%
+    : Technological advancements have led to the development of numerous
+  wearable robotic devices for the physical assistance and restoration of human
+  locomotion. While many challenges remain with respect to the mechanical
+  design of such devices, it is at least equally challenging and important to
+  develop strategies to control them in concert with the intentions of the
+  user.This work reviews the state-of-the-art techniques for controlling
+  portable active lower limb prosthetic and orthotic (P/O) devices in the
+  context of locomotive activities of daily living (ADL), and considers how
+  these can be interfaced with the user's sensory-motor control system. This
+  review underscores the practical challenges and opportunities associated with
+  P/O control, which can be used to accelerate future developments in this
+  field. Furthermore, this work provides a classification scheme for the
+  comparison of the various control strategies.As a novel contribution, a
+  general framework for the control of portable gait-assistance devices is
+  proposed. This framework accounts for the physical and informatic
+  interactions between the controller, the user, the environment, and the
+  mechanical device itself. Such a treatment of P/Os--not as independent
+  devices, but as actors within an ecosystem--is suggested to be necessary to
+  structure the next generation of intelligent and multifunctional
+  controllers.Each element of the proposed framework is discussed with respect
+  to the role that it plays in the assistance of locomotion, along with how its
+  states can be sensed as inputs to the controller. The reviewed controllers
+  are shown to fit within different levels of a hierarchical scheme, which
+  loosely resembles the structure and functionality of the nominal human
+  central nervous system (CNS). Active and passive safety mechanisms are
+  considered to be central aspects underlying all of P/O design and control,
+  and are shown to be critical for regulatory approval of such devices for
+  real-world use.The works discussed herein provide evidence that, while we are
+  getting ever closer, significant challenges still exist for the development
+  of controllers for portable powered P/O devices that can seamlessly integrate
+  with the user's neuromusculoskeletal system and are practical for use in
+  locomotive ADL.%
+    }
+    \verb{doi}
+    \verb 10.1186/1743-0003-12-1
+    \endverb
+    \field{issn}{1743-0003}
+    \field{number}{1}
+    \field{pages}{1}
+    \field{title}{Control strategies for active lower extremity prosthetics and
+  orthotics: a review}
+    \verb{url}
+    \verb https://jneuroengrehab.biomedcentral.com/articles/10.1186/1743-0003-1
+    \verb 2-1
+    \endverb
+    \field{volume}{12}
+    \verb{file}
+    \verb Tucker, Olivier et al. 2015 - Control strategies for active lower:Att
+    \verb achments/Tucker, Olivier et al. 2015 - Control strategies for active
+    \verb lower.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Journal of NeuroEngineering and Rehabilitation}
+    \field{year}{2015}
+  \endentry
+
+  \entry{Unluhisarcikli.uuuuuuuu}{inproceedings}{}{}
+    \name{author}{5}{}{%
+      {{hash=UO}{%
+         family={Unluhisarcikli},
+         familyi={U\bibinitperiod},
+         given={Ozer},
+         giveni={O\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Pietrusinski},
+         familyi={P\bibinitperiod},
+         given={Maciej},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=WB}{%
+         family={Weinberg},
+         familyi={W\bibinitperiod},
+         given={Brian},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=BP}{%
+         family={Bonato},
+         familyi={B\bibinitperiod},
+         given={Paolo},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=MC}{%
+         family={Mavroidis},
+         familyi={M\bibinitperiod},
+         given={Constantinos},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \name{editor}{1}{}{%
+      {{hash=AISC}{%
+         family={Author},
+         familyi={A\bibinitperiod},
+         given={IEEE Staff\bibnamedelima Corporate},
+         giveni={I\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim
+  C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{UOPMWBBPMC1}
+    \strng{fullhash}{UOPMWBBPMC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{booktitle}{2011 IEEE/RSJ International Conference on Intelligent
+  Robots and Systems}
+    \verb{doi}
+    \verb 10.1109/IROS.2011.6094973
+    \endverb
+    \field{isbn}{978-1-61284-456-5}
+    \field{pages}{4893\bibrangedash 4898}
+    \field{title}{Design and control of a robotic lower extremity exoskeleton
+  for gait rehabilitation}
+    \field{year}{uuuu-uuuu}
+  \endentry
+
+  \entry{Werbos.1990}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=WPJ}{%
+         family={Werbos},
+         familyi={W\bibinitperiod},
+         given={P.\bibnamedelima J.},
+         giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WPJ1}
+    \strng{fullhash}{WPJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \verb{doi}
+    \verb 10.1109/5.58337
+    \endverb
+    \field{issn}{0018-9219}
+    \field{number}{10}
+    \field{pages}{1550\bibrangedash 1560}
+    \field{title}{Backpropagation through time: what it does and how to do it}
+    \field{volume}{78}
+    \verb{file}
+    \verb Werbos 1990 - Backpropagation through time:Attachments/Werbos 1990 -
+    \verb Backpropagation through time.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Proceedings of the IEEE}
+    \field{year}{1990}
+  \endentry
+
+  \entry{XavierGlorot.2010}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=X}{%
+         family={{Xavier Glorot}},
+         familyi={X\bibinitperiod},
+      }}%
+      {{hash=Y}{%
+         family={{Yoshua Bengio}},
+         familyi={Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{XY1}
+    \strng{fullhash}{XY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{X}
+    \field{sortinithash}{X}
+    \field{title}{Understanding the difficulty of training deep feedforward
+  neural networks}
+    \verb{url}
+    \verb https://www.researchgate.net/publication/215616968_Understanding_the_
+    \verb difficulty_of_training_deep_feedforward_neural_networks/references
+    \endverb
+    \field{journaltitle}{Journal of Machine Learning Research}
+    \field{year}{2010}
+  \endentry
+
+  \entry{Yang.2008}{inproceedings}{}{}
+    \name{author}{4}{}{%
+      {{hash=YX}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Xiuxia},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=LG}{%
+         family={Lihua},
+         familyi={L\bibinitperiod},
+         given={Gui},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=YZ}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Zhiyong},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=GW}{%
+         family={Gu},
+         familyi={G\bibinitperiod},
+         given={Wenjin},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{IEEE / Institute of Electrical and Electronics Engineers
+  Incorporated}}%
+    }
+    \strng{namehash}{YXLGYZGW1}
+    \strng{fullhash}{YXLGYZGW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Y}
+    \field{sortinithash}{Y}
+    \field{booktitle}{Natural Computation, 2008. ICNC '08. Fourth International
+  Conference on}
+    \verb{doi}
+    \verb 10.1109/ICNC.2008.754
+    \endverb
+    \field{isbn}{978-0-7695-3304-9}
+    \field{pages}{399\bibrangedash 403}
+    \field{title}{Lower Extreme Carrying Exoskeleton Robot Adative Control
+  Using Wavelet Neural Networks}
+    \field{year}{2008}
+  \endentry
+
+  \entry{Young.2014}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=YAJ}{%
+         family={Young},
+         familyi={Y\bibinitperiod},
+         given={A.\bibnamedelima J.},
+         giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=KTA}{%
+         family={Kuiken},
+         familyi={K\bibinitperiod},
+         given={T.\bibnamedelima A.},
+         giveni={T\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=HLJ}{%
+         family={Hargrove},
+         familyi={H\bibinitperiod},
+         given={L.\bibnamedelima J.},
+         giveni={L\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{YAJKTAHLJ1}
+    \strng{fullhash}{YAJKTAHLJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Y}
+    \field{sortinithash}{Y}
+    \field{abstract}{%
+    OBJECTIVE The purpose of this study was to determine the contribution of
+  electromyography (EMG) data, in combination with a diverse array of
+  mechanical sensors, to locomotion mode intent recognition in transfemoral
+  amputees using powered prostheses. Additionally, we determined the effect of
+  adding time history information using a dynamic Bayesian network (DBN) for
+  both the mechanical and EMG sensors. APPROACH EMG signals from the residual
+  limbs of amputees have been proposed to enhance pattern recognition-based
+  intent recognition systems for powered lower limb prostheses, but mechanical
+  sensors on the prosthesis-such as inertial measurement units, position and
+  velocity sensors, and load cells-may be just as useful. EMG and mechanical
+  sensor data were collected from 8 transfemoral amputees using a powered
+  knee/ankle prosthesis over basic locomotion modes such as walking, slopes and
+  stairs. An offline study was conducted to determine the benefit of different
+  sensor sets for predicting intent. MAIN RESULTS EMG information was not as
+  accurate alone as mechanical sensor information (p {\textless} 0.05) for any
+  classification strategy. However, EMG in combination with the mechanical
+  sensor data did significantly reduce intent recognition errors (p {\textless}
+  0.05) both for transitions between locomotion modes and steady-state
+  locomotion. The sensor time history (DBN) classifier significantly reduced
+  error rates compared to a linear discriminant classifier for steady-state
+  steps, without increasing the transitional error, for both EMG and mechanical
+  sensors. Combining EMG and mechanical sensor data with sensor time history
+  reduced the average transitional error from 18.4{\%} to 12.2{\%} and the
+  average steady-state error from 3.8{\%} to 1.0{\%} when classifying
+  level-ground walking, ramps, and stairs in eight transfemoral amputee
+  subjects. SIGNIFICANCE These results suggest that a neural interface in
+  combination with time history methods for locomotion mode classification can
+  enhance intent recognition performance; this strategy should be considered
+  for future real-time experiments.%
+    }
+    \verb{doi}
+    \verb 10.1088/1741-2560/11/5/056021
+    \endverb
+    \field{number}{5}
+    \field{pages}{056021}
+    \field{title}{Analysis of using EMG and mechanical sensors to enhance
+  intent recognition in powered lower limb prostheses}
+    \field{volume}{11}
+    \verb{file}
+    \verb Young, Kuiken et al. 2014 - Analysis of using EMG:Attachments/Young,
+    \verb Kuiken et al. 2014 - Analysis of using EMG.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Journal of neural engineering}
+    \field{year}{2014}
+  \endentry
+
+  \entry{Yun.2014}{article}{}{}
+    \name{author}{6}{}{%
+      {{hash=YY}{%
+         family={Yun},
+         familyi={Y\bibinitperiod},
+         given={Youngmok},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=KHC}{%
+         family={Kim},
+         familyi={K\bibinitperiod},
+         given={Hyun-Chul},
+         giveni={H\bibinithyphendelim C\bibinitperiod},
+      }}%
+      {{hash=SSY}{%
+         family={Shin},
+         familyi={S\bibinitperiod},
+         given={Sung\bibnamedelima Yul},
+         giveni={S\bibinitperiod\bibinitdelim Y\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Lee},
+         familyi={L\bibinitperiod},
+         given={Junwon},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=DAD}{%
+         family={Deshpande},
+         familyi={D\bibinitperiod},
+         given={Ashish\bibnamedelima D.},
+         giveni={A\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=KC}{%
+         family={Kim},
+         familyi={K\bibinitperiod},
+         given={Changhwan},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{YYKHCSSYLJDADKC1}
+    \strng{fullhash}{YYKHCSSYLJDADKC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Y}
+    \field{sortinithash}{Y}
+    \field{abstract}{%
+    We propose a novel methodology for predicting human gait pattern kinematics
+  based on a statistical and stochastic approach using a method called Gaussian
+  process regression (GPR). We selected 14 body parameters that significantly
+  affect the gait pattern and 14 joint motions that represent gait kinematics.
+  The body parameter and gait kinematics data were recorded from 113 subjects
+  by anthropometric measurements and a motion capture system. We generated a
+  regression model with GPR for gait pattern prediction and built a stochastic
+  function mapping from body parameters to gait kinematics based on the
+  database and GPR, and validated the model with a cross validation method. The
+  function can not only produce trajectories for the joint motions associated
+  with gait kinematics, but can also estimate the associated uncertainties. Our
+  approach results in a novel, low-cost and subject-specific method for
+  predicting gait kinematics with only the subject's body parameters as the
+  necessary input, and also enables a comprehensive understanding of the
+  correlation and uncertainty between body parameters and gait kinematics.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.jbiomech.2013.09.032
+    \endverb
+    \field{issn}{0021-9290}
+    \field{number}{1}
+    \field{pages}{186\bibrangedash 192}
+    \field{title}{Statistical method for prediction of gait kinematics with
+  Gaussian process regression}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0021929013004879
+    \endverb
+    \field{volume}{47}
+    \field{journaltitle}{Journal of Biomechanics}
+    \field{year}{2014}
+  \endentry
+
+  \entry{Zeiler.22122012}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=ZMD}{%
+         family={Zeiler},
+         familyi={Z\bibinitperiod},
+         given={Matthew\bibnamedelima D.},
+         giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZMD1}
+    \strng{fullhash}{ZMD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \field{abstract}{%
+    We present a novel per-dimension learning rate method for gradient descent
+  called ADADELTA. The method dynamically adapts over time using only first
+  order information and has minimal computational overhead beyond vanilla
+  stochastic gradient descent. The method requires no manual tuning of a
+  learning rate and appears robust to noisy gradient information, different
+  model architecture choices, various data modalities and selection of
+  hyperparameters. We show promising results compared to other methods on the
+  MNIST digit classification task using a single machine and on a large scale
+  voice dataset in a distributed cluster environment.%
+    }
+    \field{title}{ADADELTA: An Adaptive Learning Rate Method}
+    \verb{url}
+    \verb http://arxiv.org/pdf/1212.5701v1
+    \endverb
+    \verb{file}
+    \verb Zeiler 22 12 2012 - ADADELTA An Adaptive Learning Rate:Attachments/Ze
+    \verb iler 22 12 2012 - ADADELTA An Adaptive Learning Rate.pdf:application/
+    \verb pdf
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{Zhang.82620188292018}{inproceedings}{}{}
+    \name{author}{5}{}{%
+      {{hash=ZH}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Huanghe},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=TMO}{%
+         family={Tay},
+         familyi={T\bibinitperiod},
+         given={Mey\bibnamedelima Olivares},
+         giveni={M\bibinitperiod\bibinitdelim O\bibinitperiod},
+      }}%
+      {{hash=SZ}{%
+         family={Suar},
+         familyi={S\bibinitperiod},
+         given={Zeynep},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=KM}{%
+         family={Kurt},
+         familyi={K\bibinitperiod},
+         given={Mehmet},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=ZD}{%
+         family={Zanotto},
+         familyi={Z\bibinitperiod},
+         given={Damiano},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{ZHTMOSZKMZD1}
+    \strng{fullhash}{ZHTMOSZKMZD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \field{booktitle}{2018 7th IEEE International Conference on Biomedical
+  Robotics and Biomechatronics (Biorob)}
+    \verb{doi}
+    \verb 10.1109/BIOROB.2018.8487972
+    \endverb
+    \field{isbn}{978-1-5386-8183-1}
+    \field{pages}{1169\bibrangedash 1174}
+    \field{title}{Regression Models for Estimating Kinematic Gait Parameters
+  with Instrumented Footwear}
+    \field{year}{8/26/2018 - 8/29/2018}
+  \endentry
+
+  \entry{Zou.2005}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=ZH}{%
+         family={Zou},
+         familyi={Z\bibinitperiod},
+         given={Hui},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=HT}{%
+         family={Hastie},
+         familyi={H\bibinitperiod},
+         given={Trevor},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZHHT1}
+    \strng{fullhash}{ZHHT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \verb{doi}
+    \verb 10.1111/j.1467-9868.2005.00503.x
+    \endverb
+    \field{issn}{1369-7412}
+    \field{number}{2}
+    \field{pages}{301\bibrangedash 320}
+    \field{title}{Regularization and Variable Selection Via the Elastic Net}
+    \field{volume}{67}
+    \verb{file}
+    \verb Zou, Hastie 2005 - Regularization and Variable Selection:Attachments/
+    \verb Zou, Hastie 2005 - Regularization and Variable Selection.pdf:applicat
+    \verb ion/pdf
+    \endverb
+    \field{journaltitle}{Journal of the Royal Statistical Society Series B:
+  Statistical Methodology}
+    \field{year}{2005}
+  \endentry
+\enddatalist
+\endinput

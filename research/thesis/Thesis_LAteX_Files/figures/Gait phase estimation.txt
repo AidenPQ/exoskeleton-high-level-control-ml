@@ -1,0 +1,8 @@
+Mean Squared Error: 125.20942426378596
+Best Kernel: 31.6**2 * RationalQuadratic(alpha=0.0198, length_scale=0.019)
+
+Mean Squared Error: 0.14314816811582112
+Best Kernel: 4.45**2 * RationalQuadratic(alpha=0.000913, length_scale=0.08)
+
+Mean Squared Error: 0.0069908201315230945
+Best Kernel: 1.65**2 * RationalQuadratic(alpha=0.000308, length_scale=0.0528)

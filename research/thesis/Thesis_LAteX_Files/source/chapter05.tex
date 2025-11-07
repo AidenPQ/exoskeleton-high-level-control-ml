@@ -1,0 +1,1012 @@
+% !TeX spellcheck = en_US
+\chapter{Performance Evaluation}%
+This chapter evaluates the controller's performance. As the controller can be divided into several sub-parts, the performance of each sub-part will first be analyzed independently, i.e. gait phase estimation, gait period estimation, interpolation performance and neural network performance. Finally, the various elements will be put together to evaluate the controller's performance.
+%
+%
+\section{Gait phase Estimation Performance}%
+%
+For the model estimating the gait phase shown in Figure X, the results are not convincing. Indeed, the obtained model is:
+\begin{itemize}
+	\item ConstantKernel: 31.6**2
+	\item Nature of variable kernel: RationalQuadratic
+	\item Parameters of the variable kernel: alpha=0.0198, length\_scale=0.019
+\end{itemize}
+The obtained MSE is 125.20, which corresponds to an error of 11.18 on the approximated gait phase. Training a GPR model is very resource-intensive, and beyond a certain number of samples, specifically 51,420, it is necessary to compress the data matrix to use it within the RAM memory of a computer.
+
+The error obtained is due to high error at the boundaries. Since gait is a cyclical process, being at 0\% gait and 100\% gait is similar. Seyrath and Barnikol \cite{A.Seyfarth.2014} propose a method to resolve this issue, but it will not be applied here and can be considered a potential improvement.
+%
+\section{Gait Period Estimation Performance}%
+
+As seen in \cref{subsec:GaussianProcessRegressionTraining}, the Gaussian Process Regression model for gait period estimation is trained using a GridSearch. The operation of Gaussian PRocess Regression was explained in \cref{subsec:GaussianProcessRegression}. GridSearch designates, for each type of variable kernel, an initial kernel whose hyperparameters are updated during training to determine the optimal shape of this kernel. This optimal shape is sought within the hyperparameter intervals as described in \cref{subsec:GaussianProcessRegressionTraining}. At the end, it evaluates which of these initial kernels has achieved an optimal shape with the best performance. Performance is evaluated using the MSE, which can then be evaluated more concretely by taking its square root, since the output of the model is an estimate of the gait period, and the root of the MSE allows us to evaluate the error in seconds made on this estimate.
+
+In \cref{tab:ComparisonSplineInterpolationDegree} are shown the different kernels obtained, ranked from worst to best by Gridsearch and the root of the MSE results with Training Data. GridSearchCV from the Python library Scikit-learn only provides the starting points before updating, and only the best kernel is provided with its updated hyperparameters. This shows that the best kernel is contested by the two in green. Sometimes, if you run GridSearch several times, the best kernels are interchangeable between these two. This is understandable, given the fact that both the Matern and the RationalQuadratic kernels are flexible enough and able to capture many different patterns. Both kernels have some mechanisms to model different smoothness and variability, and this could be another reason whereby performance metrics can turn out quite similar on an identical data set. If this data contains properties that are on the opposite ends of the spectrum of characteristics for which both kernels perform well, such as smooth transitions and quite different scale features, then the MSE performance metrics will be close to each other for both models.
+
+At the end of this training, for the case of the Matern kernel where the corresponding model with the updated values are:
+\begin{itemize}
+	\item Constant Kernel: $3.63^2$
+	\item Kernel Type: Matern
+	\item Parameters: length\_scale=8.5, nu=1.5
+\end{itemize}
+A representation of the model can be seen in \cref{fig:GaitPeriodEstimationResults}. Walking speed was chosen here because it correlates most closely with gait period. Other factors such as age are not sufficient to explain the gait period on their own, so when age is plotted against gait period no real correlation can be deduced. In \cref{fig:GaitPeriodEstimationResults}, it can be observed that the training or test data fall within the 95\% confidence interval of the model, except at very low speeds. One hypothesis could be that the input parameters (height, age, weight, gender, and walking speed) are insufficient to estimate the gait period at these low speeds. However, given that the overall root of the MSE using the Test data is 0.054 s. Relative to typical gait period values [0.5, 4] seconds, the error is in the order of 1.35\% to 10\%.
+
+\begin{table}[H]
+	\centering
+	\caption[Kernel Performance Evaluation for the gait period estimation with Training Data]{Kernel Performance Evaluation with Training Data from worst to best. The GridSearch look for each type of variable kernel, the best hyperparameters to approximate the model and then compare the different models obtain for each type of varaible kernel. The worst kernels are in red and the best are in green.}
+	\begin{tabular}{|l|l|l|c|}
+		\hline
+		\rowcolor{gray!30}
+		\textbf{Constant Kernel} & \textbf{Type of Variable Kernel} & \textbf{Parameter of Variable Kernel} & \textbf{Root of the MSE} \\
+		\hline
+		\rowcolor{red!30}
+		$1^2$ & ExpSineSquared & length\_scale=1, periodicity=1 & 0.1989 \\
+		\hline
+		\rowcolor{red!30}
+		$1^2$ & RBF & length\_scale=1 & 0.0874 \\
+		\hline
+		\rowcolor{green!30}
+		$1^2$ & RationalQuadratic & alpha=1, length\_scale=1 & 0.0574 \\
+		\hline
+		\rowcolor{green!30}
+		$1^2$ & Matern & length\_scale=1, nu=1.5 & 0.0571 \\
+		\hline
+	\end{tabular}
+	\label{tab:ModelPerformanceGaitPEriodEstiamtion}
+\end{table}
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=\textwidth]{figures/gait_period_pred_model_walking_speed_rep3.png}%
+	%
+	\caption[Representation of gait period estimation model using Gaussian Process Regression]{\AMlangGerEng{Beschreibung des Bilds}{Representation of gait period estimation model using Gaussian Process Regression. The model takes several features as input, the one represented here is the walking speed on the x-axis and the predicted gait period on the y-axis. The red line corresponds to the predicted value, and the red range corresponds to the standard deviation of the result. More precisely, the red range represents the 95\% confidence interval, i.e. the model assures that 95\% of gait periods will fall within this red range. This is confirmed by the fact that the blue dots represent the data used for training the model and the green dots are used for testing. These points are well within the model's confidence interval}.}%
+	\label{fig:GaitPeriodEstimationResults}%
+\end{figure}%
+%
+%
+\section{Evaluation of Trajectory Reconstruction Accuracy Using Selected Key Points and Interpolation Method}
+\label{sec:InterpolationEvaluation}
+Here, the aim is to evaluate the error made when recreating a curve from selected key points and an interpolation method. As seen in \cref{subsec:InterpolationChoices}, the spline interpolation was chosen on the basis of Moissenet et al \cite{Moissenet.2019}. In their case, a spline interpolation of degree 5 was chosen. The spline interpolation method used here is performed using \textit{make\_interp\_spline} from the Scipy python library. The output is a function that can then be evaluated at certain points. Knowing the standardized version of the curve as a function of gait percentage, we can evaluate the interpolated curve at the same gait percentages as the real curve. We then calculate the point-by-point RMSE between the interpolated curve and the actual curve, and average these points to obtain the RMSE between the two curves. 
+
+However, an RMSE of 2° between the two curves does not represent the same thing if the curve has an amplitude of 10° or 60°. Thus, the decision was made to divide this error by the amplitude of the real curve (the difference between the maximum and minimum of the curve) to precisely determine if this error is significant or not giving what will be called a relative RMSE. This calculation can be used to determine the best degree of spline interpolation to use here. The results of this comparison can be seen in \cref{tab:ComparisonSplineInterpolationDegree}. It's clear from this table that, thanks to the Python library used here for spline interpolation, particularly in the case of hip flexion, the best interpolation degree is 3. 
+
+In order to graphically observe the highest (worst-case) values that this relative RMSE can take for a spline interpolation of degree 3, \cref{fig:InterpolationErrorRelativeToAmplitudeResults} has been established. The choice of representation as a function of gait speed is arbitrary. It shows that in the vast majority of cases, the relative RMSE is less than 6\% of the curve amplitude, and in the worst case less than 10\%.
+
+In \cref{fig:BestInterpolationResults}, we observe the best interpolation cases with errors below 1\%. However, in the case of \cref{fig:BadInterpolationResults}, there are instances where not only the relative RMSE but even \cref{fig:InterpolationErrorRelativeToAmplitudeResults}, with the mean and standard deviation, fail to visualize them—cases where the relative RMSE is greater than 10\%. After calculation, these data represent 0.1\% of the data for knee flexion, 0.3\% of the data for hip flexion, and 2\% of the data for hip abduction. The proportion of these cases is low and does not invalidate the choice of this interpolation method. However, these data should have been excluded for training the neural networks, retaining only key point cases where the interpolation error is 10\% or less.
+
+\begin{table}[H]
+	\centering
+	\caption[Relative RMSE by Spline interpolation Degree for Knee Flexion, Hip Flexion, and Hip Abduction]{Relative RMSE by Spline interpolation Degree for Knee Flexion, Hip Flexion, and Hip Abduction. There are the mean and standard deviation of the relative RMSE between the real curve and the interpolated curve (RMSE / Amplitude of the real curve) for different spline interpolation degrees for each DoF.}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\multicolumn{3}{|c|}{\textbf{Knee Flexion}} \\
+		\hline
+		\textbf{Interpolation Degree} & \textbf{Mean RMSE} & \textbf{Std Dev} \\
+		\hline
+		3 & 0.01762134 & 0.01162912 \\
+		\hline
+		5 & 0.02126864 & 0.02200282 \\
+		\hline
+		7 & 0.03159490 & 0.04811942 \\
+		\hline
+	\end{tabular}
+	
+	\vspace{1cm}
+	
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\multicolumn{3}{|c|}{\textbf{Hip Flexion}} \\
+		\hline
+		\textbf{Interpolation Degree} & \textbf{Mean RMSE} & \textbf{Std Dev} \\
+		\hline
+		3 & 0.02144935 & 0.03900513 \\
+		\hline
+		5 & 79.38046069 & 5678.69244902 \\
+		\hline
+		7 & 673.24119680 & 48180.03101227 \\
+		\hline
+	\end{tabular}
+	
+	\vspace{1cm}
+	
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\multicolumn{3}{|c|}{\textbf{Hip Abduction}} \\
+		\hline
+		\textbf{Interpolation Degree} & \textbf{Mean RMSE} & \textbf{Std Dev} \\
+		\hline
+		3 & 0.03678945 & 0.02643741 \\
+		\hline
+		5 & 0.04999707 & 0.07395576 \\
+		\hline
+		7 & 0.15272939 & 1.14752617 \\
+		\hline
+	\end{tabular}
+	\label{tab:ComparisonSplineInterpolationDegree}
+\end{table}
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_abduction_interpolation_error_relative_to_amplitude.png}
+		\caption{relative RMSE of the interpolation for the Hip abduction relative to the amplitude}
+		\label{fig:HipAbductionInterpolationError}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_flexion_interpolation_error_relative_to_amplitude.png}
+		\caption{relative RMSE of the interpolation for the Hip flexion relative to the amplitude}
+		\label{fig:HipFlexionInterpolationError}
+	\end{subfigure}
+	\hfill
+		\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/knee_flexion_interpolation_error_relative_to_amplitude.png}
+		\caption{relative RMSE of the interpolation for the Knee flexion relative to the amplitude}
+		\label{fig:KneeFlexionInterpolationError}
+	\end{subfigure}
+	%
+	%
+	\caption[Relative RMSE of the interpolation of the different DoFs]{\AMlangGerEng{Beschreibung des Bilds}{Interpolation error relative to the amplitude representation. For the various joints, the factor considered here for the x axis is the walking speed. The choice of Walking speed here is arbitrary, the real objective being to observe graphically which are the worst cases of error, which cannot be observed by taking only the mean of the RMSE. For each running speed, we calculate the mean and standard deviation of the error between the actual curve and the interpolation obtained from these key points, divided by the amplitude of the actual curve (i.e. the difference between the maximum and minimum of the actual curve). For each of the joints, except in special cases, the error between the interpolation and the actual curve represents less than 6\% of the amplitude of the actual curve}.}
+	\label{fig:InterpolationErrorRelativeToAmplitudeResults}%
+\end{figure}%
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_abduction_best_interpolation.png}
+		\caption{Best Interpolation case for the hip abduction}
+		\label{fig:HipAbductionBestInterpolation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_flexion_best_interpolation.png}
+		\caption{Best Interpolation case for the hip flexion}
+		\label{fig:HipFlexionBestInterpolation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/knee_flexion_best_interpolation.png}
+		\caption{Best Interpolation case for the knee flexion}
+		\label{fig:KneeFlexionBestInterpolation}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the best cases of interpolation for the three DoFs]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the best interpolation cases for the three DoFs with a relative error of 0.33\% for the knee flexion, 0.29\% for the hip flexion and 0.52\% for the hip abduction}.}
+	\label{fig:BestInterpolationResults}%
+\end{figure}%
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_abduction_worst_interpolation.png}
+		\caption{Bad interpolation case for the hip abduction}
+		\label{fig:HipAbductionBadInterpolation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_flexion_worst_interpolation.png}
+		\caption{Bad Interpolation case for the hip flexion}
+		\label{fig:HipFlexionBadInterpolation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/knee_flexion_worst_interpolation.png}
+		\caption{Bad interpolation case for the knee flexion}
+		\label{fig:KneeFlexionBadInterpolation}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of bad cases of interpolation for the three DoFs]{\AMlangGerEng{Beschreibung des Bilds}{Representation of bad interpolation cases for the three DoFs with a relative error of 20\% for the knee flexion, 15\% for the hip flexion and 37\% for the hip abduction}.}
+	\label{fig:BadInterpolationResults}%
+\end{figure}%
+%
+\section{Neural Networks Performance}%
+The training of the neural network part consisted of two phases. The first phase was carried out with a limited population, in this case male subjects under the age of 25. Also, the neural network used is a reduced version of the basic one, shown in \cref{fig:reducedNNModel}, where unlike \cref{fig:NNModel}, age and gender are not considered as input parameters. In a second step, the desired model shown in \cref{fig:NNModel} will be trained. In each case, this training is carried out using the GridSearch method. 
+
+\subsection{Error Metrics}
+\label{subsec:ErrorMetrics}
+The metrics used will be, as a Loss function, the MSE and also the MAE as another function to assess accuracy in the event of regression, as in this case. The R² metric is also used.
+
+\subsubsection{Mean Squared Error (MSE)}
+Mean Squared Error (MSE) is the average of the squares of the differences between predicted and actual outcomes. It is computed according to the formula:
+
+\begin{equation}
+	\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+	\label{eq:MSE}
+\end{equation}
+
+where \( y_i \) is the actual value, \( \hat{y}_i \) is the predicted value, and \( n \) is the number of observations.
+
+\subsubsection{Mean Absolute Error (MAE)}
+The Mean Absolute Error produces the average absolute differences between the observed actual and predicted outcomes. This is calculated by the following formula:
+
+\begin{equation}
+	\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+	\label{eq:MAE}
+\end{equation}
+
+where \( y_i \) is the actual value, \( \hat{y}_i \) is the predicted value, and \( n \) is the number of observations.
+
+\subsubsection{Coefficient of Determination (\( R^2 \))}
+The coefficient of determination, usually denoted by the term \( R^2 \), is a statistical measure that describes how much variation in a dependent variable is explained as a function of the independent variables in the case of Neural Networks. It indicates how well the neural network model is capable of capturing the underlying trends of the data \cite{Tibshirani.2021}. The R² value ranges from $-\infty$ to 1, where a value closer to 1 indicates a better fit of the model. It gave a note on how much the model explains the variability of the data. \( R^2 \) comes by the following formula:
+
+\begin{equation}
+	R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
+	\label{eq:RR}
+\end{equation}
+
+where \( y_i \) is the actual value, \( \hat{y}_i \) is the predicted value by the neural network, \( \bar{y} \) is the mean of the actual values, and \( n \) is the number of observations.
+
+\subsection{Reduced Neural Networks}
+
+The aim of the reduced model was to test the performance of the neural network idea with a small population, where gait profiles vary little between individuals, before expanding to populations where gait profile variations are more marked. Thus, in the case of the reduced model, the population was limited to males under the age of 25. Age and gender were removed from the reduced model, as in \cref{fig:reducedNNModel}, since gender is fixed here and for a fairly young healthy population (19 - 24), age is not a factor that particularly influences gait. This population reduction gives a sample number in our case of 529, multiplied by a factor N (will be 90 for the rest of this phase) as seen in \cref{subsec:NNTraining}.
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=120mm]{figures/ReducedNNModel.png}%
+	%
+	\caption[Representation of the version of the NN used in the case of the limited population (male under 25)]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the version of the NN used in the case of the limited population (male under 25). The inputs in contrary to \cref{fig:NNModel} don't have the age and gender parameters}.}%
+	\label{fig:reducedNNModel}%
+\end{figure}% 
+
+The training process for the models was as follows: a GridSearch was conducted for the model of one DoF, specifically the knee flexion, and the best combination of hyperparameters in this case was used for the models of the other DoFs. During the trials conducted with the reduced model, an observation was made. For the knee flexion model, when using gait percentage values ranging from [0, 100], the results converged at the end of the training with a final loss of 3.68. However, when using the normalized gait phase with values ranging from [0, 1], the best combination of hyperparameters resulted in a model with a reduced size (fewer neurons per hidden layer and fewer epochs required for training), as can be observed in \cref{tab:ComparisonGaitPercentageNormalizedGaitPhase}. Additionally, the loss results when using the normalized gait phase [0, 1] converged to lower values (2.7 after training), but this is justified by the MSE formula \cref{eq:MSE}. An error made on values of [0, 100] will necessarily be reduced if these same values are scaled down to [0, 1]. However, with the normalized gait phase, the memory cost of the model and the training time are greatly reduced.
+
+\begin{table}[h!]
+	\centering
+	\caption[Comparison of Models with Gait Percentage and Normalized Gait Phase]{Comparison of Models with Gait Percentage and Normalized Gait Phase. There's a big reduction, in particular a 8-fold reduction in the number of neurons per hidden layer used and a reduction in the number of epochs needed, which overall leads to a shorter training time and a lower memory cost for the model with normalized gait phase.}
+	\begin{tabular}{|l|c|c|}
+		\hline
+		\textbf{Hyperparameters} & \textbf{Model with Gait Percentage} & \textbf{Model with Normalized Gait Phase} \\
+		\hline
+		Number of hidden layers & 4 & 4 \\
+		\hline
+		Batch size & 60 & 40 \\
+		\hline
+		Epochs & 500 & 150 \\
+		\hline
+		Neurons per hidden layer & 256 & 32 \\
+		\hline
+		Learning rate & 0.001 & 0.001 \\
+		\hline
+		Dropout rate & 0.0 & 0.0 \\
+		\hline
+		Activation function & LeakyReLU & LeakyReLU \\
+		\hline
+		Regularization function & None & None \\
+		\hline
+		Initialization & He normal & He normal \\
+		\hline
+		Training time & 893.37 s & 416.55 s \\
+		\hline
+	\end{tabular}
+	\label{tab:ComparisonGaitPercentageNormalizedGaitPhase}
+\end{table}
+
+The decision was made to use normalized gait for the rest of the training and for the other DoFs. 
+
+Based on the best combination of hyperparameters for knee flexion from \cref{tab:ComparisonPerformancesLearningRateVariation}, the effect of hyperparameters on the model can be studied. The first case in \cref{tab:ComparisonPerformancesLearningRateVariation} is when the learning rate is varied. The values of MSE, MAE, and R² are obtained with the test data. It can be observed that these values are worse than those of the best model, with the R² value in particular indicating that the obtained model does not capture the hidden links in the data. The most significant observation is made with the loss profiles. The loss profile with a learning rate of 0.01 in \cref{fig:BadModelLearningRate} does not converge and shows peaks during its evolution. This is due to a phenomenon visible in \cref{fig:LearningRateEffect}. The learning rate represents the "step" of weight reduction in the neural network, and if it is too large, it can miss the loss minimum and jump to a point where the weight values result in a higher loss, which explains the peaks in \cref{fig:BadModelLearningRate}.
+
+\begin{table}[h]
+	\centering
+	\caption[Comparison of Models' performances on test data with same hyperparameters except the learning rate]{Comparison of Models' performances on test data with same hyperparameters except the learning rate. In every case, the model with the learning rate of 0.001 performs better. And in the case of the model with a learning rate of 0.01, the negative R² shows that the model captures no underlying trends in the data.}
+	\begin{tabular}{|l|c|c|}
+		\hline
+		\textbf{Error Metrics} & \textbf{Model with 0.001 learning rate} & \textbf{Model with 0.01 learning rate} \\
+		\hline
+		Test MSE & 2.81 & 3.36 \\
+		\hline
+		Test MAE & 0.85 & 0.97 \\
+		\hline
+		Test R² & 0.48 & -0.39 \\
+		\hline
+	\end{tabular}
+	\label{tab:ComparisonPerformancesLearningRateVariation}
+\end{table}
+
+\begin{figure}[h]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=120mm]{figures/LearningRateEffect.png}%
+	%
+	\caption[Effect of a big learning rate on the training]{\AMlangGerEng{Beschreibung des Bilds}{Effect of a big learning rate on the training. The learning rate is the "step" of actualization of the weights of the NN. If it is too big, the "step" can be too big, missing the minimum of loss and give weights values that could create a loss far bigger than the one seen before}.}%
+	\label{fig:LearningRateEffect}%
+\end{figure}% 
+
+\begin{figure}[h]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=\textwidth]{figures/Loss_1st_model_knee_flexion_new_test_1.png}%
+	%
+	\caption[Representation of a bad loss model]{\AMlangGerEng{Beschreibung des Bilds}{Representation of a bad loss model. The hyperparameters are the same than the model with normalized gait phase in \cref{tab:ComparisonGaitPercentageNormalizedGaitPhase} but the learning rate is 0.01. Here the profile of loss are not the one that should be obtain for a good model. There are no real convergence and there are peaks of training loss. This phenomenon is explained by \cref{fig:LearningRateEffect}. As the learning rate is bigger, the actualization of the weigths can miss the value for a minimum loss and even go to values where the loss is far bigger}.}%
+	\label{fig:BadModelLearningRate}%
+\end{figure}% 
+
+It is also possible to vary the number of neurons per hidden layer, starting from the basic model with normalized gait phase. The results are shown in \cref{tab:ComparisonPerformancesNeuronsVariation}. Although the model with 128 neurons per hidden layer performs slightly better in MAE and MSE, the R² is lower. This may be due to a lack of data. The model is more complex, but the amount of data doesn't allow the model to capture the underlying features between the data, leading to a model that will focus on learning from the noise in the data.  And between models using 64 or 32 neurons per hidden layer, the results are the same, and using one or the other is totally justified. 
+\begin{table}[h]
+	\centering
+	\caption[Comparison of Models' performances on test data with same hyperparameters except the number of neurons per hidden layer]{Comparison of Models' performances on test data with same hyperparameters except the number of neurons per hidden layer. Performance are computed on test data. The results here are more complex. Although the one with 128 neurons per hidden layer performs slightly better in MAE and MSE, the R² is lower. This may be due to a lack of data. The model is more complex, but the amount of data doesn't allow the model to capture the underlying features between the data, leading to a model that will focus on learning from the noise in the data.  And between models using 64 or 32 neurons per hidden layer, the results are the same, and using one or the other is totally justified.}
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Error Metrics} & \textbf{Model with 32 neurons} & \textbf{Model with 64 neurons} & \textbf{Model with 128 neurons} \\
+		\hline
+		Test MSE & 2.83 & 2.81 & 2.51 \\
+		\hline
+		Test MAE & 0.89 & 0.85 & 0.81 \\
+		\hline
+		Test R² & 0.53 & 0.48 & 0.18 \\
+		\hline
+	\end{tabular}
+	\label{tab:ComparisonPerformancesNeuronsVariation}
+\end{table}
+
+Another comparison can be made with regard to the number of epochs the model is trained for. The results are shown in \cref{tab:ComparisonPerformancesEpochsVariation}. At first glance, the MAE and MSE results of the two models trained for 100 and 200 epochs are better than the results for the model trained for 150 epochs. But the difference lies in the value of R². In the case of the model trained for 100 epochs, the negative R² indicates that the model has not captured any underlying traits in the data, which in this situation is a sign of underfitting, as the model has not been trained for enough epochs. For the model trained for 200 epochs, the R² is lower than that trained for 150 epochs, which can be interpreted as one of the first signs of overfitting. The model begins to learn more about the noise in the data than the underlying features.
+\begin{table}[h!]
+	\centering
+	\caption[Comparison of Models' performances on test data with same hyperparameters except the number of epochs]{Comparison of Models' performances on test data with same hyperparameters except the number of epochs. Although the MAE and MSE results of the two models trained over 100 and 200 epochs are better than the results of the model trained over 150 epochs, the difference will come down to the R² value. In the case of the model trained for 100 epochs, the negative R² indicates that the model has not captured any underlying traits in the data, which in this situation is a sign of underfitting, as the model has not been trained for enough epochs. For the model trained for 200 epochs, the R² is lower than that trained for 150 epochs, which can be interpreted as one of the first signs of overfitting. The model begins to learn more about the noise in the data than the underlying features.}
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Error Metrics} & \textbf{Model with 100 epochs} & \textbf{Model with 150 epochs} & \textbf{Model with 200 epochs} \\
+		\hline
+		Test MSE & 2.71 & 2.81 & 2.63 \\
+		\hline
+		Test MAE & 0.85 & 0.85 & 0.83 \\
+		\hline
+		Test R² & -0.11 & 0.48 & 0.33 \\
+		\hline
+	\end{tabular}
+	\label{tab:ComparisonPerformancesEpochsVariation}
+\end{table}
+After optimizing the model for the knee flexion, the hyperparameters use for that model were also used for the models of the 2 other DoFs.This gives the results shown in \cref{tab:performance_metrics}, and the functions of the loss curves can be seen in \cref{fig:LossSmallerPopulation}. The loss curves show no anomalies. And the results in \cref{tab:performance_metrics} are quite similar for the same combination of hyperparameter, as the results for Knee flexion and hip flexion are quite the same. The results for hip abduction can be explained by the fact that the angle varies in [-8°, 2°], a 10° amplitude variation as the hip flexion varies in [-10°, 25°] for a 35° amplitude and knee flexion in [10°, 70°] for a 60° amplitude. Adding that with the formula for MAE \cref{eq:MAE} and MSE \cref{eq:MSE}, the error on angle will be generally less for the hip abduction given his amplitude of variation. Showing that the hypothesis that the model's hyperparameters for one DoF fit for the others DoFs. 
+\begin{table}[H]
+	\centering
+	\caption[Performance metrics on test data for the models of different DoF in the case of the restricted model and a smaller population]{Performance metrics on test data for the models of different DoF in the case of the restricted model and a smaller population}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Test MSE} & \textbf{Test MAE} & \textbf{Test R²} & \textbf{Training time}\\ \hline
+		Knee flexion & 2.81 & 0.85 & 0.48 & 416.55 s \\ \hline
+		Hip flexion & 2.62 &  0.61 & 0.45 & 368.85 s\\ \hline
+		Hip abduction & 0.34 & 0.3 & 0.64 & 394.26 s\\ \hline
+	\end{tabular}
+	\label{tab:performance_metrics}
+\end{table}
+However, it should be pointed out that at the output of the neural network, there are two kinds of quantities. For each key point, there is the normalized gait phase and the corresponding angular position in degrees. The error on these two quantities is contained in the MSE and MAE values in \cref{tab:performance_metrics}, without being able to distinguish between them. In order to better analyze this error, the prediction is now individually evaluated for the angle and for the gait phase.
+
+In \cref{tab:RMSENormalizedGaitPhaseReducedModel}, the mean and standard deviation of the RMSE on the normalized gait phase in range [0, 1] can be observed for the 3 DoFs. The mean RMSE in range [0.01, 0.022] can be interpreted as in average, considering a gait period of one second, the temporal position of a predicted key point will be in a range  of [0.01 s, 0.022 s] around the real position of the key point. \cref{fig:ErrorGaitPercentageSP}, the mean and standard deviation of the error made on the normalized gait percentage during the prediction of key points classified by walking speed is shown. This plot is done to observe what could be the worse values of this RMSE on the normalized gait phase for the 3 DoFs. And there are some cases where this RMSE could be of 0.045, a the predicted key point, considering a gait period of 1 second, could have an offset of 0.045 s, 45 ms on the real key point. 
+
+\begin{table}[h!]
+	\centering
+	\caption[Mean and Standard deviation of the RMSE on normalized gait phase on all data for the reduced models of different DoFs]{Mean and Standard deviation of the RMSE on normalized gait phase on all data for the reduced models of different DoFs}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Mean RMSE} & \textbf{Standard deiviation RMSE}\\ \hline
+		Knee flexion & 0.017 & 0.008  \\ \hline
+		Hip flexion & 0.022 &  0.013 \\ \hline
+		Hip abduction & 0.010 & 0.005 \\ \hline
+	\end{tabular}
+	\label{tab:RMSENormalizedGaitPhaseReducedModel}
+\end{table}
+
+In \cref{tab:RelativeRMSEAngularPositionReducedModel}, can be observed the mean and standard deviation of the relative RMSE on the angular position of the key points. The relative RMSE is the RMSE between the real and predicted key points divided by the amplitude of the curve. With that it is easier to represent if the error made is consequent or not. In this case, the average RMSE made on the key points represent [3.5\%, 5,8\%] of their respective curve amplitude. In \cref{fig:ErrorJointPositionSP}, the mean and standard deviation of the error made on the angular position during the prediction of key points as a function of walking speed is shown. The choice of representing as a funtion of the walking speed is more arbitrary, as the objective is more to see what could be in general the worst case scenario. For the 3 DoFs, The worst case scenario in the majority of case is an error 15\% of the amplitude.
+
+\begin{table}[h]
+	\centering
+	\caption[Mean and Standard deviation of the Relative RMSE on angular position of the DoF on all data for the reduced models of different DoFs]{Mean and Standard deviation of th Relative RMSE on angular position of the DoF on all data for the reduced models of different DoFs Relative RMSE is the RMSE between the angular position between the predicted and the real key points divided by the amplitude of the real curve.}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Mean RMSE} & \textbf{Standard deiviation RMSE}\\ \hline
+		Knee flexion & 0.035 & 0.019  \\ \hline
+		Hip flexion & 0.043 &  0.032 \\ \hline
+		Hip abduction & 0.058 & 0.038 \\ \hline
+	\end{tabular}
+	\label{tab:RelativeRMSEAngularPositionReducedModel}
+\end{table}
+%
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Loss_1st_model_hip_abduction_new.png}
+		\caption{Loss for the hip abduction in a smaller population}
+		\label{fig:LossHASmallPopulation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Loss_1st_model_hip_flexion_new.png}
+		\caption{Loss for the hip flexion in a smaller population}
+		\label{fig:LossHFSmallPopulation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Loss_1st_model_knee_flexion_new.png}
+		\caption{Loss for the knee flexion in a smaller population}
+		\label{fig:LossKFSmallPopulation}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the loss curve for the reduced model of the 3 DoFs]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the loss curve for the reduced model \cref{fig:reducedNNModel} of the 3 DoFs. For a limited population (age < 25, male), we obtain these Loss results based on the MSE during the training phase. For \cref{fig:LossHASmallPopulation}, we have a final loss in training of 0.3. \cref{fig:LossHFSmallPopulation}, the final loss in training is about 2.7. \cref{fig:LossKFSmallPopulation}, the final loss in traing is about 2.6}.}
+	\label{fig:LossSmallerPopulation}%
+\end{figure}%
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/error_gait_percentage_hip_abduction_sp.png}
+		\caption{Error on normalized gait percentage of the predicted key points for hip abduction}
+		\label{fig:ErrorHAGaitpercentageSP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/error_gait_percentage_hip_flexion_sp.png}
+		\caption{Error on normalized gait percentage of the predicted key points for hip flexion}
+		\label{fig:ErrorHFGaitpercentageSP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/error_gait_percentage_knee_flexion_sp.png}
+		\caption{Error on normalized gait percentage of the predicted key points for knee flexion}
+		\label{fig:ErrorKFGaitpercentageSP}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the error made on the normalized gait percentage when predicting the key points with the reduced model]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the error made on the normalized gait phase in [0, 1] when predicting the key points with the reduced model \cref{fig:reducedNNModel} as function of the walking speed. Each of the figue represent for a DoF, give a specific walking speed, the mean and standard deviation of the error made on the normalized gait phase in [0, 1] when predicting the key points. So considering a gait period of 1 sec, if the error is 0.01, the predicted key point will be in a 0.01 second range around the real position of the key point}.}%
+	\label{fig:ErrorGaitPercentageSP}%
+\end{figure}%
+%
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_joint_position_hip_abduction_sp.png}
+		\caption{Error on angular position of the predicted key points for hip abduction}
+		\label{fig:ErrorHAAngularPositionSP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_joint_position_hip_flexion_sp.png}
+		\caption{Error on angular position of the predicted key points for hip flexion}
+		\label{fig:ErrorHFAngularPositionSP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_joint_position_knee_flexion_sp.png}
+		\caption{Error on normalized gait percentage of the key points for knee flexion}
+		\label{fig:ErrorKFAngularPositionSP}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the relative RMSE made on the angular position when predicting the key points with the reduced model]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the relative RMSE made on the angular position when predicting the key points with the reduced model \cref{fig:reducedNNModel} as function of the walking speed. Each of the figue represent for a DoF, give a specific walking speed, the mean and standard deviation of the error made on the angular position when predicting the key points. This relative error is the RMSE betwee the predicted and the real key points divided by the amplitude (max - min) of the real curve}.}%
+	\label{fig:ErrorJointPositionSP}%
+\end{figure}%
+%
+%
+\subsection{Complete Neural Network}
+Having verified that the idea of such a model for estimating key points is functional in the first step, the next step is to train the actual model shown in \cref{fig:NNModel} for each of the DoFs. In this case too, training will be carried out with the normalized version of the gait phase as output. The number of samples here is 308520 (5142*60). At the end of training for the knee flexion model, we obtain the following hyperparameters for the model:
+\begin{itemize}
+	\item Number of hidden layers: 7
+	\item batch size: 32
+	\item epochs: 150
+	\item Neurons per hidden layers: 64
+	\item Dropout rate: 0.0
+	\item Activation function: LeakyReLU
+	\item Regularization function: None
+	\item Initialization: He normal
+\end{itemize}
+Here again, the hyperparameters obtained for training of the knee flexion model were reused for the rest of the DoFs models. By doing that, it can be observed in \cref{fig:LossCompletePopulation} that the 3 loss converges. The values for hip flexion and knee flexion loss with the test data are similar. The difference with hip abduction is the range of values which is bigger for the knee flexion and hip flexion than for the hip abduction. This is confirmed by \cref{fig:LossCompletePopulation}, where the loss curves for the 3 DoF models clearly show that an optimum has been reached in all 3 cases. Test results for this model are shown in \cref{tab:performance_metrics_complete_model}. 
+\begin{table}[h]
+	\centering
+	\caption{Performance metrics for the models of the different DoFs for the complete model and the entire population}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Test MSE} & \textbf{Test MAE} & \textbf{Test R²} & \textbf{Training time (in s)}\\ \hline
+		Knee flexion & 3.47 & 0.93 & 0.47 & 2719.20 \\ \hline
+		Hip flexion & 3.57 & 0.74 & 0.53 & 2719.20\\ \hline
+		Hip abduction & 0.7 & 0.38 & 0.39 & 2440.78\\ \hline
+	\end{tabular}
+	\label{tab:performance_metrics_complete_model}
+\end{table}
+As in the previous step, we need to better understand the meaning of the error calculated by Loss and MAE, since it comes from two contributions: the estimation of the normalized gait phase of the key points, and the estimation of their angular position. \cref{tab:RMSENormalizedGaitPhaseCompleteModel} presents the mean and standard deviation of the RMSE of the normalized gait phase for this complete model. In average, for a gait period of one second, there will be an offset of 0.024s between the predicted key points and the real key points. \cref{tab:RelativeRMSEAngularPositionCompleteModel} give the results on the relative RMSE on the angular position error of the key points. The relative RMSE is the RMSE between the predicted and real key points divided by the amplitude of the real curve. And in average, the difference in angular position between the real key points and the predicted key points is less than 8\% of the amplitude of the curve.
+
+To observe the worst cases errors in the majority, the \cref{fig:ErrorGaitPercentageCP} and \cref{fig:ErrorJointPositionCP} were made using the entire database to make these estimates. In particular, it can be seen that an average error of between 0.02 and 0.03 is made on the normalized gait phase when predicting key points. Also, the average error on the angular position of key points is lower for hip abduction (0.55 on average) than for the other two DoFs, as might be expected from the MAE and Loss values.
+
+\begin{table}[h]
+	\centering
+	\caption[Mean and Standard deviation of the RMSE on normalized gait phase on all data for the complete model of different DoFs]{Mean and Standard deviation of the RMSE on normalized gait phase on all data for the complete model of different DoFs}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Mean RMSE} & \textbf{Standard deiviation RMSE}\\ \hline
+		Knee flexion & 0.028 & 0.014  \\ \hline
+		Hip flexion & 0.024 &  0.015 \\ \hline
+		Hip abduction & 0.021 & 0.014 \\ \hline
+	\end{tabular}
+	\label{tab:RMSENormalizedGaitPhaseCompleteModel}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\caption[Mean and Standard deviation of the Relative RMSE on angular position of the DoF on all data for the complete model of different DoFs]{Mean and Standard deviation of th Relative RMSE on angular position of the DoF on all data for the complete model of different DoFs Relative RMSE is the RMSE between the angular position between the predicted and the real key points divided by the amplitude of the real curve.}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Mean RMSE} & \textbf{Standard deiviation RMSE}\\ \hline
+		Knee flexion & 0.037 & 0.021  \\ \hline
+		Hip flexion & 0.051 &  0.037 \\ \hline
+		Hip abduction & 0.079 & 0.056 \\ \hline
+	\end{tabular}
+	\label{tab:RelativeRMSEAngularPositionCompleteModel}
+\end{table}
+%
+\begin{figure}[h]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Loss_big_model_hip_abduction.png}
+		\caption{Loss for the complete model of the hip abduction}
+		\label{fig:LossHACompletePopulation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Loss_big_model_hip_flexion.png}
+		\caption{Loss for the complete model of hip flexion}
+		\label{fig:LossHFCompletePopulation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Loss_big_model_knee_flexion.png}
+		\caption{Loss for the complete model for the knee flexion}
+		\label{fig:LossKFCompletePopulation}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the loss curve for the model \cref{fig:NNModel} of the 3 DoFs]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the loss curve for the model \cref{fig:NNModel} of the 3 DoFs. With the entire population, we obtain these Loss results based on the MSE during the training phase. For \cref{fig:LossHACompletePopulation}, we have a final loss of 0.66. \cref{fig:LossHFCompletePopulation}, the final loss is about 3.6. \cref{fig:LossKFSmallPopulation}, the final loss is about 3.5}.}
+	\label{fig:LossCompletePopulation}%
+\end{figure}%
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/error_gait_percentage_hip_abduction_cp.png}
+		\caption{Error on normalized gait percentage of the predicted key points for hip abduction}
+		\label{fig:ErrorHAGaitpercentageCP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/error_gait_percentage_hip_flexion_cp.png}
+		\caption{Error on normalized gait percentage of the predicted key points for hip flexion}
+		\label{fig:ErrorHFGaitpercentageCP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/error_gait_percentage_knee_flexion_cp.png}
+		\caption{Error on normalized gait percentage of the predicted key points for knee flexion}
+		\label{fig:ErrorKFGaitpercentageCP}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the error made on the normalized gait phase when predicting the key points with the complete model]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the error made on the normalized gait phase when predicting the key points with the complete model \cref{fig:NNModel} in fonction of the walking speed. Each of the figue represent for a DoF, give a specific walking speed, the mean and standard deviation of the error made on the normalized gait percentage when predicting the key points. So considering a gait period of 1 sec, if the error is 0.01, the predicted key point will be in a 0.01 second range around the real position of the key point}.}%
+	\label{fig:ErrorGaitPercentageCP}%
+\end{figure}%
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_joint_position_hip_abduction_cp.png}
+		\caption{Error on angular position of the predicted key points for hip abduction}
+		\label{fig:ErrorHAAngularPositionCP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_joint_position_hip_flexion_cp.png}
+		\caption{Error on angular position of the predicted key points for hip flexion}
+		\label{fig:ErrorHFAngularPositionCP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_joint_position_knee_flexion_cp.png}
+		\caption{Error on normalized gait percentage of the key points for knee flexion}
+		\label{fig:ErrorKFAngularPositionCP}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the error made on the angular position when predicting the key points with the complete model]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the error made on the angular position when predicting the key points with the complete model \cref{fig:NNModel} in fonction of the walking speed. Each of the figue represent for a DoF, give a specific walking speed, the mean and standard deviation of the error made on the angular position when predicting the key points}.}%
+	\label{fig:ErrorJointPositionCP}%
+\end{figure}%
+\section{Trajectory Generation Performance and Optimization}%
+After assessing above during training, two things were noticed:
+\begin{itemize}
+	\item For training, the key points are classified according to their normalized gait phase in ascending order. However, after various tests, the relative position of these key points in this ranking is not fixed. In particular, between two extremities, it can happen that the present inflection point and an added point can see their relative position in the ranking exchanged, because the normalized gait phase of the added point is relative to the normalized gait phases of the extremities, and not to that of the inflection point. As a result, the gait phase of the inflection point may be higher or lower than that of the added point. This results in output neurons learning data from different key points, which is not good for training. 
+	\item In the same case where using the normalized gait phase [0,1] instead of the gait percentage [0,100] reduced the size of the neural network, it's possible that changing the angles in radian from a scale of [-25°, 70°] to [-3.14 rad, 3.14 rad] would reduce the size of the neural network even further.
+\end{itemize}
+
+But before applying these modifications, we need to look at the results of trajectory generation, i.e. the combination of key point generation and interpolation.
+
+\subsection{Trajectory Generation Initial Complete Model Performance}
+Using data from the entire database, the results of the relative RMSE of the predicted trajectories have been calculated and presented in \cref{tab:RelativeRMSEPRedictedTrajectoriesCompleteModel}. Although the average of these RMSEs gives satisfactory values, i.e. a maximum of 11\% over the 3 DoFs of the amplitude of the real curve, the standard deviation values are quite high compared with the average and are predictive of fairly substantial outliers. This can be seen from figure \cref{fig:ErrorPredictedTrajectoriesCP}.  Although a large proportion of the values are close to the mean, there are some rather aberrant cases, with relative RMSEs as high as 6000\% of amplitude. 
+
+The representation of the worst-case scenario prediction result can be observed in \cref{fig:WorstPredictedTrajectories}. The curves are absurd and even pose a danger to the user and the exoskeleton. The best-case scenario can also be observed in \cref{fig:BestPredictedTrajectories}, with relative RMSEs below 1\% in each case. Additionally, the proportion of predicted trajectories with a relative RMSE of more than 10\% was evaluated. It is 21.5\% for the knee flexion model, 12.6\% for the hip flexion model, and 39.2\% for the hip abduction model. These results are significant considering that they include those with absurd values as seen previously.
+\begin{table}[h]
+	\centering
+	\caption[Mean and Standard deviation of the Relative RMSE on the predicted trajectories of the DoF on all data for the complete model of different DoFs]{Mean and Standard deviation of th Relative RMSE on the predicted trajectories of the DoF on all data for the complete model of different DoFs. After doing the Spline interpolation between the predicted key points, it is possible to evaluate the model at the same normalized gait phase as the points from the real curve. Then the RMSE between those evaluated points and the points from the real curve can be compute. And to obtain the relative RMSE it is divided by the real curve amplitude.}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Mean RMSE} & \textbf{Standard deiviation RMSE}\\ \hline
+		Knee flexion & 0.11 & 2.09  \\ \hline
+		Hip flexion & 0.074 &  0.57 \\ \hline
+		Hip abduction & 0.10 & 0.32 \\ \hline
+	\end{tabular}
+	\label{tab:RelativeRMSEPRedictedTrajectoriesCompleteModel}
+\end{table}
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_predicted_trajectories_hip_abduction_cp.png}
+		\caption{Error on predicted trajectories for hip abduction}
+		\label{fig:ErrorHAAPredictedTrajectoriesCP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_predicted_trajectories_hip_flexion_cp.png}
+		\caption{Error on predicted trajectories for hip flexion}
+		\label{fig:ErrorHFPredictedTrajectoriesCP}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_predicted_trajectories_knee_flexion_cp.png}
+		\caption{Error predicted trajectories for knee flexion}
+		\label{fig:ErrorKFPredictedTrajectoriesCP}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the relative RMSE of the predicted trajectories with the complete model]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the relative RMSE of the predicted trajectories with the complete model \cref{fig:NNModel} as function of the walking speed. Each of the figue represent for a DoF, give a specific walking speed, the mean and standard deviation of the error made on the angular position when predicting the key points. The objective is to observe the worse cases scenario for this errors}.}%
+	\label{fig:ErrorPredictedTrajectoriesCP}%
+\end{figure}%
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_abduction_worst_estimation_cp.png}
+		\caption{Worst predicted trajectory for Hip abduction}
+		\label{fig:WorstPredictedTrajectoryHA}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_flexion_worst_estimation_cp.png}
+		\caption{Worst predicted trajectory for Hip flexion}
+		\label{fig:WorstPredictedTrajectoryHF}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/knee_flexion_worst_estimation_cp.png}
+		\caption{Worst predicted trajectory for Knee flexion}
+		\label{fig:WorstPredictedTrajectoryKF}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the worst predicted trajectories with the complete model for the 3 DoF]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the worst predicted trajectories with the complete model for the 3 DoF \cref{fig:NNModel}. The relative RMSE for this worst prediction are: 452.19 for the knee flexion, 99.59 for the hip flexion and 35.72 for the hip abduction}.}%
+	\label{fig:WorstPredictedTrajectories}%
+\end{figure}%
+%
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_abduction_best_estimation_cp.png}
+		\caption{Best predicted trajectory for Hip abduction}
+		\label{fig:BestPredictedTrajectoryHA}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_flexion_best_estimation_cp.png}
+		\caption{Best predicted trajectory for Hip flexion}
+		\label{fig:BestPredictedTrajectoryHF}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/knee_flexion_best_estimation_cp.png}
+		\caption{Best predicted trajectory for Knee flexion}
+		\label{fig:BestPredictedTrajectoryKF}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the best predicted trajectories with the complete model for the 3 DoF]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the best predicted trajectories with the complete model for the 3 DoF \cref{fig:NNModel}. The relative RMSE for this best prediction are: 0.018 for the knee flexion, 0.008 for the hip flexion and 0.018 for the hip abduction}.}%
+	\label{fig:BestPredictedTrajectories}%
+\end{figure}%
+%
+\subsection{Model Optimization and Trajectory Generation Performance}
+For this model optimization, changes to the key points will be applied while respecting the original intention of some of the points, which was to improve interpolation in a specific area. The new key point values will be discussed in the following paragraphs.
+
+\subsubsection{Knee Flexion New Key points}
+The new list of key points keeps many similarities with the original list, just the added points are changed. The rule for the choice of inflection points stay the same. The list is:
+\begin{itemize}
+	\item A maximum at $e_{KF1}$ within the interval [0\%, 20\%] of gait cycle
+	\item A minimum at $e_{KF2}$ within the interval [25\%, 60\%] of gait cycle
+	\item A maximum at $e_{KF3}$ within the interval [65\%, 90\%] of gait cycle
+	\item $e_{KFA}$ at gait percentage 0
+	\item $e_{KFZ}$ at gait percentage 100
+	\item $u_{KF1}$ the inflection point between $e_{KF1}$ and $e_{KF2}$
+	\item $u_{KF2}$ the inflection point between $e_{KF2}$ and $e_{KF3}$
+	\item The point at $x_{KF1} = \dfrac{e_{KFA} + e_{KF1}}{2}$. It serves to better interpolate the first part of the curve in the interval $[e_{KFA}, e_{KF1}]$.
+	\item The two points at $x_{KFi+1} = \frac{e_{KFi} + u_{KFi}}{2}$ with i = 1,2. They have been modify to ensure that the gait percentage of $x_{KFi+1}$ is always inferior to the gait percentage of $u_{KFi}$ for i = 1,2. They serve to add another point with the respective inflection points in the intervals $[e_{KFi}, u_{KFi}]$ for a better interpolation.
+	\item Lastly, 2 final points in the interval $[e_{KF3}, e_{KFZ}]$. The first is fixed at gait percentage $x_{KF4} = \frac{e_{KF3} + e_{KFZ}}{2}$. The second one, at gait percentage $x_{KF5} = 0.2.e_{KF3} + 0.8.e_{KFZ}$, obtained by trial and error, as it has generally been noted that there is an approximation error around this chosen gait phase.
+\end{itemize}
+
+This choice is made to maintain this order for the key points in terms of gait percentage: $[e_{KFA}, x_{KF1}, e_{KF1}, x_{KF2}, u_{KF1}, e_{KF2}, x_{KF3}, u_{KF2}, e_{KF3}, x_{KF4}, x_{KF5}, e_{KFZ}]$.
+
+\subsubsection{Hip Flexion New Key points}
+The new list as in the precedent case just came with certain modifications to some added points to maintain a certain order. The new list is:
+\begin{itemize}
+	\item A minimum at $e_{HF1}$ within the interval [40\%, 65\%] of gait cycle
+	\item A maximum at $e_{HF2}$ within the interval [70\%, 90\%] of gait cycle
+	\item $e_{HFA}$ at gait percentage 0 and $e_{HFZ}$ at gait percentage 100
+	\item $u_{HF1}$ the inflection point between $e_{HF1}$ and $e_{HF2}$
+	\item Three points in the interval $[e_{HFA}, e_{HF1}]$ which are in order: $\frac{x_{HF1} = 9.e_{HFA} + e_{HF1}}{10}$, $x_{HF2} = \frac{e_{HFA} + e_{HF1}}{2}$, $x_{HF3} = \frac{e_{HFA} + 3.e_{HF1}}{4}$.
+	\item One points in the interval $[e_{HF1}, u_{HF1}]$ which are in order: $x_{HF4} = \frac{9.e_{HF1} + e_{HF2}}{10}$
+	\item Two points in the interval $[u_{HF1}, e_{HF2}]$ which are $x_{HF5} = \frac{u_{HF1} + 3.e_{HF2}}{4}$, $x_{HF6} = \frac{u_{HF1} + 9.e_{HF2}}{10}$.
+	\item One point in the interval $[e_{HF2}, e_{HFZ}]$ which is: $x_{HF7} = \frac{e_{HF1} + e_{HF2}}{2}$
+\end{itemize}
+
+This choice is made to maintain this order for the key points in terms of gait percentage: $[e_{HFA}, x_{HF1}, x_{HF2}, x_{HF3}, e_{HF1}, x_{HF4}, u_{HF1}, x_{HF5}, x_{HF6}, e_{HF2}, x_{HF7}, e_{HFZ}]$.
+
+\subsubsection{Hip Abduction New Key points}
+The new list as in the precedent case just came with certain modifications to some added points to maintain a certain order. The new list is:
+\begin{itemize}
+	\item A maximum at $e_{HA1}$ within the interval [5\%, 30\%] of gait cycle
+	\item A minimum at $e_{HA2}$ within the interval [55\%, 80\%] of gait cycle
+	\item $e_{HAA}$ at gait percentage 0 and $e_{HAZ}$ at gait percentage 100
+	\item $u_{HA1}$ the inflection point between $e_{HA1}$ and $e_{HA2}$
+	\item One point in the interval $[e_{HAA}, e_{HF1}]$ which is: $x_{HA1} = \frac{e_{HAA} + e_{HF1}}{2}$.
+	\item The 4 points in the interval $[e_{HF1}, u_{HA1}]$ which are in order: $x_{HA2} = \frac{3.e_{HF1} + u_{HA1}}{4}$, $x_{HA3} = \frac{3.e_{HF1} + 2.u_{HA1}}{5}$, $x_{HA4} = \frac{e_{HF1} + u_{HA1}}{2}$, $x_{HA5} =\frac{2.e_{HF1} + 3.u_{HA1}}{5}$.
+	\item Two points in the interval $[e_{HF2}, e_{HAZ}]$ which are in order: $x_{HA6} = \frac{e_{HF2} + end\_point}{2}$, $\frac{x_{HA7} =  e_{HF2} + 4.e_{HAZ}}{5}$.
+\end{itemize}
+
+This choice is made to maintain this order for the key points in terms of gait percentage: $[e_{HAA}, x_{HA1}, e_{HA1}, x_{HA2}, x_{HA3}, x_{HA4}, x_{HA5}, u_{HA1}, e_{HA2}, x_{HA6}, x_{HA7}, e_{HAZ}]$.
+
+\subsubsection{Optimized Model Configuration and Results}
+The model was train with the new key points and the new configuration, which is with the normalized gait phase and the angle in radian. The training was done with 257100 samples (5142*50). At the end of the GridSearch for the knee flexion model, the optimized combination of hyperparameters is:
+\begin{itemize}
+	\item Number of hidden layers: 3
+	\item batch size: 32
+	\item epochs: 150
+	\item Neurons per hidden layers: 64
+	\item Dropout rate: 0.0
+	\item Activation function: LeakyReLU
+	\item Regularization function: None
+	\item Initialization: He normal
+\end{itemize}
+The modifications have halved the number of hidden layers required for the system, significantly reducing the size of the neural network, which will have observable impacts as noted below, while still achieving similar convergence as seen in \cref{fig:LossModifiedCompletePopulation}.
+
+\cref{tab:performance_metrics_modified_complete_model} presents the results of this new version of the model, noting that the hyperparameters determined for the knee flexion model have been reused for the other DoFs. Although the MSE and MAE are difficult to compare since the range of output values is no longer the same, generally shifting from [-25°, 70°] to [-3.14 rad, 3.14 rad], a comparable value is R². In the new configuration, the model captures the variability in the data better.  Also the training time is also diminish, but a direct comparison can't be done because the number of samples used is also different. In this case as well, since the error calculated with MAE and MSE includes both the error in the normalized gait phase and the error in the angular position, it is also necessary to calculate these two errors individually.
+
+The results obtained individually for the normalized gait phase and angular position are presented in \cref{tab:RMSENormalizedGaitPhaseModifiedCompleteModel} and \cref{tab:RelativeRMSEAngularPositionModifiedCompleteModel}. On average, the results are quite similar for the generation of key points. This changes slightly with the results for the predicted trajectories in Table \cref{tab:RelativeRMSEPRedictedTrajectoriesModifiedCompleteModel}. Here, the results have slightly improved on average, but the most significant change is in the maximum relative RMSE, which is generally lower than for the previous complete model. This is also evident in \cref{fig:ErrorPredictedTrajectoriesCPNew}, which, compared to \cref{fig:ErrorPredictedTrajectoriesCP}, shows that the outliers no longer impact the average values as much, although they still exist. The percentage of trajectories with a relative RMSE less than 10\% has been significantly reduced to less than 7\%.
+
+Examples of the best and worse predicted trajectories can be seen in \cref{fig:WorstPredictedTrajectoriesNew} and \cref{fig:BestPredictedTrajectoriesNew}.
+
+\begin{table}[H]
+	\centering
+	\caption{Performance metrics on the test data for the modified complete models of the different DoFs for the complete model}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Test MSE} & \textbf{Test MAE} & \textbf{Test R²} & \textbf{Training time (in s)}\\ \hline
+		Knee flexion & 0.0014 & 0.0242 & 0.65 & 1941.46 \\ \hline
+		Hip flexion & 0.0015 & 0.0208 & 0.66 & 1944.28\\ \hline
+		Hip abduction & 0.0004 & 0.0128 & 0.64 & 1923.28\\ \hline
+	\end{tabular}
+	\label{tab:performance_metrics_modified_complete_model}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\caption[Mean, Standard deviation and Maximum of the Relative RMSE on angular position of the DoF on all data for the modified complete model of different DoFs]{Mean, Standard deviation and Maximum of th Relative RMSE on angular position of the DoF on all data for the modified complete model of different DoFs Relative RMSE is the RMSE between the angular position between the predicted and the real key points divided by the amplitude of the real curve.}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Mean RMSE} & \textbf{Standard deviation RMSE} & \textbf{Max RMSE}\\ \hline
+		Knee flexion & 0.038 & 0.021 & 0.28 \\ \hline
+		Hip flexion & 0.055 &  0.038 &  0.41\\ \hline
+		Hip abduction & 0.088 & 0.061 & 0.88 \\ \hline
+	\end{tabular}
+	\label{tab:RelativeRMSEAngularPositionModifiedCompleteModel}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\caption[Mean, Standard deviation and Maximum of the RMSE on normalized gait phase on all data for the modified complete model of different DoFs]{Mean, Standard deviation and Maximum of the RMSE on normalized gait phase on all data for the modified complete model of different DoFs}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Mean RMSE} & \textbf{Standard deviation RMSE} & \textbf{Max RMSE}\\ \hline
+		Knee flexion & 0.022 & 0.014 & 0.14  \\ \hline
+		Hip flexion & 0.0205 &  0.017 & 0.11 \\ \hline
+		Hip abduction & 0.014 & 0.014 & 0.23 \\ \hline
+	\end{tabular}
+	\label{tab:RMSENormalizedGaitPhaseModifiedCompleteModel}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\caption[Mean and Standard deviation of the Relative RMSE on the predicted trajectories of the DoF on all data for the modified complete model of different DoFs]{Mean and Standard deviation of th Relative RMSE on the predicted trajectories of the DoF on all data for the modified complete model of different DoFs. After doing the Spline interpolation between the predicted key points, it is possible to evaluate the model at the same normalized gait phase as the points from the real curve. Then the RMSE between those evaluated points and the points from the real curve can be compute. And to obtain the relative RMSE it is divided by the real curve amplitude.}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{DoFs} & \textbf{Mean RMSE} & \textbf{Standard deiviation RMSE} & \textbf{Mas RMSE}\\ \hline
+		Knee flexion & 0.053 & 0.028 & 0.21  \\ \hline
+		Hip flexion & 0.058 & 0.027 & 0.72 \\ \hline
+		Hip abduction & 0.098 & 0.058 & 1.04 \\ \hline
+	\end{tabular}
+	\label{tab:RelativeRMSEPRedictedTrajectoriesModifiedCompleteModel}
+\end{table}
+
+\begin{figure}[h]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Loss_big_model_hip_abduction_new.png}
+		\caption{Loss for the modified complete model of the hip abduction}
+		\label{fig:LossHAModifiedCompletePopulation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Loss_big_model_hip_flexion_new.png}
+		\caption{Loss for the modified complete model of hip flexion}
+		\label{fig:LossHFModifiedCompletePopulation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Loss_big_model_knee_flexion_new.png}
+		\caption{Loss for the modified complete model for the knee flexion}
+		\label{fig:LossKFModifiedCompletePopulation}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the loss curve for the modified complete model \cref{fig:NNModel} of the 3 DoFs]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the loss curve for the modified complete model \cref{fig:NNModel} of the 3 DoFs. With the entire population, we obtain these Loss results based on the MSE during the training phase.}.}
+	\label{fig:LossModifiedCompletePopulation}%
+\end{figure}%
+
+\begin{figure}[h]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_predicted_trajectories_hip_abduction_cp_new.png}
+		\caption{Error on predicted trajectories for hip abduction}
+		\label{fig:ErrorHAAPredictedTrajectoriesCPNew}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_predicted_trajectories_hip_flexion_cp_new.png}
+		\caption{Error on predicted trajectories for hip flexion}
+		\label{fig:ErrorHFPredictedTrajectoriesCPNew}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/relative_error_predicted_trajectories_knee_flexion_cp_new.png}
+		\caption{Error predicted trajectories for knee flexion}
+		\label{fig:ErrorKFPredictedTrajectoriesCPNew}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the relative RMSE of the predicted trajectories with the modified complete model]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the relative RMSE of the predicted trajectories with the modified complete model \cref{fig:NNModel} as function of the walking speed. Each of the figue represent for a DoF, give a specific walking speed, the mean and standard deviation of the error made on the angular position when predicting the key points. The objective is to observe the worse cases scenario for this errors}.}%
+	\label{fig:ErrorPredictedTrajectoriesCPNew}%
+\end{figure}%
+
+\begin{figure}[h]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_abduction_worst_estimation_cp_new.png}
+		\caption{Worst predicted trajectory for Hip abduction}
+		\label{fig:WorstPredictedTrajectoryHANew}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_flexion_worst_estimation_cp_new.png}
+		\caption{Worst predicted trajectory for Hip flexion}
+		\label{fig:WorstPredictedTrajectoryHFNew}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/knee_flexion_worst_estimation_cp_new.png}
+		\caption{Worst predicted trajectory for Knee flexion}
+		\label{fig:WorstPredictedTrajectoryKFNew}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the worst predicted trajectories with the modified complete model for the 3 DoF]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the worst predicted trajectories with the modified complete model for the 3 DoF \cref{fig:NNModel}. The relative RMSE for this worst prediction are: 0.21 for the knee flexion, 0.72 for the hip flexion and 1.04 for the hip abduction}.}%
+	\label{fig:WorstPredictedTrajectoriesNew}%
+\end{figure}%
+%
+\begin{figure}[h]%
+	\centering%
+	%
+	% Including .png
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_abduction_best_estimation_cp_new.png}
+		\caption{Best predicted trajectory for Hip abduction}
+		\label{fig:BestPredictedTrajectoryHANew}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/hip_flexion_best_estimation_cp_new.png}
+		\caption{Best predicted trajectory for Hip flexion}
+		\label{fig:BestPredictedTrajectoryHFNew}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/knee_flexion_best_estimation_cp_new.png}
+		\caption{Best predicted trajectory for Knee flexion}
+		\label{fig:BestPredictedTrajectoryKFNew}
+	\end{subfigure}
+	%
+	%
+	\caption[Representation of the best predicted trajectories with the complete model for the 3 DoF]{\AMlangGerEng{Beschreibung des Bilds}{Representation of the best predicted trajectories with the complete model for the 3 DoF \cref{fig:NNModel}. The relative RMSE for this best prediction are: 0.011 for the knee flexion, 0.01 for the hip flexion and 0.019 for the hip abduction}.}%
+	\label{fig:BestPredictedTrajectoriesNew}%
+\end{figure}%

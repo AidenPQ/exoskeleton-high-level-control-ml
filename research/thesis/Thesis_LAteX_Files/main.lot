@@ -1,0 +1,36 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Comparison of Different Kernels for Gaussian Process Regression}}{19}{table.caption.25}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Presentation of Different Loss functions}}{21}{table.caption.28}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Presentation of Different activation functions}}{22}{table.caption.30}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Comparison of the advantages and disadvantages of activation functions}}{23}{table.caption.31}%
+\contentsline {table}{\numberline {2.5}{\ignorespaces Optimization Methods in Machine Learning Part 1}}{24}{table.caption.33}%
+\contentsline {table}{\numberline {2.6}{\ignorespaces Optimization Methods in Machine Learning Part 2}}{25}{table.caption.34}%
+\contentsline {table}{\numberline {2.7}{\ignorespaces Comparison of Optimization Methods advantages and disadvantages}}{26}{table.caption.35}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Results of Multi-Joint Leg Moment Estimation}}{32}{table.caption.38}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Prediction Accuracy of the SVR Model for Different Input Cases from \blx@tocontentsinit {0}\cite {Dey.2019}}}{38}{table.caption.42}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Hyperparameters and their choice of values}}{55}{table.caption.58}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Kernel Performance Evaluation for the gait period estimation with Training Data}}{60}{table.caption.59}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Relative RMSE by Spline interpolation Degree for Knee Flexion, Hip Flexion, and Hip Abduction}}{62}{table.caption.61}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Comparison of Models with Gait Percentage and Normalized Gait Phase}}{68}{table.caption.69}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Comparison of Models' performances on test data with same hyperparameters except the learning rate}}{68}{table.caption.70}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Comparison of Models' performances on test data with same hyperparameters except the number of neurons per hidden layer}}{68}{table.caption.73}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Comparison of Models' performances on test data with same hyperparameters except the number of epochs}}{69}{table.caption.74}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Performance metrics on test data for the models of different DoF in the case of the restricted model and a smaller population}}{70}{table.caption.75}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Mean and Standard deviation of the RMSE on normalized gait phase on all data for the reduced models of different DoFs}}{71}{table.caption.76}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Mean and Standard deviation of the Relative RMSE on angular position of the DoF on all data for the reduced models of different DoFs}}{71}{table.caption.77}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Performance metrics for the models of the different DoFs for the complete model and the entire population}}{75}{table.caption.81}%
+\contentsline {table}{\numberline {5.11}{\ignorespaces Mean and Standard deviation of the RMSE on normalized gait phase on all data for the complete model of different DoFs}}{76}{table.caption.82}%
+\contentsline {table}{\numberline {5.12}{\ignorespaces Mean and Standard deviation of the Relative RMSE on angular position of the DoF on all data for the complete model of different DoFs}}{76}{table.caption.83}%
+\contentsline {table}{\numberline {5.13}{\ignorespaces Mean and Standard deviation of the Relative RMSE on the predicted trajectories of the DoF on all data for the complete model of different DoFs}}{78}{table.caption.87}%
+\contentsline {table}{\numberline {5.14}{\ignorespaces Performance metrics on the test data for the modified complete models of the different DoFs for the complete model}}{84}{table.caption.95}%
+\contentsline {table}{\numberline {5.15}{\ignorespaces Mean, Standard deviation and Maximum of the Relative RMSE on angular position of the DoF on all data for the modified complete model of different DoFs}}{84}{table.caption.96}%
+\contentsline {table}{\numberline {5.16}{\ignorespaces Mean, Standard deviation and Maximum of the RMSE on normalized gait phase on all data for the modified complete model of different DoFs}}{84}{table.caption.97}%
+\contentsline {table}{\numberline {5.17}{\ignorespaces Mean and Standard deviation of the Relative RMSE on the predicted trajectories of the DoF on all data for the modified complete model of different DoFs}}{85}{table.caption.98}%
+\addvspace {10\p@ }
+\contentsfinish 
+\contentsfinish 

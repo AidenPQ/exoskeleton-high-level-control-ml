@@ -1,0 +1,43 @@
+% !TeX spellcheck = en_US
+\chapter{Introduction}%
+%
+%
+\section{Motivation}%
+This project was born out of the TUM DASH student initiative. It consists of a group of students who want to build a lower limb exoskeleton. An exoskeleton is a wearable electromechanical structure adapted to the human body (or part of it). The aim of the TUM DASH student initiative is to take part in the Cybathlon. The Cybathlon is an international competition where athletes with severe physical disabilities use state-of-the-art assistive technologies, among them robotic prostheses, exoskeletons, and brain-computer interfaces. It will be organized by the Swiss Federal Institute of Technology, or ETH Zurich, to promote the development and use of AT that greatly enhances the quality of life of people with physical disabilities. The main objectives of the Cybathlon are:
+\begin{itemize}
+	\item \textbf{Innovation and Development:} Encourage the development of assistive devices that can be of high quality and standard to assist the living of people with disabilities.
+	\item \textbf{Awareness:} Increase public awareness about challenges persons with disabilities face and about the potential of assistive technologies.
+	\item \textbf{Collaboration:} Foster collaboration between researchers, engineers, and users of assistive technologies to improve their design and functionality.
+\end{itemize}
+The exoskeleton can be used for a variety of purposes:
+\begin{itemize}
+	\item \textit{Human power augmentations} : e.g. minimize fatigue/injuries in industrial field \cite{Golabchi.2023}
+	\item \textit{Haptic interactions}: e.g. Force feedback in VR \cite{Bouzbib.2023}
+	\item \textit{Rehabilitation}: Therapy or compensation of a non functional limb \cite{JimenezFabian.2012}
+\end{itemize}
+In the context of Cybathlon, the 3rd use is the one on which the project will focus. A lower limb exoskeleton must be able to reproduce/compensate for mechanically complex movements such as gait. To achieve this, a sophisticated planning and control framework needs to be developed.
+%
+%
+\section{Objective}%
+%
+As part of the project to create a lower limb exoskeleton by the TUM DASH student initiative, the aim is to establish a high-level controller for the exoskeleton. Due to the limitations of the project environment, the possible inputs for this controller are the kinematic parameters of the exoskeleton (actuated joint position and velocity) and the biomechanical parameters of the rider (age, height, weight, etc.). As output, we need to obtain for each Degree of Freedoms (DoF), the trajectory to be accomplished for a complete cycle of a gait. More precisely, the trajectory is the set of positions to be taken by a joint to complete a gait cycle. Among the various possible methods \cite{Anam.2012}, between methods involving the elaboration of the kinematic model and the part of the human body concerned, or the use of existing models to deduce dynamic parameters, the choice fell on artificial intelligence methods.
+%
+
+An artificial intelligence method can be used to adapt to the exoskeleton pilot, using his biomechanical parameters as input to the model, and a correlation can be demonstrated between these parameters and the trajectory profile \cite{Moissenet.2019, PedroSaCunhaJoaoFerreiraA.PauloCoimbra.}. This controller will be able to adapt to the walking speed and biomechanical parameters of the pilot. The trajectories that will be generated are going to be constrained to a flat surface walk; therefore, although slope inclination also affects these trajectories, in this case, it is not put into consideration. The machine learning models that will be involved in this are going to be trained offline before being added to the exoskeleton system. Also, the memory requirements for the model to be used have to be put into consideration. 
+
+A corresponding database for training would be required for the use of machine learning models. Since this is so time-consuming, in the present case it shall be constituted from gait databases available on the Internet for research purposes. This can again be the foundation for a TUM DASH student initiative working on their own database, inspired by the data collected. Finally, involved DoFs, for which trajectories and speed profiles should be generated, are the knee flexion, hip flexion, and hip abduction.
+%
+\section{Outline}%
+Next sections will introduce the background knowledge that is required to fully understand the project, work done so far in this area, controller itself and its performance.
+
+Chapter 2 focuses on knowledge to understand the project. It goes through the hierarchization and the categorization of controllers; the gait cycle and the controllers this latter inspires. It describes the different parts of the DASH exoskeleton and explains in more detail what is required in supervised machine learning.
+
+Chapter 3 will explore the various works that have been done in the field of high-level machine learning controllers.
+
+A more detailed description of the controller and its different components is given in chapter 4. 
+
+Chapter 5 deals with the performance of the said controller. 
+
+Chapter 6 concludes the project and shows some future directions.
+%
+%

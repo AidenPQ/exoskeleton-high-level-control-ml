@@ -1,0 +1,1204 @@
+% !TeX spellcheck = en_US
+\chapter{Background and Fundamental Theory}%
+\label{chap:BackgroundAndTheory}
+%
+In this chapter, we will present the different knowledge required for the subject of Machine learning high level control for lower limb exoskeleton. After studying the control framework of an exoskeleton and its various components, the specific field of controllers for lower limb exoskeletons will be addressed, with a focus on gait and how it works. And after a look at the components of the DASH exoskeleton, we'll move on to the Machine Learning concepts that are essential for the future.
+%
+\section{Exoskeleton Control Framework}%
+In order for an exoskeleton to assist the pilot in executing complex movements, it is necessary to establish a sophisticated control system for this exoskeleton. In the following, the typical hierarchization of such control framework will be studied followed by the categorization of existing controllers.
+%
+\subsection{Controller Hierarchization}
+%
+In the design of lower limb exoskeletons, a hierarchical controller is essential to ensure smooth, efficient, and safe operation. The hierarchical controller is typically structured into three levels: high-level control, mid-level control, and low-level control, each responsible for different aspects of the exoskeleton's functionality \cite{Tucker.2015}.A visualization of these typical levels can be seen in \cref{fig:hierarchicalControl}. The following sections provide an overview of these three control levels, highlighting their specific roles and interactions.
+
+\begin{figure}[h!]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=140mm]{figures/hierarchical_control.png}%
+	%
+	\caption[Generalized control framework for active lower limb prostheses and orthoses]{\AMlangGerEng{Beschreibung des Bilds}{Generalized control framework for active lower limb prostheses and orthoses. Taken from \cite{Tucker.2015}. The controller receives information, in the form of a transduced signal, from three entities: the user (exoskeleton pilot), the exoskeleton (P/O Device structure and actuation) and the environment. These signals reflect the state of these three entities. These states are affected by changes intrinsic to the entity (variations in the environment, for example), but also by interactions between the different entities. These interactions are essentially physical signals (exchanges of forces, for example), except for the user, who receives all information in the form of stimuli. The controller is organized into three levels, each with a specific role. The high level, whose objective is to use the states of the three preceding entities to establish and estimate the user's intention, set in the context of the state of the exoskeleton and the environment. The mid level translates the user's intention into the different states that the exoskeleton must take in order to achieve this intention. The low level ensures that the states defined by the mid level are reached as best as possible}.}%
+	\label{fig:hierarchicalControl}%
+\end{figure}%
+%
+%
+\subsubsection{High Level Control}
+%
+The high-level control, also known as the perception layer as seen in \cref{fig:hierarchicalControl}, is responsible for estimating the user's intentions and recognizing the activity mode and context. In the context of a lower limb exoskeleton, the mode of activity can be whether the person is walking or running, or the speed of movement. For context, an example might be the inclination of the slope on which he's walking, or the presence of obstacles in the path. This layer usually involves sophisticated algorithms and machine learning techniques to accurately interpret the user's volitional intent based on sensory stimuli. By understanding the user's intentions, the high-level control can make informed decisions about the desired movements of the exoskeleton \cite{Tucker.2015}.
+
+Controllers at this level can take several forms. Some allow, by taking electromyogram (EMG) signals from the muscles surrounding a joint as input, to output the force to be applied to it, as described in \cite{JimenezFabian.2012}. Others, using the kinematic state of the exoskeleton (joint speed and position) and the kinematic state of the user (leg angle and speed), can determine whether the user is running or walking in order to select the appropriate mid-level controller (classification 0 for walking and 1 for running) \cite{Tucker.2015}. They can also determine the speed at which the user is moving and provide this information to the mid-level controller.
+
+High-level control is crucial for adapting the exoskeleton's behavior to the user's needs and the environmental context, ensuring both safety and functionality. Recent advancements in machine learning have significantly enhanced the capability of high-level control systems to accurately predict and respond to user intentions \cite{Tucker.2015, Eslamy.82620188292018, Eslamy.2019}.
+
+%
+%
+\subsubsection{Mid Level Control}
+The mid-level control, or translation layer in \cref{fig:hierarchicalControl}, serves as the bridge between high-level intentions and low-level execution. It translates the estimated intentions from the high-level control into specific state commands that the exoskeleton's actuators can execute. This involves mapping the high-level goals to the desired device state outputs, ensuring that the exoskeleton's movements align with the user's intentions \cite{Tucker.2015}.
+
+Mid-level controllers essentially take the information received from the high-level controller as input and output commands to drive the actuators. These outputs will therefore always be positions, speeds, or torques for the actuators. To revisit previous examples, the input might be the torque to apply to a joint or the user's walking speed. By their nature, it often happens that the high-level and mid-level controllers are fused into one, as in the case of Eslamy et al \cite{Eslamy.82620188292018}, which takes the position and speed of the leg as input and deduces the necessary movements for the ankle actuators to follow.
+
+Mid-level control plays a vital role in ensuring smooth and coordinated movement. It must effectively handle the conversion of abstract intentions into concrete actions, which requires a thorough understanding of both the user's biomechanics and the exoskeleton's mechanics \cite{Liang.2018, Koller.2017}.
+%
+%
+\subsubsection{Low Level Control}
+%
+The low-level control, or execution layer see \cref{fig:hierarchicalControl} is responsible for the direct control of the exoskeleton's actuators. This includes error calculation, feedforward, and feedback control loops to maintain precise and stable movement. Low-level control ensures that the commands from the mid-level control are executed accurately, compensating for any disturbances or deviations in real-time \cite{Tucker.2015}.
+
+Effective low-level control is critical for the safety and performance of the exoskeleton. It must be capable of handling the high dynamics and variability in human movement, providing robust and reliable control under various conditions \cite{JimenezFabian.2012, Shorter.2013}.
+%
+%
+\subsection{Controller Categorization}
+%
+The hierarchization of controllers allows for defining the different roles a controller can play within the control framework of an exoskeleton. It is also possible to differentiate controllers based on their constitution (their inputs and outputs, how they compute the outputs from the inputs, etc.). The hierarchization of controllers allows for defining the different roles a controller can play within the control framework of an exoskeleton. It is also possible to differentiate controllers based on their constitution (their inputs and outputs, how they compute the outputs from the inputs, etc.). This categorization of controllers is composed of two major groups : Model-based control system and physical parameters based control system \cite{Anam.2012}. Each of these categories or their sub-categories can be linked to a level in the controller hierarchy.
+%
+%
+\subsubsection{Model-based Control System}
+%
+Model-based control systems uses a model of the human being to deduce the parameters required for the exoskeleton to function properly. Depending on the method used to
+obtain the model, there are two sub-categories: dynamic models and muscle models \cite{Anam.2012}. Due to the nature of this type of controller, the model can be used to recognize the exoskeleton user’s intention and determine the variables needed to drive the actuators. As a result, they are often used as high or even mid-level controllers.
+
+\paragraph{Dynamic Models}
+Dynamic models are derived from modeling the human body using rigid elements, kinematic joints and the different forces exerted on them. Such a model can be obtained by several methods, ranging from the most theoretical to the most computational: mathematical method, system identification
+method and artificial intelligent method. The first, the most difficult to compute, requires the ability to theoretically model the entire human body (or part of the body concerned) using the equation of motion with the different joints as degree of freedom. The system identification method involves using data with existing mathematical methods/models to
+deduce dynamic parameters. These two methods are mainly used for BLEEX \cite{Kazerooni.2005}, the second being used to model a particular phase of the gait, the swing phase \cref{fig:gaitTucker}. During this phase, the leg is model as a 7 DoF serial link mechanism in the sagittal plane. The equation of motion for BLEEX during the swing phase is given by:
+
+\begin{equation}
+	M(\theta) \ddot{\theta} + C(\theta, \dot{\theta}) \dot{\theta} + P(\theta) = T + d
+\end{equation}
+where:
+\begin{itemize}
+	\item \( M(\theta) \) is the inertia matrix,
+	\item \( C(\theta, \dot{\theta}) \) is the centripetal and Coriolis matrix,
+	\item \( P(\theta) \) is the gravitational torque vector,
+	\item \( T \) is the actuator torque vector,
+	\item \( d \) represents the torque imposed by the pilot.
+\end{itemize} 
+Then they used a system identification method to establish the inverse kinematics of the system and obtain the required torques.
+Finally, the artificial intelligence method, which is the focus of this study, will be presented in \cref{chap:RelatedWork}.
+
+\paragraph{Muscle Models}
+Muscle models are specific in that, unlike dynamic models which only use kinematic and/or dynamic information from the system to model it, these use Electromyography signals to deduce the user’s intention, or more precisely to estimate the force that the muscle whose signals are being measured wants to apply. A representation of how this type of model works can be found in \cref{fig:EMGIntentRecognition} taken from \cite{JimenezFabian.2012}. In \cref{fig:EMGIntentRecognition}, the EMG signals are measured on the user and fed into a neural network for interpretation. From this interpretation, the neural network will deduce the user's activity mode and select the most appropriate mid-level controller. In the context of gait, this can determine whether the user is running or walking and select the mid-level controller accordingly.
+
+There is a difference in the way the model is parameterized. A muscle model can be parametric, i.e. it uses a representation of the muscle (Hill-based \cite{Rosen.1999} for example) and dynamic joints to deduce an estimate of the force applied, with EMG signals as input. It can also be non-parametric, in which Input/Output data is used with which a model is trained. A comparison between the performance of these two types can be found here \cite{Rosen.1999}, with a better prediction in the case of the use of a neural network. But more recent studies have tended to use the non-parametric approach with neuro fuzzy logic, i.e. neural networks used in the interpretation of fuzzy logic. Fuzzy logic is a variety of multivalued logic derived from fuzzy set theory and aims to deal with approximate rather than precise reasoning. Whereas the variables in the classic binary logic should be either true or false, in fuzzy logic, they can have truth values ranging from 0 to 1 \cite{Singh.2013}. The key concept in fuzzy logic is the membership function, which defines the degree of truth as an extension of valuation. In this respect, this is much more flexible and closer to the way human reasoning and decision making go, especially in complex systems wherein binary logic goes lame. The first use of this method was to improve the recognition of intention by EMG signals \cite{Kiguchi.2004}. The memberships functions in \cref{fig:KiguchiFuzzyLogic} are used to represent for the elbow and shoulder at which angle they are considered flexed, intermediate or extended, and to what extend an angle belongs to one of those categories. There are other membership function but for muscles to know if there are flexed or extended.
+\begin{figure}[h!]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=80mm]{figures/KiguchiFuzzyLogic.png}%
+	%
+	\caption[Fuzzy Logic in the context of Kiguchi et al work \cite{Kiguchi.2004}]{\AMlangGerEng{Beschreibung des Bilds}{Fuzzy Logic in the context of Kiguchi et al work \cite{Kiguchi.2004} It reprsents the menberships function used in their work. FA: flexed angle, IA: intermediate angle, and EA: extended Angle. The shoulder and elbow are consider flexed or extended at different angle and at some angles there can be flexed and intermediate at the same time. Those membership function represents at which moment angle the joint is flexed, intermediate or extended and to what entend the angle belongs to one of the categories}.}%
+	\label{fig:KiguchiFuzzyLogic}%
+\end{figure}%
+This method has become prevalent in this type of control, notably adding physical parameters based control systems like PD controllers \cite{Lo.2012, Rahman.2006} which will be explained below. 
+
+Other methods are also possible in the case of non parametric methods, as for example in \cite{Farmer.2014}, where a nonlinear auto regressive model with exogenous output was used with satisfactory results. A nonlinear autoregressive model exogenous (NARX) input is one of the techniques of time series modeling applied in the prediction of a system's future values based on past values and some other external inputs. This model is especially useful for capturing complex, nonlinear relationships in data. Using a delayed measurements of EMG signals and the previous ankle estimates, they are able to continously predict the ankle angle over time.
+
+\begin{figure}[h!]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=130mm]{figures/NARXFarmer.png}%
+	%
+	\caption[Non Linear Autoregressive model with exogenous output used by \cite{Farmer.2014}]{\AMlangGerEng{Beschreibung des Bilds}{Non Linear Autoregressive model with exogenous output used by \cite{Farmer.2014}. Windowed EMG activity and previous estimates of ankle angle were weighted and fed via tapped delay lines to a hidden layer comprised of nonlinear units. Outputs from the hidden layer were weighted and linearly combined to provide a continuous estimate of ankle angle over time}.}%
+	\label{fig:NARXFarmer}%
+\end{figure}%
+
+Also, without going as far as force estimation, the
+use of EMG signals for control has also been used solely for intent recognition, i.e. in cases of high level controller only. This is the case with \cite{Young.2014}, which uses EMG signals and mechanical information from various sensors to deduce the user’s intention. The objective is to better understand the contribution of EMG signals compare to various mechanical sensors.
+
+Studies such as \cite{Liang.2018}, seek to compare the use of EMG signals in control compared to just exclusively mechanical parameters. In this case, the use of EMG signals could be better in the control of exoskeletons, particularly in the context of rehabilitation, but more in-depth studies are needed.
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=120mm]{figures/EMG_diagramm_system_JimenezFabian2012.png}%
+	%
+	\caption[Control system diagram using EMG signals for intent recognition]{\AMlangGerEng{Beschreibung des Bilds}{Control system diagram using EMG signals for intent recognition. Taken from \cite{JimenezFabian.2012}. An architectural version of control using EMG signals where these are used in parallel with biomechanical signals from the user/device assembly for intention recognition. The EMG signals measured from the user are given to a NN that is able to recognize the ability mode of the user and chose the right mid level controller for this activity mode. They will the pilot  the actuators in an adapted way given the context and the biomechanicals signals they receive from the robot structure}.}%
+	\label{fig:EMGIntentRecognition}%
+\end{figure}%
+%
+%
+\subsubsection{Physical Parameters-based Control System}
+%
+Physical parameters-based control refers to a control strategy that utilizes measurable physical parameters of a system to regulate its behavior. These parameters could include quantities such as force, torque, pressure, temperature, displacement, velocity, and acceleration. Physical parameters based control system is the basis of any control system, particularly as all the controllers in this category are the closest to actuators, i.e. low level controllers, except in certain cases. This type of controller can be found in all conventional mechatronic systems. They can be classified into two types of controller: for position and for force/torque. As far as position controllers are concerned, the best-known are PID controllers. In the case of force/torque controllers, it is possible to use them as mid level controllers when the aim is to control the force of interaction between the human and the exoskeleton \cite{Anam.2012}. This type of controller applied in this context are in the form of impedance controllers \cite{Unluhisarcikli.uuuuuuuu} or admittance controllers \cite{AguirreOllinger.2011}. Impedance controllers tend to use the force as controlled parameter to pilot the position and admittance controller use the position as controlled parameter to pilot the force. This makes it possible to aid rehabilitation by using these interaction forces to correct walking errors, as in the case of \cite{Unluhisarcikli.uuuuuuuu, AguirreOllinger.2011}.
+%
+%
+\section{Gait-based Control}
+%
+The most common purpose for a lower limb exoskeleton is the replication of human gait. Lower limb exoskeleton controllers must be able to reproduce and support the rider in the execution of the gait. In the following, we'll describe the gait process in more detail, and how controllers for this process are generally designed.
+%
+\subsection{Human Gait Description}
+%
+Gait, the manner of walking or moving on foot, is a complex and dynamic process involving the coordinated action of muscles, joints, and neural mechanisms \cite{Singh.2024b}, which can be observed on \cref{fig:gaitTucker}. Understanding the gait process is essential for fields such as biomechanics, rehabilitation, and robotics in the context of lower limb devices. This chapter provides a detailed description of the gait process, its different phases, and their key features. The terms of \cref{fig:gaitTucker} will be explained in the following paragraphs.
+%
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=150mm]{figures/gait_Tucker_2015.png}%
+	%
+	\caption[Finite-state decomposition of level human gait]{\AMlangGerEng{Beschreibung des Bilds}{Finite-state decomposition of level human gait. Taken from \cite{Tucker.2015}. Steady-state locomotion can be represented as a periodic sequence of states (or phases), where the transitions between the states are triggered by events within the gait cycle. The choice of the number of states and the type of events used are somewhat arbitrary, and will depend on what information is available from the sensors and which joint the device is to actuate. In this example for the knee joints, stance has been divided into three states, with early and middle stance initiated by ground contact events at the heel and toe of the foot, for example determined using pressure sensitive insoles}.}%
+	\label{fig:gaitTucker}%
+\end{figure}%
+
+\subsubsection{Phases of the gait}
+The gait cycle can be divided into two primary phases: the stance phase and the swing phase \cite{Singh.2024b}. Each phase encompasses specific movements and functions that contribute to efficient locomotion.
+
+\paragraph{Stance Phase}
+The stance phase accounts for approximately 60\% of the gait cycle \cite{Singh.2024b}. It begins when the heel contacts the ground (heel strike) and ends when the toes leave the ground (toe-off). This phase can be further subdivided into the following periods \cite{LeMoyne.2024b}:
+
+\begin{itemize}
+	\item \textbf{Initial Contact}: The moment when the foot first touches the ground. It is characterized by the heel strike, where the foot transitions from the swing phase to the stance phase.
+	\item \textbf{Loading Response}: Following initial contact, the foot absorbs the body's weight, and the entire foot comes into contact with the ground. This period is crucial for shock absorption and stability.
+	\item \textbf{Middle stance}: This is when the body progresses over the stationary foot. The body's center of gravity is directly over the supporting limb, providing balance and support.
+	\item \textbf{Late Stance}: The body continues to move forward, with the heel rising from the ground. This phase ends when the opposite foot strikes the ground.
+	\item \textbf{Pre-Swing}: Also known as the push-off phase, this period involves the transfer of weight to the opposite limb, and the foot prepares to leave the ground.
+\end{itemize}
+%
+\paragraph{Swing Phase}
+The swing phase comprises the remaining 40\% of the gait cycle \cite{Singh.2024b}. It begins when the foot leaves the ground and ends when it contacts the ground again. This phase can be divided into \cite{LeMoyne.2024b}:
+
+\begin{itemize}
+	\item \textbf{Initial Swing}: The foot is lifted off the ground, and the leg accelerates forward. This phase is critical for initiating limb advancement, correspond in\cref{fig:gaitTucker} to the swing knee flexion.
+	\item \textbf{Midswing}: The leg continues to advance as the knee begins to extend, and the foot moves forward past the opposite stance limb, correspond in\cref{fig:gaitTucker} to the swing knee extension.
+	\item \textbf{Terminal Swing}: The final period of the swing phase, where the knee fully extends, and the foot prepares for initial contact with the ground.
+\end{itemize}
+
+\subsection{Gait-based controllers}
+\label{subsec:GaitBasedControllers}
+The aim of gait-based controllers is to ensure stable gait via the exoskeleton. To achieve this, exoskeleton actuators are connected to the various joints (hip, knee, ankle) so that they can be controlled. For each joint, there are three possible DoFs for the hip, one for the knee and three for the ankle \cite{Dollar.2008} as represented in \cref{fig:LowerLimbJointMovement}:
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=150mm]{figures/LowerLimbJointMovement.png}%
+	%
+	\caption[Different DoFs for the lower limb joints]{\AMlangGerEng{Beschreibung des Bilds}{Different DoFs for the lower limb joints. Taken from \cite{Kalita.2021}. Different joint movement of the lower limb (a) hip abduction/adduction (a/a), intra/extra rotation (i/e) and flexion/extension (f/e), (b) knee flexion/extension (f/e), (c) ankle dorsi/planter flexion (d/p), abduction/adduction (a/a), and ankle inversion/eversion (i/e). The definition of those DoFs will be given in the following paragraph}.}%
+	\label{fig:LowerLimbJointMovement}%
+\end{figure}%
+
+\begin{itemize}
+	\item \textbf{Flexion / Extension} refers to the movement that decreases / increases the angle between two body parts. In the context of human joints, flexion typically involves bending a limb at a joint, bringing the two parts closer / further together.
+	\item \textbf{Abduction} is the movement of a limb or body part away from the midline of the body. In other words, it is the action of drawing away from the central axis of the body or limb. \textbf{Adduction} is the movement of a limb or other part toward the midline of the body or towards another part. It is the opposite of abduction.
+	\item \textbf{Internal rotation}, also known as medial rotation, involves the rotation of a limb or body part towards the midline of the body. \textbf{External Rotation}, also known as lateral rotation, involves the rotation of a limb or body part away from the midline of the body.
+	\item \textbf{Dorsiflexion} is the action that reduces the angle between the dorsum (top) of the foot and the leg, drawing the toes toward the shin. It is also known as raising the front of the foot upward. \textbf{Plantar Flexion} is the opposite movement, which is the increase in the angle between the dorsum of the foot and the leg. It is a movement pointing the toes downward, away from the shin, such as pressing on a gas pedal.
+	\item \textbf{Inversion} refers to the movement of the sole (flexor surface of the foot) towards the median plane, and it means the sole turns inwards. The motion decreases the angle between the medial aspect of the foot and the midline of the body. \textbf{Eversion} is the turning of the sole away from the median plane, where it is oriented outward. The movement increases the angle between the medial side of the foot and the midline of the body.
+\end{itemize}
+
+But this does not imply that all these DOFs are actively controlled. In the paper \cite{Dollar.2008}, lower-limb exoskeletons such as the one at the Massachusetts Institute of Technology are almost completely passive, meaning that there are no actuators to drive the DoF, but the device structure allows movement according to the Dof, and even in most active exoskeletons, only two out of three DOFs for the hip and ankle are considered. And there are even models that are only actively control one joint. Among the various parameters to be taken into account when designing a gait based controller, the number of DOFs or actuators to be controlled must be considered. \par
+
+With the aim of reproducing the gait cycle for use in high level control, \cref{fig:gaitTucker} shows 2 main ways of doing this:
+
+\begin{itemize}
+	\item A first consideration for such a controller would be to consider the different phases of gait separately. It is possible to define different mid level controllers specialized in piloting the exoskeleton in a specific phase (stance or swing) or define multiple mid level controllers depending on the activity mode, one for walking gait, one for running gait for example. We would then have a high level controller which would allow us to determine which phase of gait the individual or what the activity mode is in, and then choose the appropriate mid level controller, knowing that each of them corresponds to a specific phase. A representation of this can be seen in figure \cref{fig:phasesGaitImage} from \cite{JimenezFabian.2012}. In the case of \cref{fig:phasesGaitImage} taking the kinematic state of the system (Robot structure + User), be able to recognize the activity mode (walking, running, etc) and then choose the mid level controller adapted to it.
+	\item The second case is to consider the gait cycle in its whole and to make a temporal discretization of it. More specifically, for each of the joints (hip, knee, ankle), the aim is to be able to represent the trajectory of this joint (angle, speed or torque) as a function of the moment in the gait cycle. In the simplest cases, such as when a single joint is being controlled, it is possible, as shown in the figure \cref{fig:oneJointControlImage} from \cite{Eslamy.2020}, to predict at each moment of the gait cycle what the next position or speed of the joint should be. In one version of this theory, there is, for example, the article \cite{Eslamy.uuuuuuuu}, an active exoskeleton for the knee, where there is one controller (no multiple mid level controllers) that continuously pilot the knee no matter the gait phase or the activity mode of the user.
+\end{itemize}
+
+The prevalence of being able to develop controllers that consider gait as a continuous process over time and not by dividing it into phases has been noted in recent articles. As far as one-joint exoskeletons are concerned, this method has been used extensively recently, including the various examples cited recently in \cite{Dey.2019}, which establishes a relationship between the kinematic and dynamic parameters of the hip and knee joints and that of the ankle being controlled. The discovery of this potential correlation, or even synergy, between the angles and speeds of the various joints from the shoulder to the knee, with the right side influencing the left side and vice versa, is taken even further in the article \cite{Eslamy.2019}. This makes it possible to use information other than that from the lower limb to drive a lower limb exoskeleton. As a result, there has been a resurgence of work that provides a model that can continuously reconstruct the gait profile of an individual's different joints, as in the case of \cite{Eslamy.2023}, who uses and improves on the technique used by \cite{Yang.2008}. They use thigh- and leg-related angles, velocities and moments as input, and legacy predictions of joint angles (hip, knee, ankle) to continuously predict the angles of different joints using neural network wavelets.
+%
+\begin{figure}[H]
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=120mm]{figures/motion_intent_diagramm_JimenezFabian_2012.png}%
+	%
+	%
+	\caption[Diagram of a controller with a gait cycle divided into phases]{\AMlangGerEng{Beschreibung des Bilds}{Diagram of a controller with a gait cycle divided into phases. Taken from \cite{JimenezFabian.2012}. In this control architecture, the kinematic state of the user and exoskeleton is used to predict the user's intention. More specifically, in the case of gait-based control, the aim here is to determine which phase of gait the user is in in order to assign control to the mid-level controller best suited to this phase.}.}%
+	\label{fig:phasesGaitImage}%
+\end{figure}
+%
+\begin{figure}[H]
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=120mm]{figures/OneJointControlEslamy2020.png}%
+	%
+	%
+	\caption[Control of an active knee exoskeleton]{\AMlangGerEng{Beschreibung des Bilds}{Control of an active knee exoskeleton. Taken from \cite{Eslamy.2020}. An example of machine learning based control for a one-joint exoskeleton. The model used is Gaussian Process Regression, with the input being the angular position, angular velocity or a combination of the two, and the output being the next desired position for the knee}.}%
+	\label{fig:oneJointControlImage}%
+\end{figure}
+%
+%
+\section{DASH Exoskeleton Hardware and Software}
+\label{sec:DASHExoskeleton}
+The DASH exoskeleton, code-named "ASH," is a highly complex robotic system for enhancing human mobility. This section describes its hardware and software components.
+
+\subsection{Sensors}
+\begin{itemize}
+	\item \textbf{Foot sole based on Velostat architecture:} Detects pressure and distribution across the foot sole, crucial for balance and gait analysis.
+	\item \textbf{Temperature sensors:} Monitor the temperature of various components, ensuring they are within safe operating limits and preventing overheating.
+	\item \textbf{Computer vision (planned for future integration):} Enhances the exoskeleton's capability to interpret and react to the environment, improving navigation and interaction.
+	\item \textbf{Battery level monitoring:} Ensures the user is aware of the power status, preventing unexpected shutdowns and maintaining reliable operation.
+\end{itemize}
+
+\subsection{Power System}
+\begin{itemize}
+	\item \textbf{60A fuse boxes:} Provide overcurrent protection, preventing damage to electrical components and ensuring user safety.
+	\item \textbf{Power distribution system:} Manages and distributes electrical power efficiently across all components of the exoskeleton.
+	\item \textbf{Active and passive cooling systems:} Maintain optimal operating temperatures for electronics and motors, ensuring performance and longevity.
+	\item \textbf{Power distribution at actuator level:} Ensures that actuators receive the necessary power for precise and responsive control.
+\end{itemize}
+
+\subsection{Control System}
+\begin{itemize}
+	\item \textbf{Low-level actuator specific control:} Provides fine-tuned control over individual actuators, crucial for precise movement and responsiveness.
+	\item \textbf{Mid-level trajectory following and multi-dimensional impedance control:} Ensures smooth and adaptive movement by following predefined paths and adjusting to dynamic forces.
+	\item \textbf{High-level live trajectory generation and adaptation:} Enables real-time adjustment to movement trajectories based on sensor input and environmental changes.
+	\item \textbf{Joint specific controllers:} Manage each joint's movements independently, allowing for complex and coordinated actions.
+	\item \textbf{Real-time operating system:} Ensures timely and reliable execution of control algorithms, critical for maintaining synchronization and performance.
+\end{itemize}
+
+\subsection{Mechanical Structure}
+\begin{itemize}
+	\item \textbf{Frame backpack:} Provides a supportive structure to distribute the weight of the exoskeleton, improving comfort and usability.
+	\item \textbf{Knee joints with variable torque on angle output relations (non-symmetric Jacobian):} Allows for dynamic and responsive knee movement, enhancing walking and other leg movements.
+	\item \textbf{Passively actuated ankle joints:} Simplify the design and reduce power consumption while still supporting necessary ankle movements.
+	\item \textbf{Hip flexion and extension:} Facilitates essential hip movements, contributing to natural and effective locomotion.
+	\item \textbf{Hip action and abduction/adduction:} Enhances lateral and rotational hip movements, supporting a wider range of activities.
+	\item \textbf{Carbon fiber frame attachments and protection:} Provide strength and durability while minimizing weight, ensuring protection and longevity.
+\end{itemize}
+
+\subsection{Pilot Interaction and Support}
+\begin{itemize}
+	\item \textbf{Pilot training related handles and equipment:} Facilitate training and familiarization with the exoskeleton, ensuring users can operate it effectively.
+	\item \textbf{Pilot interfaces and supporting mechanisms:} Improve usability and comfort, enabling the pilot to interact with and control the exoskeleton seamlessly.
+	\item \textbf{Ergonomic handles and push-to-go buttons on the handles:} Enhance user comfort and control, making the exoskeleton more intuitive to use.
+\end{itemize}
+
+\subsection{Embedded Systems}
+\begin{itemize}
+	\item \textbf{Controlling PCBs (managing the interfaces on every joint):} Centralize control and communication for each joint, ensuring coordinated and precise movements.
+	\item \textbf{Main computer and cabling:} Serve as the central processing unit, managing data and control signals throughout the exoskeleton.
+	\item \textbf{Doubly redundant encoder schemes (including absolute encoders):} Ensure reliable position sensing and control accuracy, even if one encoder fails.
+	\item \textbf{Protection measures:} Safeguard the electronics and user from electrical faults and other hazards.
+	\item \textbf{Exoskeleton-wide I2C and SPI bus interfaces:} Enable efficient and reliable communication between components, ensuring synchronized operation.
+\end{itemize}
+
+\subsection{Human-Machine Interface (HMI)}
+\begin{itemize}
+	\item \textbf{Joystick and mode selection:} Provide intuitive control over the exoskeleton's movements and modes, enhancing user experience.
+	\item \textbf{Status display and Finite State Machine (FSM) state selection:} Allow the user to monitor the exoskeleton's status and select operational states, improving control and situational awareness.
+	\item \textbf{Emergency buttons:} Offer immediate stop functionality, ensuring user safety in case of unexpected situations or malfunctions.
+\end{itemize}
+
+\section{Supervised Machine Learning}%
+Supervised Machine Learning is a fundamental branch of machine learning where the goal is to learn a mapping from input features to output labels based on a set of example input-output pairs. This learning process is termed "supervised" because it operates under the supervision of labeled training data, where the correct output is provided for each input \cite{IanGoodfellow.2016}. This enables the algorithm to learn the relationship between inputs and outputs, and subsequently make predictions on new, unseen data.
+
+In what follows, we'll explore the importance of data standardization for supervised Machine Learning, and look at the two models in this category that will be used next, Gaussian Process Regression and Deep Neural Networks.
+%
+\subsection{Standardization of Data}
+\label{subsubsec:Standardization}
+
+In machine learning, standardization of data is a crucial preprocessing step that involves transforming the features of the dataset to have a mean of zero and a standard deviation of one \cite{James.2013}. This transformation is essential for ensuring that each feature contributes equally to the model's performance and that the model can learn efficiently from the data.
+
+Standardization, also known as Z-score normalization, transforms the data using the following formula:
+
+\begin{equation}
+	z = \frac{x - \mu}{\sigma}
+\end{equation}
+
+where \(x\) represents the original data point, \(\mu\) is the mean of the training data, and \(\sigma\) is the standard deviation of the training data \cite{James.2013}. By applying this transformation, the resulting standardized data will have a mean of zero and a standard deviation of one. This process ensures that the data is centered around zero and that the variance is uniform across all features \cite{James.2013}.
+
+Many machine learning algorithms, especially those that rely on gradient-based optimization methods (such as gradient descent), perform better when the data is standardized. When features are on different scales, the optimization algorithm can become biased towards the features with larger scales, leading to inefficient learning and slow convergence. Standardization mitigates this issue by ensuring that all features are on a comparable scale \cite{James.2013}.
+
+Models such as support vector machines (SVMs), k-nearest neighbors (k-NN), and principal component analysis (PCA) are sensitive to the scale of the data. Standardizing the features can significantly improve the performance of these models by preventing any single feature from disproportionately influencing the results. This leads to more accurate and reliable predictions \cite{Hastie.2017}.
+
+%
+\subsection{Gaussian Process Regression}%
+\label{subsec:GaussianProcessRegression}
+Gaussian Process Regression (GPR) is a non-parametric, Bayesian approach to regression that is particularly useful for modeling uncertain data and the non linear relationships between them \cite{Rasmussen.2004}. Unlike traditional regression methods that assume a specific form for the underlying function, GPR defines a distribution over possible functions and makes predictions based on the observed data. GPR offers a flexible and powerful approach to modeling complex data by defining a distribution over functions. The choice of kernel plays a critical role in determining the properties of the functions that the Gaussian Process (GP) can model \cite{Rasmussen.2006}. n the context of a GP, the kernel determines how points in the input space are correlated with each other. This correlation is critical because it allows the GP to make predictions about unknown data points based on the known data points. By selecting an appropriate kernel, we can incorporate prior knowledge about the function and capture various patterns in the data.
+
+\subsubsection{Overview of Gaussian Process Regression}
+A Gaussian Process (GP) is a collection of random variables, any finite number of which have a joint Gaussian distribution \cite{Rasmussen.2006}. Formally, a GP is defined as a set of random variables \(\{f(x)\}_{x \in \mathcal{X}}\), such that any finite subset \((f(x_1), f(x_2), \ldots, f(x_n))\) has a multivariate Gaussian distribution:
+
+\begin{equation}
+	(f(x_1), f(x_2), \ldots, f(x_n)) \sim \mathcal{N}(\mu, K)
+\end{equation}
+
+where \(\mu = [\mu(x_1), \mu(x_2), \ldots, \mu(x_n)]^T\) is the mean vector and \(K\) is the covariance matrix with elements \(K_{ij} = k(x_i, x_j)\).
+
+The GP is fully specified by its mean function \(m(x)\) and covariance function (or kernel) \(k(x, x')\) \cite{Rasmussen.2006}:
+
+\begin{equation}
+	m(x) = \mathbb{E}[f(x)]
+\end{equation}
+\begin{equation}
+	k(x, x') = \mathbb{E}[(f(x) - m(x))(f(x') - m(x'))]
+\end{equation}
+
+Given a set of training data points \(\{(x_i, y_i)\}_{i=1}^n\), where \(y_i\) are the observed values and \(x_i\) are the input locations, we assume that the observations are generated from the underlying function with some added Gaussian noise \(\epsilon \sim \mathcal{N}(0, \sigma_n^2)\):
+
+\begin{equation}
+	y_i = f(x_i) + \epsilon
+\end{equation}
+
+\subsubsection{Prior and Posterior in Gaussian Processes}
+Before observing any data, we place a prior on the function values \( f \), assuming \( f \sim \mathcal{GP}(m(x), k(x, x')) \). The term "prior" is used because it captures our assumptions or knowledge about the function's behavior prior to seeing any evidence. This prior captures our initial beliefs about the function's behavior, defined by:
+
+\begin{itemize}
+	\item Mean Function (\( m(x) \)): Describes the expected value of the function at each point in the input space. Often set to zero if no specific prior knowledge about the mean is available.
+	\item Covariance Function (Kernel, \( k(x, x') \)): Describes how function values at different points in the input space are correlated. The kernel determines properties such as smoothness and periodicity of the functions. The kernel is composed of a constant part and a variable part. The constant part of the kernel function is responsible for capturing the global properties of the function, such as its overall variance or bias. The variable part of the kernel captures how the function values vary with changes in the input. It usually depends on the distance or relationship between input points and is responsible for modeling local properties like smoothness, periodicity, or more complex interactions.
+\end{itemize}
+
+After observing data, we update our beliefs to obtain the posterior distribution over the function values at new input locations \( X_* = \{x_*^{(i)}\}_{i=1}^m \). The posterior represents updated beliefs about the function after incorporating the observed data. It is called "posterior" because it comes after the observation. The joint distribution of the observed target values \( \mathbf{y} \) and the function values at the new inputs \( \mathbf{f}_* \) is given by:
+
+\begin{equation}
+	\begin{bmatrix}
+		\mathbf{y} \\
+		\mathbf{f}_*
+	\end{bmatrix}
+	\sim \mathcal{N} \left(
+	\begin{bmatrix}
+		\mathbf{m} \\
+		\mathbf{m}_*
+	\end{bmatrix},
+	\begin{bmatrix}
+		K(X, X) + \sigma_n^2 I & K(X, X_*) \\
+		K(X_*, X) & K(X_*, X_*)
+	\end{bmatrix}
+	\right)
+\end{equation}
+
+where \( K(X, X) \) is the covariance matrix evaluated at the training inputs, \( K(X, X_*) \) is the covariance matrix between the training inputs and the test inputs, and \( K(X_*, X_*) \) is the covariance matrix at the test inputs.
+
+The posterior distribution of the function values at the new inputs \( \mathbf{f}_* \) given the observed data is also Gaussian:
+
+\begin{equation}
+	\mathbf{f}_* \mid X, \mathbf{y}, X_* \sim \mathcal{N}(\mathbf{\bar{f}}_*, \text{cov}(\mathbf{f}_*))
+\end{equation}
+
+
+where the posterior mean \( \mathbf{\bar{f}}_* \) and covariance \( \text{cov}(\mathbf{f}_*) \) are given by:
+
+\begin{equation}
+	\mathbf{\bar{f}}_* = \mathbf{m}_* + K(X_*, X)[K(X, X) + \sigma_n^2 I]^{-1} (\mathbf{y} - \mathbf{m})
+\end{equation}
+
+\begin{equation}
+	\text{cov}(\mathbf{f}_*) = K(X_*, X_*) - K(X_*, X)[K(X, X) + \sigma_n^2 I]^{-1}K(X, X_*)
+\end{equation}
+
+This posterior distribution allows us to make predictions about the function values at new input locations, incorporating both the mean prediction and the uncertainty.
+
+
+\subsubsection{Kernels in Gaussian Process Regression}
+
+The choice of kernel (or covariance function) is crucial in GPR, as it encodes our assumptions about the function we wish to learn \cite{Schulz.2018}. Different kernels can capture different types of patterns in the data. In \cref{Below} are some commonly used kernels and their specificities:
+
+\begin{table}[H]
+	\centering
+	\caption[Comparison of Different Kernels for Gaussian Process Regression]{Comparison of Different Kernels for Gaussian Process Regression}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{lll}
+			\toprule
+			\textbf{Kernel} & \textbf{Definition} & \textbf{Specificities} \\
+			\midrule
+			
+			\textbf{Squared Exponential (RBF)} \cite{Rasmussen.2006} &
+			\parbox{0.6\textwidth}{
+				\[
+				k(x, x') = \sigma_f^2 \exp \left( -\frac{(x - x')^2}{2\ell^2} \right)
+				\]
+				\textbf{Elements:}
+				\begin{itemize}
+					\item \(\sigma_f^2\): Signal variance.
+					\item \(\ell\): Length scale.
+				\end{itemize}
+			} &
+			\parbox{0.65\textwidth}{
+				\begin{itemize}
+					\item Captures smooth and continuous functions.
+					\item The length scale \(\ell\) determines the extent of correlation between points; smaller \(\ell\) leads to more rapidly varying functions.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Matérn} \cite{Schulz.2018} &
+			\parbox{0.6\textwidth}{
+				\[
+				k(x, x') = \frac{2^{1-\nu}}{\Gamma(\nu)} \left( \frac{\sqrt{2\nu}|x - x'|}{\ell} \right)^\nu K_\nu \left( \frac{\sqrt{2\nu}|x - x'|}{\ell} \right)
+				\]
+				\textbf{Elements:}
+				\begin{itemize}
+					\item \(\nu\): Controls the smoothness of the function.
+					\item \(\ell\): Length scale.
+					\item \(K_\nu\): Modified Bessel function.
+					\item \(\Gamma(\nu)\): Gamma function.
+				\end{itemize}
+			} &
+			\parbox{0.65\textwidth}{
+				\begin{itemize}
+					\item Can model functions with varying degrees of smoothness.
+					\item When \(\nu = 0.5\), it becomes equivalent to the absolute exponential kernel; higher \(\nu\) leads to smoother functions.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Rational Quadratic} \cite{Rasmussen.2006} &
+			\parbox{0.6\textwidth}{
+				\[
+				k(x, x') = \sigma_f^2 \left( 1 + \frac{(x - x')^2}{2\alpha\ell^2} \right)^{-\alpha}
+				\]
+				\textbf{Elements:}
+				\begin{itemize}
+					\item \(\sigma_f^2\): Signal variance.
+					\item \(\ell\): Length scale.
+					\item \(\alpha\): Controls the relative weighting of large and small-scale variations.
+				\end{itemize}
+			} &
+			\parbox{0.65\textwidth}{
+				\begin{itemize}
+					\item Can model functions with varying length scales.
+					\item When \(\alpha \to \infty\), it approaches the RBF kernel.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{ExpSineSquared} \cite{MarcG.Genton.2001} &
+			\parbox{0.6\textwidth}{
+				\[
+				k(x, x') = \sigma_f^2 \exp \left( -\frac{2 \sin^2\left(\frac{\pi |x - x'|}{p}\right)}{\ell^2} \right)
+				\]
+				\textbf{Elements:}
+				\begin{itemize}
+					\item \(\sigma_f^2\): Signal variance.
+					\item \(\ell\): Length scale.
+					\item \(p\): Period.
+				\end{itemize}
+			} &
+			\parbox{0.65\textwidth}{
+				\begin{itemize}
+					\item Ideal for capturing smooth periodic patterns.
+					\item Can handle multiple periodic components by summing multiple ExpSineSquared kernels.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{DotProduct} \cite{Rasmussen.2004} &
+			\parbox{0.6\textwidth}{
+				\[
+				k(x, x') = \sigma_0^2 + x \cdot x'
+				\]
+				\textbf{Elements:}
+				\begin{itemize}
+					\item \(\sigma_0^2\): Constant term.
+				\end{itemize}
+			} &
+			\parbox{0.65\textwidth}{
+				\begin{itemize}
+					\item Suitable for linear regression tasks.
+					\item Can be used in combination with other kernels to model more complex functions.
+				\end{itemize}
+			}
+			\\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+	\label{tab:ComparisonKernelGPR}
+\end{table}
+%
+%
+\subsection{Deep Neural Networks}%
+A Deep Neural Network (DNN) is an artificial neural network (ANN) with multiple layers between the input and output layers. These layers, also known as hidden layers, enable the network to non-linear relationships in the data \cite{IanGoodfellow.2016}. Each layer in a DNN consists of neurons, which are computational units that process the input and pass the transformed data to the next layer.
+
+The architecture of a DNN typically includes an input layer, several hidden layers, and an output layer as in \cref{fig:NNExample}. The input layer receives raw data, such as images, text, or numerical values, which are then processed through the hidden layers. Each hidden layer applies a set of weights and an activation function to the inputs from the previous layer to produce an output. This output serves as the input for the next layer. The final output layer produces the prediction or classification based on the cumulative processing of all previous layers \cite{LeCun.2015}.
+
+\begin{figure}[H]
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=140mm]{figures/DNNExample.png}%
+	%
+	%
+	\caption[Schematic diagram of a deep neural network with activation functions and weights]{\AMlangGerEng{Beschreibung des Bilds}{Schematic diagram of a DNN with two hidden layers with activation functions and weights. $f_{1}$ and $f_{2}$ are the activation functions use in this case and $w^{k}_{ij}$ with i,j = 1,2 and k = 1,2,3 are the weights of the DNN. For example, the outputs for the first layers are: $x^{1}_{1} = f_{1}(w^{1}_{11}x_{1} + w^{1}_{12}x_{2} + b^{1}_{1})$ and $x^{1}_{2} = f_{1}(w^{1}_{21}x_{1} + w^{1}_{22}x_{2} + b^{1}_{2})$, with $b^{1}_{1}$ and $b^{1}_{2}$ the bias of the neurons of the first hidden layer. The process can then be reproduces to obtain the output of the second hidden layer and the output layer}.}%
+	\label{fig:NNExample}%
+\end{figure}
+
+The term "deep" in deep learning refers to the number of hidden layers in the neural network. Traditional neural networks, often referred to as shallow networks, typically have one or two hidden layers. In contrast, DNNs can have dozens or even hundreds of hidden layers. This depth allows DNNs to learn hierarchical representations of data, where higher-level features are derived from lower-level features \cite{Schmidhuber.2015}.
+
+DNNs have several advantages over traditional machine learning algorithms and shallow neural networks:
+
+\begin{itemize}
+	\item \textbf{Feature Learning:} DNNs automatically learn features from raw data, reducing the need for manual feature extraction \cite{LeCun.2015}.
+	\item \textbf{Modeling Complex Patterns:} The multiple layers in DNNs enable them to model complex, non-linear relationships in the data \cite{Schmidhuber.2015}.
+	\item \textbf{Scalability:} DNNs can handle large-scale datasets and are scalable to high-dimensional data \cite{IanGoodfellow.2016}.
+\end{itemize}
+
+Despite their advantages, DNNs also come with several challenges:
+
+\begin{itemize}
+	\item \textbf{Computationally Intensive:} Training DNNs requires significant computational resources and time, especially for large networks \cite{Schmidhuber.2015}.
+	\item \textbf{Overfitting:} DNNs are prone to overfitting, particularly when the training data is limited or not representative of the real-world scenarios \cite{Srivastava.2014}.
+	\item \textbf{Hyperparameter Tuning:} Selecting the appropriate architecture and hyperparameters for a DNN is a complex and time-consuming task that often requires expertise and experimentation \cite{Bengio.2012}.
+\end{itemize}
+
+In the following sections, the different components involved in training a DNN will be studied, including the loss functions, the activation functions of the neurons, the optimization methods for the neural network, and the regularization methods to avoid overfitting.
+
+\subsubsection{Loss functions}
+\label{subsubsec:LossFuntions}
+A loss function may also be referred to as a cost function or an objective function. It is a mathematical function that describes the difference between predicted and true values built into the model for a machine learning algorithm. It tells how good or bad the model is performing. The primary purpose of such a loss function is to guide the training process of a machine learning model. It can then be adjusted, based on the output of the model, to fit the training data more accurately by minimizing the loss function.
+
+\begin{table}[H]
+	\centering
+	\caption[Presentation of Different Loss functions]{Presentation of Different Loss functions inspired from \cite{IanGoodfellow.2016}}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{lll}
+			\toprule
+			\textbf{Loss Functions} & \textbf{Definition} & \textbf{Use cases}\\
+			\midrule
+			
+			\textbf{Mean Squared Error (MSE)} &
+			\parbox{0.7\textwidth}{
+				\[
+				\text{MSE} = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2
+				\]
+				It measures the average of the squares of the errors, i.e., the average squared difference between the estimated values (\(\hat{y}_i\)) and the actual values (\(y_i\)).
+			} &
+			\parbox{0.35\textwidth}{
+				\begin{itemize}
+					\item Regression problems
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Mean Absolute Error (MAE)} &
+			\parbox{0.7\textwidth}{
+				\[
+				\text{MAE} = \frac{1}{n} \sum_{i=1}^n |y_i - \hat{y}_i|
+				\]
+				 MAE quantifies the average absolute difference between the actual (\(y_i\)) and predicted values (\(\hat{y}_i\)).
+			} & 
+			\parbox{0.35\textwidth}{
+			\begin{itemize}
+				\item Regression problems
+			\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Cross-Entropy Loss (Log Loss)} &
+			\parbox{0.7\textwidth}{
+				\[
+				\text{Cross-Entropy Loss} = -\frac{1}{n} \sum_{i=1}^n \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
+				\]
+				Cross-Entropy Loss quantifies the difference between two probability distributions - the true labels and the predicted probabilities.
+			} & 
+			\parbox{0.35\textwidth}{
+				\begin{itemize}
+					\item Binary classification problems
+					\item Multi-class classification (with softmax)
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Hinge Loss} &
+			\parbox{0.7\textwidth}{
+				\[
+				\text{Hinge Loss} = \frac{1}{n} \sum_{i=1}^n \max(0, 1 - y_i \cdot \hat{y}_i)
+				\]
+				Hinge Loss quantifies the error for classification tasks, particularly for SVMs, by penalizing misclassified points and those within the margin.
+			} & 
+			\parbox{0.35\textwidth}{
+				\begin{itemize}
+					\item Support Vector Machines (SVMs)
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Huber Loss} &
+			\parbox{0.7\textwidth}{
+				\[
+				\text{Huber Loss} = 
+				\begin{cases} 
+					\frac{1}{2} (y_i - \hat{y}_i)^2 & \text{for } |y_i - \hat{y}_i| \leq \delta \\
+					\delta \cdot |y_i - \hat{y}_i| - \frac{1}{2} \delta^2 & \text{for } |y_i - \hat{y}_i| > \delta
+				\end{cases}
+				\]
+				Huber Loss combines MSE and MAE to provide a robust measure that is less sensitive to outliers than MSE and more sensitive than MAE for small errors.
+			} & 
+			\parbox{0.35\textwidth}{
+				\begin{itemize}
+					\item Regression problems with outliers
+				\end{itemize}
+			}
+			\\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+	\label{tab:LossFunctions}
+\end{table}
+
+\subsubsection{Activation functions}
+\label{subsubsec:ActivationFunctions}
+
+Activation functions play a critical role in neural networks by introducing non-linearity, which enables the network to learn and model complex patterns in the data. Without activation functions, a neural network would essentially behave as a linear regression model, regardless of the number of layers. This section explores the most commonly used activation functions, their use cases, advantages, and disadvantages, supported by various research studies. ctivation functions determine the output of a neuron given an input or set of inputs. They are crucial because they allow neural networks to capture intricate structures in data, making them capable of solving non-trivial problems. Various studies have highlighted the importance of choosing appropriate activation functions to improve model performance and convergence speed \cite{LeCun.2015, He.06022015, XavierGlorot.2010}. \cref{tab:ActivationFunctions} presents the most commonly used activation functions.
+
+There is a need to explain a common problem with activation functions, vanishing gradient. During backpropagation, depending on the activation function, the gradients used to update the weights can become very small, especially for deep networks. As a result, it can slows down the learning process and potentially causing the network to stop learning altogether.
+
+\begin{table}[H]
+	\centering
+	\caption[Presentation of Different activation functions]{Presentation of Different activation functions}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{lll}
+			\toprule
+			\textbf{Activation Functions} & \textbf{Definition} & \textbf{Use cases}\\
+			\midrule
+			
+			\textbf{Sigmoid} \cite{Nwankpa.08112018} &
+			\parbox{0.7\textwidth}{
+				\[
+				\sigma(x) = \frac{1}{1 + e^{-x}}
+				\]
+				It squashes the input values to a range between 0 and 1.
+			} &
+			\parbox{0.4\textwidth}{
+				\begin{itemize}
+					\item In the output layer for binary classification problems
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{TanH} \cite{Nwankpa.08112018} &
+			\parbox{0.7\textwidth}{
+				\[
+				\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+				\]
+				It squashes the input values to a range between -1 and 1.
+			} & 
+			\parbox{0.4\textwidth}{
+				\begin{itemize}
+					\item Preferred over the sigmoid function for hidden layers in practice.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Rectified Linear Unit (ReLU)} \cite{Nwankpa.08112018} &
+			\parbox{0.7\textwidth}{
+				\[
+				\text{ReLU}(x) = \max(0, x)
+				\]
+			} & 
+			\parbox{0.4\textwidth}{
+				\begin{itemize}
+					\item Most widely used activation function in hidden layers of deep neural networks
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Leaky ReLU} \cite{Nwankpa.08112018} &
+			\parbox{0.7\textwidth}{
+				\[
+				\text{Leaky ReLU}(x) = 
+				\begin{cases} 
+					x & \text{if } x \geq 0 \\
+					\alpha x & \text{if } x < 0
+				\end{cases}
+				\]
+				where \(\alpha\) is a small constant (e.g., 0.01).
+			} & 
+			\parbox{0.4\textwidth}{
+				\begin{itemize}
+					\item an attempt to fix the "dying ReLU" problem. For ReLu if x is negative, the output is null, so the output is "dying".
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Parametric ReLU (PReLU)} \cite{Ramachandran.16102017} &
+			\parbox{0.7\textwidth}{
+				\[
+				\text{PReLU}(x) = 
+				\begin{cases} 
+					x & \text{if } x \geq 0 \\
+					\alpha x & \text{if } x < 0
+				\end{cases}
+				\]
+				where \(\alpha\) is a learnable parameter.
+			} & 
+			\parbox{0.4\textwidth}{
+				\begin{itemize}
+					\item An enhancement of ReLU to allow the slope of the negative part to be learned during training
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Exponential Linear Unit (ELU)} \cite{Clevert.23112015} &
+			\parbox{0.7\textwidth}{
+				\[
+				\text{ELU}(x) = 
+				\begin{cases} 
+					x & \text{if } x \geq 0 \\
+					\alpha (e^x - 1) & \text{if } x < 0
+				\end{cases}
+				\]
+				where \(\alpha\) is a learnable parameter.
+			} & 
+			\parbox{0.4\textwidth}{
+				\begin{itemize}
+					\item Designed to bring the mean activation closer to zero and improve learning speed
+				\end{itemize}
+			}
+			\\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+	\label{tab:ActivationFunctions}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption[Comparison of the advantages and disadvantages of activation functions]{Comparison of the advantages and disadvantages of activation functions}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{lll}
+			\toprule
+			\textbf{Activation Functions} & \textbf{Advantages} & \textbf{Disadvantages}\\
+			\midrule
+			
+			\textbf{Sigmoid} \cite{Nwankpa.08112018} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Smooth gradient, preventing jumps in output values.
+					\item Output values bound between 0 and 1, making it suitable for probability estimation.
+				\end{itemize}
+			} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Vanishing Gradient Problem
+					\item Sensitive to Outliers: Large positive or negative input values will be squashed to values near 1 or 0, respectively. This squashing effect can lead to a loss of information and make the network less robust to outliers in the data.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{TanH} \cite{Nwankpa.08112018} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Zero-centered outputs, which can help in faster convergence \cite{Nwankpa.08112018}.
+					\item Steeper gradients than the sigmoid function.
+				\end{itemize}
+			} & 
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Still suffers from the vanishing gradient problem for large positive or negative input values \cite{LeCun.2012, Nwankpa.08112018}
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Rectified Linear Unit (ReLU)} \cite{Nwankpa.08112018} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Computationally efficient as it involves simple thresholding.
+					\item Helps mitigate the vanishing gradient problem \cite{Nwankpa.08112018, Ramachandran.16102017}.
+				\end{itemize}
+			} & 
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Can suffer from the "dying ReLU" problem where neurons can become inactive and stop learning if they output zero for any input \cite{Nwankpa.08112018}.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Leaky ReLU} \cite{Nwankpa.08112018} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Allows a small, non-zero gradient when the unit is not active.
+				\end{itemize}
+			} & 
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item The choice of \(\alpha\) is arbitrary and needs to be tuned.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Parametric ReLU (PReLU)} \cite{Ramachandran.16102017} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Adaptively learns the parameter \(\alpha\), potentially improving model performance.
+					\item Helps mitigate the "dying ReLU" problem more effectively than Leaky ReLU.
+				\end{itemize}
+			} & 
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Increases the number of parameters to be learned.
+					\item Computationally more complex than ReLU and Leaky ReLU \cite{He.06022015}.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Exponential Linear Unit (ELU)} \cite{Clevert.23112015} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Helps bring mean activation closer to zero, which speeds up learning.
+					\item Mitigates the vanishing gradient problem for negative inputs.
+				\end{itemize}
+			} & 
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item More computationally expensive than ReLU.
+					\item The choice of \(\alpha\) can impact performance and needs tuning \cite{Clevert.23112015}.
+				\end{itemize}
+			}
+			\\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+	\label{tab:ComparisonActivationFunctions}
+\end{table}
+
+
+\subsubsection{Optimization Methods}
+\label{subsubsec:OptimizationMethods}
+
+Optimization in neural networks refers to the process of minimizing (or maximizing) the objective function, also known as the loss or cost function. This involves finding the best set of weights and biases that reduce the error between the predicted outputs and the actual outputs. The objective function \( L(\theta) \), where \( \theta \) represents the parameters of the network, is minimized using various optimization algorithms. These algorithms adjust the network parameters iteratively to find the optimal values that yield the best performance on the given task \cite{IanGoodfellow.2016, Ruder.15092016}. The most widely used optimization methods in neural networks include:
+
+\begin{table}[H]
+	\centering
+	\caption[Optimization Methods in Machine Learning Part 1]{Optimization Methods in Machine Learning Part 1}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{ll}
+			\toprule
+			\textbf{Optimization Method} & \textbf{Definition} \\
+			\midrule
+			
+			\textbf{Gradient Descent} \cite{Ruder.15092016} &
+			\parbox{0.8\textwidth}{
+				\textbf{Equation:}
+				\[
+				\theta_{t+1} = \theta_t - \eta \nabla_{\theta} L(\theta_t)
+				\]
+				\textbf{Explanation:}
+				\begin{itemize}
+					\item \(\theta\): Parameters to be optimized
+					\item \(\eta\): Learning rate
+					\item \(\nabla_{\theta} L(\theta_t)\): Gradient of the loss function with respect to \(\theta\) at time step \(t\)
+				\end{itemize}
+				\textbf{Definition:} Gradient Descent is an optimization algorithm that updates parameters in the opposite direction of the gradient of the loss function to minimize it.
+			}
+			\\
+			\midrule
+			
+			\textbf{Stochastic Gradient Descent (SGD)} \cite{Bottou.2010} &
+			\parbox{0.8\textwidth}{
+				\textbf{Equation:}
+				\[
+				\theta_{t+1} = \theta_t - \eta \nabla_{\theta} L(\theta_t; x_i, y_i)
+				\]
+				\textbf{Explanation:}
+				\begin{itemize}
+					\item \(x_i, y_i\): A single training example
+					\item \(\theta\): Parameters to be optimized
+					\item \(\eta\): Learning rate
+					\item \(\nabla_{\theta} L(\theta_t; x_i, y_i)\): Gradient of the loss function with respect to \(\theta\) using a single training example
+				\end{itemize}
+				\textbf{Definition:} Stochastic Gradient Descent updates parameters using only one training example at each iteration, which can lead to faster convergence.
+			}
+			\\
+			\midrule
+			
+			\textbf{Momentum} \cite{Qian.1999} &
+			\parbox{0.8\textwidth}{
+				\textbf{Equation:}
+				\[
+				v_{t+1} = \gamma v_t + \eta \nabla_{\theta} L(\theta_t)
+				\]
+				\[
+				\theta_{t+1} = \theta_t - v_{t+1}
+				\]
+				\textbf{Explanation:}
+				\begin{itemize}
+					\item \(v_t\): Velocity vector
+					\item \(\gamma\): Momentum term (usually between 0 and 1)
+					\item \(\eta\): Learning rate
+					\item \(\nabla_{\theta} L(\theta_t)\): Gradient of the loss function with respect to \(\theta\) at time step \(t\)
+				\end{itemize}
+				\textbf{Definition:} Momentum accelerates gradient descent by considering the past gradients to smooth out the updates.
+			}
+			\\
+			\midrule
+			
+			\textbf{Adaptive Gradient Algorithm (AdaGrad)} \cite{Zeiler.22122012} &
+			\parbox{0.8\textwidth}{
+				\textbf{Equation:}
+				\[
+				\mathbf{s}_t = \mathbf{s}_{t-1} + g_t^2
+				\]
+				\[
+				\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{\mathbf{s}_t + \epsilon}} g_t
+				\]
+				\textbf{Explanation:}
+				\begin{itemize}
+					\item \(\mathbf{s}_t\): Accumulated sum of squared gradients
+					\item \(g_t\): Gradient of the loss function at time step \(t\)
+					\item \(\eta\): Learning rate
+					\item \(\epsilon\): Small constant to prevent division by zero
+				\end{itemize}
+				\textbf{Definition:} AdaGrad adapts the learning rate for each parameter individually, allowing larger updates for infrequent parameters and smaller updates for frequent parameters.
+			}
+			\\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+	\label{tab:OptimizationMethodsPart1}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption[Optimization Methods in Machine Learning Part 2]{Optimization Methods in Machine Learning Part 2}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{ll}
+			\toprule
+			\textbf{Optimization Method} & \textbf{Definition} \\
+			\midrule
+			
+			\textbf{Root Mean Square Propagation (RMSProp)} \cite{Ruder.15092016} &
+			\parbox{0.8\textwidth}{
+				\textbf{Equation:}
+				\[
+				\mathbf{E}[g^2]_t = \gamma \mathbf{E}[g^2]_{t-1} + (1 - \gamma) g_t^2
+				\]
+				\[
+				\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{\mathbf{E}[g^2]_t + \epsilon}} g_t
+				\]
+				\textbf{Explanation:}
+				\begin{itemize}
+					\item \(\mathbf{E}[g^2]_t\): Exponential moving average of squared gradients
+					\item \(\gamma\): Decay rate
+					\item \(g_t\): Gradient of the loss function at time step \(t\)
+					\item \(\eta\): Learning rate
+					\item \(\epsilon\): Small constant to prevent division by zero
+				\end{itemize}
+				\textbf{Definition:} RMSProp adjusts the learning rate for each weight using an exponentially decaying average of past squared gradients.
+			}
+			\\
+			\midrule
+			
+			\textbf{Adam} \cite{Kingma.22122014} &
+			\parbox{0.8\textwidth}{
+				\textbf{Equation:}
+				\[
+				m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t
+				\]
+				\[
+				v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
+				\]
+				\[
+				\hat{m}_t = \frac{m_t}{1 - \beta_1^t}
+				\]
+				\[
+				\hat{v}_t = \frac{v_t}{1 - \beta_2^t}
+				\]
+				\[
+				\theta_{t+1} = \theta_t - \frac{\eta \hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}
+				\]
+				\textbf{Explanation:}
+				\begin{itemize}
+					\item \(m_t\): First moment (mean) of the gradients
+					\item \(v_t\): Second moment (uncentered variance) of the gradients
+					\item \(\hat{m}_t\): Bias-corrected first moment
+					\item \(\hat{v}_t\): Bias-corrected second moment
+					\item \(\beta_1, \beta_2\): Exponential decay rates for the moment estimates
+					\item \(g_t\): Gradient of the loss function at time step \(t\)
+					\item \(\eta\): Learning rate
+					\item \(\epsilon\): Small constant to prevent division by zero
+				\end{itemize}
+				\textbf{Definition:} Adam combines the advantages of AdaGrad and RMSProp, using adaptive learning rates and incorporating estimates of first and second moments of the gradients.
+			}
+			\\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+	\label{tab:OptimizationMethodsPart2}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption[Comparison of Optimization Methods advantages and disadvantages]{Comparison of Optimization Methods advantages and disadvantages}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{lll}
+			\toprule
+			\textbf{Optimization Method} & \textbf{Advantages} & \textbf{Disadvantages} \\
+			\midrule
+			
+			\textbf{Gradient Descent} \cite{Ruder.15092016} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Simple to implement.
+					\item Effective for convex problems.
+				\end{itemize}
+			} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Can be slow for large datasets.
+					\item Prone to getting stuck in local minima.
+				\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Stochastic Gradient Descent (SGD)} \cite{Bottou.2010} &
+			\parbox{0.8\textwidth}{
+				\begin{itemize}
+					\item Faster and more efficient for large datasets.
+					\item Helps in escaping local minima due to noise.
+				\end{itemize}
+			} &
+			\parbox{0.5\textwidth}{
+			\begin{itemize}
+				\item May lead to unstable convergence.
+				\item Requires careful tuning of learning rate.
+			\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Momentum} \cite{Qian.1999} &
+			\parbox{0.8\textwidth}{
+				\begin{itemize}
+					\item Accelerates convergence.
+					\item Reduces oscillations in gradient updates.
+				\end{itemize}
+			} &
+			\parbox{0.5\textwidth}{
+			\begin{itemize}
+				\item Can overshoot the minimum if not properly tuned.
+				\item Requires an additional hyperparameter.
+			\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Adaptive Gradient Algorithm (AdaGrad)} \cite{Zeiler.22122012} &
+			\parbox{0.8\textwidth}{
+				\begin{itemize}
+					\item Automatically adapts the learning rate.
+					\item Performs well for sparse data.
+				\end{itemize}
+			} &
+			\parbox{0.5\textwidth}{
+			\begin{itemize}
+				\item Learning rate can become too small over time.
+				\item Not suitable for non-convex problems.
+			\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Root Mean Square Propagation (RMSProp)} \cite{Ruder.15092016} &
+			\parbox{0.5\textwidth}{
+				\begin{itemize}
+					\item Prevents learning rate from decreasing too much.
+					\item Suitable for non-stationary problems.
+				\end{itemize}
+			} &
+			\parbox{0.5\textwidth}{
+			\begin{itemize}
+				\item Requires tuning of decay hyperparameter.
+				\item Can be sensitive to learning rate.
+			\end{itemize}
+			}
+			\\
+			\midrule
+			
+			\textbf{Adam} \cite{Kingma.22122014} &
+			\parbox{0.8\textwidth}{
+				\begin{itemize}
+					\item Combines benefits of Momentum and RMSprop.
+					\item Well-suited for large datasets and non-convex problems.
+				\end{itemize}
+			} &
+			\parbox{0.5\textwidth}{
+			\begin{itemize}
+				\item Can be computationally expensive.
+				\item Requires careful tuning of multiple hyperparameters.
+			\end{itemize}
+			}
+			\\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+	\label{tab:ComparisonOptimizationMethods}
+\end{table}
+%
+
+\subsubsection{Weight Initialization}
+\label{subsub:WeightInitialization}
+Weight initialization in neural networks is a crucial step that can significantly impact the training process and the final performance of the model \cite{LeCun.2012}. Proper initialization helps in speeding up the convergence of the training process and in avoiding issues like vanishing or exploding gradients. The possibilities for the training was \textit{He normal initialization} and \textit{Glorot uniform initialization}.
+
+\textbf{He normal initialization} proposed by He et al. \cite{He.06022015}, is specifically designed for layers with ReLU (Rectified Linear Unit) activations. The weights are initialized using a normal distribution with a mean of 0 and a standard deviation of \( \sqrt{\frac{2}{n}} \), where \( n \) is the number of input units in the layer. This method helps maintain the variance of the activations throughout the network, facilitating efficient training.
+
+\begin{equation}
+	W \sim \mathcal{N}\left(0, \sqrt{\frac{2}{n}}\right)
+\end{equation}
+
+\textbf{Advantages:}
+\begin{itemize}
+	\item Suitable for deep networks with ReLU activations.
+	\item Helps maintain the variance of activations, avoiding vanishing gradients.
+\end{itemize}
+
+
+\textbf{Glorot uniform initialization}, also known as Xavier uniform initialization, was proposed by Glorot and Bengio \cite{XavierGlorot.2010}. It is designed to work well with sigmoid and tanh activation functions. The weights are initialized using a uniform distribution within the range \([-a, a]\), where \( a = \sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}} \). Here, \( n_{\text{in}} \) and \( n_{\text{out}} \) are the number of input and output units, respectively. This method aims to keep the scale of the gradients roughly the same in all layers.
+
+\begin{equation}
+	a = \sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}}, \quad W \sim \mathcal{U}(-a, a)
+\end{equation}
+
+\textbf{Advantages:}
+\begin{itemize}
+	\item Suitable for networks with sigmoid or tanh activations.
+	\item Helps in maintaining the scale of gradients, which is crucial for effective training.
+\end{itemize}
+
+
+
+\subsubsection{Regularization}
+\label{subsubsec:Regularization}
+Regularization in neural networks is a technique used to prevent overfitting, which occurs when a model learns the training data too well, including its noise and outliers, thus performing poorly on new, unseen data \cite{IanGoodfellow.2016}. Regularization techniques add constraints or modifications to the learning process to improve the generalization capability of the model. 
+
+\textbf{Dropout} is a regularization technique where, during each training iteration, a subset of neurons is randomly set to zero (dropped out) \cite{Gal.06062015}. This prevents the network from becoming too reliant on specific neurons, promoting redundancy and collaboration among neurons. During inference, dropout is not applied, and the full network is used, typically with scaled weights to account for the dropped neurons during training. 
+
+\textbf{Regularization functions}, such as L1 and L2 regularization, add a penalty term to the loss function based on the magnitude of the model parameters \cite{Zou.2005}. 
+
+L1 regularization, also known as Lasso (Least Absolute Shrinkage and Selection Operator), adds the sum of the absolute values of the coefficients to the loss function. The equation for L1 regularization is:
+\begin{equation}
+	\text{L1 Regularization:} \quad \lambda \sum_{i=1}^{n} |\theta_i|
+\end{equation}
+where:
+\begin{itemize}
+	\item \(\lambda\) is the regularization parameter that controls the strength of the regularization.
+	\item \(\theta_i\) are the model weights.
+	\item \(n\) is the number of weights.
+\end{itemize}
+
+L2 regularization, also known as Ridge Regression, adds the sum of the squared values of the coefficients to the loss function. The equation for L2 regularization is:
+
+\[
+\text{L2 Regularization:} \quad \lambda \sum_{i=1}^{n} \theta_i^2
+\]
+
+where:
+\begin{itemize}
+	\item \(\lambda\) is the regularization parameter that controls the strength of the regularization.
+	\item \(\theta_i\) are the model's weights.
+	\item \(n\) is the number of weights.
+\end{itemize}
+
+L1 regularization adds the absolute values of the weights, encouraging sparsity, while L2 regularization adds the squared values of the weights, discouraging large weights.
+%

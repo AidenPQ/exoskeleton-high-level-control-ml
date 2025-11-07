@@ -1,0 +1,380 @@
+% !TeX spellcheck = en_US
+\chapter{Design and Implementation}%
+%
+This thesis, in collaboration with the TUM DASH student initiative, focuses on the design of a high-level controller. The objective of the controller is, for each active joint of the DASH exoskeleton, to produce its trajectory for a complete gait cycle, for walking on a flat surface. In this context, the controller must meet the following requirements:
+
+\begin{enumerate}
+	\item The exoskeleton has six DoFs. Each joint has an individual joint controller tracking a desired position. There are three DoF per leg: hip abduction, hip flexion and knee flexion.
+	\item The controller must generate a trajectory for a complete gait cycle for each DoF, specifying both position and speed.
+	\item The controller must have as input the kinematic state (see \cref{sec:DASHExoskeleton}) of the exoskeleton.
+	\item The computation time the controller must be appropriate to anticipate potential
+	integration into the DASH exoskeleton.
+\end{enumerate}
+%
+Taking these requirements into account, Machine Learning models were chosen to develop this controller.
+
+In the subsequent sections, we will first introduce the controller designed for this study, outlining its components and their respective functions. Following this, we will provide an in-depth examination of the controller's implementation, which encompasses the development of the database, the key point search process, and the training methodologies employed for the two types of Machine Learning models utilized in this research: Neural Networks and Gaussian Process Regression.
+%
+%
+\section{Controller Overview}%
+The controller, of which a diagram can be seen \cref{fig:GrandScheme}, is divided into two main components: 
+\begin{itemize}
+	\item Gait phase estimation
+	\item Trajectory generation
+\end{itemize}
+The repeatability of the standard human gait cycle allows for the state of various joints to be used at any time to estimate an individual's phase within the current gait cycle. Thus, the gait phase estimation component estimates the current gait phase as percentage of the current cycle of the system (both pilot and exoskeleton).
+
+The trajectory generation operates on the principle that distinct key points exist in the trajectories of each joint. In the original concept, each DoF had an individual trajectory generator. Their role was to generate key points specific to the DoF to which they were attached. These key points are extremums and curvature inversion / inflection points, with the trajectory obtained by interpolating these points. To enhance the performance of this interpolation, additional points, in between the aforementioned key points, are selected. These points are referred to as key points. can be caused by a number of factors. Here, following on from studies such as that by Moissenet \cite{Moissenet.2019} or Chehab \cite{Chehab.2017}, the factors studied here will be walking speed and pilot parameters.
+
+A neural network is employed to learn the relationships between the input parameters (pilot parameters (height, weight, age, gender), walking speed, and DoF position) and the corresponding gait phase and the outputs, namely the key points. Finally, interpolation is performed on these key points to obtain the desired trajectory. The generated trajectories are normalized, expressed in terms of gait percentage rather than time. However, since the rest of the system requires trajectories expressed as a function of time, it is essential to estimate the gait period to convert the trajectories from a gait percentage basis to a time-based expression before passing it to the rest of the system. 
+\begin{figure}[h]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=\textwidth]{figures/ControllerModelV2.pdf}%
+	%
+	\caption[Initial concept for a high-level machine learning controller for a single degree of freedom (DoF)]{\AMlangGerEng{Beschreibung des Bilds}{Initial concept for a high-level machine learning controller for a single degree of freedom (DoF). It is structured into two primary components: Gait phase estimation and Trajectory Generation. The Gait phase estimation component identifies the current gait phase, determining the percentage of the gait cycle at which the system is operating. Trajectory Generation involves a two-step process. First, a neural network processes inputs that include pilot-specific parameters (age, weight, height, gender), walking speed, the current position of the DoF, and the identified gait phase. These parameters ensure the continuity of the generated trajectory with the current position. The neural network then outputs key points, which are subsequently interpolated to create the desired DoF trajectory. It is then expressed in terms of absolute time via the Gait period that is estimate and then is provided to the rest of the system}.}%
+	\label{fig:GrandScheme}%
+\end{figure}%
+%
+%
+\subsection{Gait Phase Estimation}
+%
+To ensure continuity with the current position of the joints/DoF when generating a trajectory, the controller uses the DoF's current position and the corresponding gait percentage as inputs. This necessitated the development of an intent recognition module to determine the percentage of the current gait. 
+
+Building on the work of Simon Barnikol \cite{A.Seyfarth.2014}, which established that the gait phase could be estimated using the DoF's position and speed, this thesis extends the concept to the entire set of DoFs applicable to the TUM DASH exoskeleton. The hypothesis is that utilizing a broader combination of parameters corresponding to the same gait phase will improve the accuracy of gait phase estimation.
+
+Inspired by Barnikol's work \cite{A.Seyfarth.2014}, the machine learning model employed is a Gaussian Process Regression, as depicted in \cref{fig:IntentRecognitionModel}. This model facilitates the expression of a gait phase value along with its margin of error. The training of this type of Machine Learning model will be looked into further in \cref{subsec:GaussianProcessRegressionTraining}.
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=100mm]{figures/Intent recognition.png}%
+	%
+	\caption[Concept of model for gait phase estimation]{\AMlangGerEng{Beschreibung des Bilds}{Concept of model for gait phase estimation. The principle is to evaluate, from the state of the pilot and the exoskeleton at time t, what percentage of the gait the pilot is in. In this case, the state at time t corresponds to the speed and position of each of the DoFs. Based on all this information, we consider it uniquely possible to determine at which gait phase we are}.}%
+	\label{fig:IntentRecognitionModel}%
+\end{figure}%
+%
+%
+\subsection{Key points selection}
+%
+As discussed in \cref{chap:BackgroundAndTheory}, distinct shapes exist in the trajectories of the leg joints. These shapes are intricately linked to the characteristics of each DoF's motion. The initial conjecture from which the subsequent analysis stems is the identification of key points, namely the extrema of these trajectories. Those extrema corresponds to the position during which the speed of the joint DoF is zero. Studies as \cite{Chehab.2017} established the existence of a fixed number of extrema, depending on the DoF. They also give an interval of gait percentages to find those extrema. 
+
+Following this premise, another crucial step involves establishing the existence of inflection points within the framework of this thesis. It is postulated that between any two consecutive extrema, an inflection point is present, thereby signifying a transition in the movement profile.
+
+The determination of inflection points augments the list of key points, enriching the specificity of the trajectory analysis. They corresponds to the points where the speed of the joint DoF will be maxed and the acceleration will be null. Furthermore, to provide a comprehensive foundation for the interpolation methodology, the initiation and end points of each curve are specified as boundary conditions. Complementary to these constraints, supplementary points are strategically chosen to refine the interpolation accuracy. These additional points are selected based on their correlation with gait percentage and are expressed as a function of the extremum gait percentage. Notably, the selection of these points varies across the individual DoFs, necessitating a tailored approach for each joint.
+
+The optimization of interpolation performance is guided by a systematic process involving trial and error. By iteratively adding points in regions where approximation errors are most pronounced, the interpolation accuracy is systematically enhanced. This rigorous methodology ensures a comprehensive evaluation of the trajectory characteristics and facilitates the refinement of the interpolation technique.
+
+A maximum of 12 key points per degree of freedom (DoF) was established to constrain the neural network's output. The details of each key points for the different DoFs will be seen in the \cref{sec:ControllerImplementation}.
+%
+%
+\subsection{Neural Network model}
+%
+%
+Neural networks form the foundation of the trajectory generation. Drawing inspiration from prior works like \cite{Moissenet.2019} and \cite{Koopman.2014}, which demonstrated the feasibility of establishing regressions between selected key points on the curve and factors such as walking speed and individual parameters (age, gender, weight, height), the concept of this thesis is to employ a neural network as a model for multiple regressions. The adoption of a deep neural network was chosen due to its capability to learn intricate and non-linear relationships effectively. 
+
+This approach aims to establish correlations between inputs—such as walking speed, individual pilot parameters (age, gender, weight, height), and inputs ensuring trajectory continuity (gait phase, joint position)—and outputs, which correspond to the key points on the trajectory. Each key point consists of a pair indicating gait phase and joint position, necessitating two outputs per key point. Therefore, for 12 key points, the neural network encompasses 24 outputs, illustrated in \cref{fig:NNModel}.It is possible to take a different number of key points per DoF. But this would require each DoF to redetermine the hyperparameters of each model linked to it, since the structure of the model would vary according to the number of outputs. Here, the assumption is that by fixing the number of key points for all DoFs, it is possible to determine the model hyperparameters for one DoF and then reuse them for the others, since the structure remains similar.
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=100mm]{figures/NNModel.png}%
+	%
+	\caption[Concept for the trajectory generation for one DoF]{\AMlangGerEng{Beschreibung des Bilds}{Concept for the trajectory generation for one DoF. The model is designed to accept inputs including walking speed and individual parameters such as age, height, and weight. It generates 24 output values, organized in pairs (gait phase, DoF position), which collectively define each of the 12 key points to be generated}.}%
+	\label{fig:NNModel}%
+\end{figure}%
+%
+%
+\subsection{Gait Period Estimation}
+%
+As previously outlined, the generated trajectories are normalized, specifically expressed as a function of gait percentage. However, for the trajectories to align temporally within the system, they must be articulated as a function of time. Therefore, there is a necessity to continuously determine the gait period, the duration of one complete gait cycle. 
+
+Building upon the findings of works \cite{Yun.2014} and \cite{Zhang.82620188292018}, where gait period emerges as a key parameter of gait, a model illustrated in \cref{fig:GaitPeriodEstiamtion} is developed. This model utilizes inputs such as individual parameters (age, gender, height, weight) and the walking speed to estimate the gait period. The selection of Gaussian Process Regression for this estimation is also inspired by these studies, as it provides a means to quantify the uncertainty associated with the obtained gait period. The general training method of the Gaussian Process Regression will be seen in \cref{subsec:GaussianProcessRegressionTraining}.
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=100mm]{figures/Gait period estimation.png}%
+	%
+	\caption[Concept for gait period estimation]{\AMlangGerEng{Beschreibung des Bilds}{Concept for gait period estimation. Employing a Gaussian Process Regression model, chosen for its ability to capture complex, non-linear relationships, the study estimates the gait period using driver parameters such as age, gender, height, weight, and walking speed which is selected by the pilot}.}%
+	\label{fig:GaitPeriodEstiamtion}%
+\end{figure}%
+%
+%
+\section{Controller Implementation}%
+\label{sec:ControllerImplementation}
+In this section, we delve into the implementation details of the controller, emphasizing the processes involved in data collection for training the various Machine Learning (ML) models in \cref{subsec:DatabasesSelection}. We will also elaborate on the specifics of the key points, distinguishing them by Degrees of Freedom (DoF). Lastly, we will outline the training plan for the ML models.
+%
+%
+\subsection{Databases Selection}%
+\label{subsec:DatabasesSelection}
+%
+Since the components of this controller are based on machine learning models, their implementation necessitates appropriate training data. Specifically, the required data consists of walking gait trajectories on flat surfaces. Each trajectory must be associated with the subject from whom it was measured. For each subject, essential information, including age, gender, height, and weight, must be provided.
+
+In the context of this thesis, collaborating with the students of the TUM DASH initiative to acquire a sufficient quantity of data for training various models poses significant challenges in terms of equipment and time. The collection of these trajectories requires motion capture technology. After recording the motion capture videos, the positions of the trackers must be interpreted over time, and the joint angles deduced using inverse kinematics. This process is both lengthy and labor-intensive.
+
+To circumvent this extensive process, several online databases provide direct access to the required trajectories, specifically the joint angles for various DoFs. These databases generally include the essential subject information needed for the defined models, along with additional data such as torque per DoF and EMG measurements during gait.
+
+The objective of the Controller is to generate trajectories for each joint to replicate the gait of a healthy person at a given speed on a flat surface. Therefore, the databases to be selected must meet the following conditions:
+\begin{itemize}
+	\item The measurements must come from healthy persons
+	\item The databases must provide the computed trajectories for the desired DoFs (hip abduction, hip flexion and knee flexion) and not just the motions captures datas, sensors datas.
+	\item There must be experiments with multiples walking speeds on plane surfaces
+\end{itemize}
+
+The goal was to extract the desired trajectories from these databases. A walking experiment is defined by two conditions: the walking speed and the incline of the surface on which the subject is walking. For each experiment multiple gait cycle can be provided, or a mean on all gait cycles measured during the experiment as it is the case with \cite{Fukuchi.2018}. The databases utilized in this thesis are:
+
+\begin{itemize}
+	\item \cite{K.Embry.2018} of K. Embry et al, which have 10 subjects with height ranging from 1.57 to 1.86m, mass ranging from 47.8 to 75.0 kg and age ranging from 19 to 27 years old. There are 3 experiments per subject only those with a null incline are considered with walking speed 0.8, 1.0, 1.2 m/s. Each experiment has 45 gait cycles are provided.
+	\item \cite{Fukuchi.2018} of Fukuchi et al, with a population of subjects, including 24 young adults (age 27.6 ± 4.4 years, height 171.1 ± 10.5 cm, and mass 68.4 ± 12.2 kg) and 18 older adults (age 62.7 ± 8.0 years, height 161.8 ± 9.5 cm, and mass 66.9 ± 10.1 kg). There are 12 experiments per subject, with walking speed in the range of 0.23 to 2.23 m/s, depending on the comfort speed of the subject.
+	\item \cite{Moreira.2021} of Moreira et al, with a population of 16 volunteers with height ranging from 1.51 to 1.83 m, mass ranging from 52.0 to 83.7 kg and age ranging from 20 to 28 years old. There are 7 experiments per person, with a walking speed ranging from 0.28 to 1.1 m/s, with 10 trial (10 gait cycle per experiment).
+\end{itemize}
+Subject data, walking experiment data and required joint trajectories were extracted and stored in a data structure according to \cref{fig:firstVersionDatabase}. They were then subjected to additional filtering related to key points, which will be discussed in the subsequent section.
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=110mm]{figures/firstVersionDatabase.png}%
+	%
+	\caption[Data Organization framework]{\AMlangGerEng{Beschreibung des Bilds}{The data is organized in the dataset.h5 according to the subjects from whom the trajectories were measured. For each subject, relevant details such as age, gender, height, and weight are stored in a structure labeled subjectdetails. The gender are encoded as follows, female as 2 and male as 1. Multiple experiments are conducted for each subject, each experiment characterized by a specific description, which includes walking speed and inclination. The experiments considered in this study are those where the inclination is zero. Each experiment can be repeated multiple times, with the reproductions noted in the time scale dimensions (n x m, where m represents the number of experiment repetitions, and n the number of points measured per experiment). There are 2 types of time frame, the absolute time (Time in s) and the normalized time (time\_norm). For each leg (Right and Left), the respective trajectories are stored under the name of the Axes that represent the type of DoF (X for the flexion axe and Y for the abduction axe)}.}%
+	\label{fig:firstVersionDatabase}%
+\end{figure}%
+%
+%
+\subsection{Key Points Extraction}%
+%
+%
+In order to have discrete outputs for the NN instead of the continuous trajectories, specific key points are extraded from the trajectories. The initial step involved identifying the extremums of the curves for each of the DoFs. As discussed in the literature as \cite{Chehab.2017}, these shapes' patterns that can be easily identify are the extremums of functions, with the number of extremums being consistent per DoF. Additionally, these extremums occur at fixed gait percentage intervals.
+
+Precisely identifying the desired extremums is crucial for the subsequent analysis, as there can be more extremums computed than desire. The extremums will be identified using the Python library Scipy, with the \textit{brentq} function. \textit{brentq} takes as parameters a function F and two points a,b and identify the value c between a and b where the function is equal to zero. So to have this function F, the interpolation between the trajectory points from the database is made using the Scipy Spline interpolation function, giving at the end a function. It can then be derivate, giving an output another function that can be used with \textit{brentq}. For each time step, if the function at t and t+1 have different signs, \textit{brentq} is used to find the root between the two time steps.A similar method will be employed to identify inflection points by analyzing the second derivative. 
+
+After analysis of the data collected, the number of extremums obtained can vary greatly from what is expected. According to the literature \cite{Chehab.2017, Moissenet.2019}, the number of extremums for a DoF is fixed regardless of the test subject and walking speed. However, the method described above shows that the number of extremums detected can vary greatly. This is also linked to the shape of the curves, ranging from trajectories with a more classical shape for DoFs, as in \cref{fig:ExtremumInfletionPointsRepresentation}, to trajectories with more different shapes, \cref{fig:AbnormalExtremumInfletionPointsRepresentation}. The aim is to have a NN model with a constant number of outputs per DoF, and therefore a constant number of key points for all DoFs. It is necessary to standardize the number of extremums and inflection points with the literature.
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=130mm]{figures/knee_flexion_key_points_example.png}\par%
+	%
+	%
+	\hspace*{5mm}%
+	% Including .png
+	\includegraphics[width=130mm]{figures/hip_flexion_key_points_example.png}\par%
+	%
+	\hspace*{5mm}%
+	% Including .png
+	\includegraphics[width=130mm]{figures/hip_abduction_key_points_example.png}%
+	%
+	\caption[Example of a representation for the same subject of trajectories with a more “classic” form of the desired DoFs]{\AMlangGerEng{Beschreibung des Bilds}{Example of a representation for the same subject of trajectories with a more “classic” form of the desired DoFs. Note that for the hip flexion there are already more points than expected to be recurrent in the literature (see \cref{subsubsec:HipflexionKeyPoints}). What's more, by considering only inflection and extremum points as key points, their number is already very different from one DoF to another, which is contrary to the desired objective of having the same number of key points per DoF}.}
+	\label{fig:ExtremumInfletionPointsRepresentation}%
+\end{figure}%
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=130mm]{figures/knee_flexion_key_points_abnormal_example.png}\par%
+	%
+	%
+	\hspace*{5mm}%
+	% Including .png
+	\includegraphics[width=130mm]{figures/hip_flexion_key_points_abnormal_example.png}\par%
+	%
+	\hspace*{5mm}%
+	% Including .png
+	\includegraphics[width=130mm]{figures/hip_abduction_key_points_abnormal_example.png}%
+	%
+	\caption[Another example of a representation for the same subject of trajectories with a shape further removed from the usual shape of the desired DoFs]{\AMlangGerEng{Beschreibung des Bilds}{Another example of a representation for the same subject of trajectories with a shape further removed from the usual shape of the desired DoFs. It is apparent that the number of extremum and inflection points is more variable than in \cref{fig:ExtremumInfletionPointsRepresentation}, especially in the hip abduction.}.}
+	\label{fig:AbnormalExtremumInfletionPointsRepresentation}%
+\end{figure}%
+
+In order to standardize the number of extremums and inflection points, while ensuring good curve reconstruction in the end, it is first necessary to be able to identify for each extremum its nature (maximum or minimum) and the gait percentage interval in which to find it. In cases like \cref{fig:AbnormalExtremumInfletionPointsRepresentation}, some of the determined extremums align with those being sought. By knowing the nature of the desired extremum (maximum or minimum) and the interval in which it is expected, we can select the one that most closely matches the intended one. To delve deeper, the identification of extrema facilitates data filtering as there are certain trajectories that do not comply with the conditions, they will simply be removed. As demonstrated in \cref{fig:AbnormalExtremumInfletionPointsRepresentation} compared to \cref{fig:ExtremumInfletionPointsRepresentation}, there can be an excessive number of candidate extrema, and conversely, instances where there are no candidates in the desired interval. Consequently, the trajectories selected for training are those where, for each degree of freedom (DoF), at least one candidate point is identified within each interval where an extremum is expected. This approach leads to a minimal data loss of approximately 5\%, ensuring that all trajectories used for subsequent training contain the requisite key points. 
+
+Similarly, in order to standardize the number of inflection points, which can be seen to vary greatly in \cref{fig:ExtremumInfletionPointsRepresentation} and \cref{fig:AbnormalExtremumInfletionPointsRepresentation}, a rule has been established: an inflection point is only selected if it lies between two previously selected extremums. And if several candidates are possible between two extremums, only one will be selected at the end, depending on the trend of the curve between the two extremums. If the curve is rising, the inflection point selected is the one with the highest value of in its derivative. If the curve is decreasing, the inflection point selected is the one with the smallest value of in its derivative, which can be negative. Physically, the inflection point selected is the one corresponding to the maximum/minimum speed between the two extreme positions.
+
+The key points selection process begins with the calculation of all extrema in the trajectory. These extrema are then classified into the predefined intervals based on their gait percentage. Subsequently, in an interval, the candidate extremum with the highest (or lowest) value is selected, depending on the nature of the extremum required.
+
+A similar methodology is applied to the selection of inflection points. After identifying all potential inflection points, they are categorized into intervals based on their gait percentage, specifically between two consecutive extrema. The selected inflection point is determined by the nature of the trajectory between the two extrema, with the point of maximum or minimum speed being chosen accordingly.
+
+Finally, the selection of additional points varies according to the DoF. The following sections will provide a detailed analysis of the extremum positions, the choice of additional points for each DoF.
+
+\subsubsection{Knee flexion key points}
+\label{subsubsec:KneeflexionKeyPoints}
+Regarding knee flexion, research, such as that presented in \cite{Chehab.2017}, identifies three key extrema. Their characteristics and corresponding gait percentage intervals are as follows:
+\begin{itemize}
+	\item A maximum at $e_{KF1}$ within the interval [0\%, 20\%] of gait cycle
+	\item A minimum at $e_{KF2}$ within the interval [25\%, 60\%] of gait cycle
+	\item A maximum at $e_{KF3}$ within the interval [65\%, 90\%] of gait cycle
+\end{itemize}
+Based on the number of extrema, the rule defined earlier allows for the deduction of two inflection points, which are selected following the aforementioned procedure. Also, the points at gait percentage 0 and 100, qualified as $e_{KFA}$ and $e_{KFZ}$, are added as boundaries conditions for a better interpolation. The position of the joint at these two points is taken to be the same, to ensure that the trajectories for the same individual at a given walking speed taken end to end are continuous. Additionally, supplementary points are chosen to enhance the approximation of the curve's shape during interpolation. These points are:
+\begin{itemize}
+	\item The point at $\dfrac{e_{KFA} + e_{KF1}}{2}$. It serves to better interpolate the first part of the curve in the interval $[e_{KFA}, e_{KF1}]$.
+	\item The two points at $\frac{e_{KFi} + e_{KFi+1}}{2}$ with i = 1,2. They serve to add another point with the respective inflection points in the intervals $[e_{KFi}, e_{KFi+1}]$ for a better interpolation.
+	\item Lastly, 2 final points in the interval $[e_{KF3}, e_{KFZ}]$. The first is fixed at gait percentage $\frac{e_{KF3} + e_{KFZ}}{2}$. The second one, at gait percentage $0.2.e_{KF3} + 0.8.e_{KFZ}$, obtained by trial and error, as it has generally been noted that there is an approximation error around this chosen gait phase.
+\end{itemize}
+%
+In the end, we obtain 12 key points for knee flexion, with 3 extremum points, 2 inflection points, 2 points as boundary conditions and 5 additional points.
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=130mm]{figures/key_points_knee_flexion.png}%
+	%
+	\caption[Key points representation for the knee flexion]{\AMlangGerEng{Beschreibung des Bilds}{Key points representation for the knee flexion}.}
+	\label{fig:KeyPointsKneeFlexion}%
+\end{figure}%
+%
+%
+\subsubsection{Hip flexion key points}%
+\label{subsubsec:HipflexionKeyPoints}
+Regarding hip flexion, the same researches \cite{Chehab.2017}, identifies two key extrema. Their characteristics and corresponding gait percentage intervals are as follows:
+\begin{itemize}
+	\item A minimum at $e_{HF1}$ within the interval [40\%, 65\%] of gait cycle
+	\item A maximum at $e_{HF2}$ within the interval [70\%, 90\%] of gait cycle
+\end{itemize}
+Based on the number of extrema, the designed rule allows for the deduction of one inflection points, which are selected following the aforementioned procedure. 
+
+When adding the boundaries conditions with the $e_{HFA}$ at gait percentage null and $e_{HFZ}$ at gait percentage 100 put at the same joint position, there are seven additional points to be included. In this case, as illustrated in \cref{fig:KeyPointsHipFlexion}, the points were selected through extensive trial and error. The regions with the highest concentration of additional points correspond to areas where the greatest variation in the data was observed. This is particularly evident near the end of the gait cycle, where a higher density of points, relative to their gait percentage distance, is present. The final additional points are:
+\begin{itemize}
+	\item The 3 points in the interval $[e_{HFA}, e_{HF1}]$ which are in order: $\frac{9.e_{HFA} + e_{HF1}}{10}$, $\frac{e_{HFA} + e_{HF1}}{2}$, $\frac{e_{HFA} + 3.e_{HF1}}{4}$.
+	\item The 3 points in the interval $[e_{HF1}, e_{HF2}]$ which are in order: $\frac{9.e_{HF1} + e_{HF2}}{10}$, $\frac{e_{HF1} + 3.e_{HF2}}{4}$, $\frac{e_{HF1} + 9.e_{HF2}}{10}$.
+	\item One point in the interval $[e_{HF2}, e_{HFZ}]$ which is: $\frac{e_{HF1} + e_{HF2}}{2}$.
+\end{itemize}
+In the end, we obtain 12 key points for hip flexion, with 2 extremum points, 1 inflection points, 2 points as boundary conditions and 7 additional points.
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=130mm]{figures/key_points_hip_flexion.png}%
+	%
+	\caption{\AMlangGerEng{Beschreibung des Bilds}{Key points representation for the hip flexion}.}%
+	\label{fig:KeyPointsHipFlexion}%
+\end{figure}
+%
+%
+\subsubsection{Hip abduction key points}
+\label{subsubsec:HipAbductionKeyPoints}
+Regarding hip abduction, the same researches \cite{Chehab.2017}, identifies two key extrema. Their characteristics and corresponding gait percentage intervals are as follows:
+\begin{itemize}
+	\item A maximum at $e_{HA1}$ within the interval [5\%, 30\%] of gait cycle
+	\item A minimum at $e_{HA2}$ within the interval [55\%, 80\%] of gait cycle
+\end{itemize}
+Based on the number of extrema, the designed rule allows for the deduction of one inflection points, which are selected following the aforementioned procedure. 
+
+Similarly to the hip flexion case, additional points were concentrated in areas exhibiting the greatest interpolation errors. As shown in \cref{fig:KeyPointsHipAbduction}, there is a higher density of additional points following the first extremum. This is primarily because significant data variations were detected in this region. In fact, some of these variations could be mathematically evaluated as extrema. However, it is important to note that this particular curve is not present in all trajectories. After adding the $e_{HAA}$ and $e_{HAZ}$, the final additional points are:
+
+\begin{itemize}
+	\item One point in the interval $[e_{HAA}, e_{HF1}]$ which is: $\frac{e_{HAA} + e_{HF1}}{2}$.
+	\item The 4 points in the interval $[e_{HF1}, e_{HF2}]$ which are in order: $\frac{e_{HF1} + e_{HF2}}{2}$, $\frac{3.e_{HF1} + 2.e_{HF2}}{5}$, $\frac{3.e_{HF1} + e_{HF2}}{4}$, $\frac{2.e_{HF1} + 3.e_{HF2}}{5}$.
+	\item Two points in the interval $[e_{HF2}, e_{HAZ}]$ which are in order: $\frac{e_{HF2} + end\_point}{2}$, $\frac{e_{HF2} + 4.e_{HAZ}}{5}$.
+\end{itemize}
+
+In the end, we obtain 12 key points for hip abduction, with 2 extremum points, 1 inflection points, 2 points as boundary conditions and 7 additional points.
+
+\begin{figure}[H]%
+	\centering%
+	%
+	% Including .png
+	\includegraphics[width=130mm]{figures/key_points_hip_abduction.png}%
+	%
+	\caption{\AMlangGerEng{Beschreibung des Bilds}{Key points representation for the hip abduction}.}%
+	\label{fig:KeyPointsHipAbduction}%
+\end{figure}%
+%
+%
+%
+%
+\subsection{Neural Networks Training}%
+\label{subsec:NNTraining}
+The training mode of the neural network model can be subdivided into several steps: data preparation and training set-up.
+
+\subsubsection{Data Preparation}
+First, there is data preparation. Each trajectory is linked to a subject and their details. 
+\begin{itemize}
+	\item An initial function \textit{extract\_data\_to\_train} takes as parameters the ordered database in the file represented by \cref{fig:firstVersionDatabase}, and for one DoF, the details of the subjects to be extracted, the conditions on these details (for example, only subjects with an age below a maximum), and the number N of times a trajectory is repeated. This function ultimately creates 3 matrices. One matrix has each of its rows representing a trajectory. One other has each of its rows representing the normalized time scale of the corresponding trajectory. A trajectory and its normalized time scale are repeated N times in each matrix. The third matrix is the input data matrix, where each row represents the biomechanical parameters of the subject that were requested as input, the walking speed corresponding to the trajectory. Additionally, a pair (gait phase, joint position) is randomly chosen from the points of the trajectory provided in the database and added to the corresponding row of inputs. This pair is different for each repetition of the trajectory. This allows for multiplying the amount of data used to train the neural network.
+	\item The second function \textit{compute\_data\_for\_training} encapsulates the first and allows transforming the two tables with the trajectories and their time scales into a table containing, for each row, the key points corresponding to the trajectory.
+\end{itemize}
+Thus, in the case of a complete model as shown in \cref{fig:NNModel}, a sample for a trajectory corresponds to the inputs: age, height, weight, gender, walking speed, and the pair (gait phase, joint position) randomly chosen from the trajectory, and the outputs are the key points of this trajectory. This allows for a base of 5142 samples for N=1, meaning each trajectory is only used once. This can be multiplied by increasing the value of N.
+
+After extraction and calculation of data via \textit{compute\_data\_for\_training}, the input data will be standardized using the StandardScaler from the Python library Scikit-learn \cite{Scikitlearn.05082024} under sklearn.preprocessing to benefit from the advantages described in \cref{subsubsec:Standardization}. These extracted data will be divided into two parts using the \texttt{train\_test\_split} function from the Scikit-learn sub-library \texttt{sklearn.model\_selection}. The split is 0.8 for training and 0.2 for test. One part will be used during training for training and validation, and the other part will only be used at the very end to test the model's performance.
+
+\subsubsection{Training Set-up}
+The second step involves the model itself. A function has been created to design the skeleton of the neural network (NN). This function, \textit{create\_model}, takes the following parameters:
+\begin{itemize}
+	\item the shape of the input input\_shape
+	\item the learning rate of the optimization function to be used
+	\item the activation function to be used in the model
+	\item the number of neurons in the hidden layers
+	\item the dropout value dropout\_rate (see \cref{subsubsec:Regularization}) between the network layers
+	\item the regularization function to be used in the network
+	\item the method for initializing the weights of the neurons (see \cref{subsub:WeightInitialization}) initializer
+\end{itemize}
+This function particularly utilizes the Keras sub-library of TensorFlow \cite{TensorFlow.06032024}. The \textit{create\_model} function operates in several stages:
+\begin{itemize}
+	\item First, the initializer for the weights is identified by its name, and it needs to be assigned to the corresponding weight initialization method. For each coded name, a corresponding initializer object from the Python sub-library \texttt{tensorflow.keras.initializers} is assigned (e.g., \texttt{HeNormal}, \texttt{GlorotUniform}).
+	\item The same applies to activation functions (see \cref{subsubsec:ActivationFunctions}). Although the ReLU and ELU functions are known by the names \texttt{relu} and \texttt{elu} in TensorFlow libraries, to use other functions, their names need to be encoded (e.g., \texttt{LeakyReLU} as \texttt{leakyrelu} and \texttt{PReLU} as \texttt{prelu}). After being passed into the function, if the name is known, it will be used by the Python objects. Otherwise, for \texttt{LeakyReLU} and \texttt{PReLU}, they must be extracted from the Python sub-library \texttt{tensorflow.keras.layers}, and the encoded names replaced with the corresponding objects before being provided to the rest of the TensorFlow objects.
+	\item The creation of the model begins here. It is initialized with the \texttt{Sequential} object from the \texttt{tensorflow.keras.models} library to specify that it will be a neural network. Then, the various layers are added. Being dense layers, the \texttt{Dense} object from the \texttt{tensorflow.keras.layers} library is used. For the first layer, the shape of the input is specified, along with the activation function, weight initialization method, and regularization function used (None if there isn't one). Here, 3-7 hidden layers will be used (this may evolve during the training process). If the \texttt{dropout\_rate} is greater than zero, a \texttt{Dropout} layer from the \texttt{tensorflow.keras.layers} library is added between each layer of the neural network. Finally, the output layer with 24 outputs (12 key points * 2) and a linear activation function is specified.
+	\item The activation method used here is the Adam optimizer (see \cref{subsubsec:OptimizationMethods}), with the learning rate specified as an input. Finally, the model is compiled with \texttt{MSE} for loss, \texttt{MAE} for another metric, and the previously defined activation method, then return by the function. The two metrics can be seen in \cref{tab:LossFunctions}.
+\end{itemize}
+
+The idea behind the neural network is to establish multiple regressions between the input features and the key points. This function was created because, for proper functionality of the program, it will be wrapped by a \texttt{KerasRegressor} object from the Python \texttt{scikeras} library, which requires a function that returns a model as output. However, the shape of the input data, which is given as a parameter to the \texttt{create\_model} function, must be specified before wrapping the function with \texttt{KerasRegressor}. For this purpose, the \texttt{partial} function from the Python \texttt{functools} library is used, allowing the creation of a new function from an existing one where one or more parameters of the original function have already been specified. Thus, a new function \texttt{create\_model\_with\_input\_shape} is obtained, where the input shape is already specified.
+
+For training the model, the method used will be a GridSearch via the \texttt{GridSearchCV} object from the Python library Scikit-learn \cite{Scikitlearn.05082024}. The \texttt{KerasRegressor} object ensures compatibility between the neural network created using the TensorFlow library and the \texttt{GridSearchCV} from the Scikit-learn library.
+
+\textbf{GridSearch} is a process that involves training a Machine Learning model using different combinations of hyperparameters. For each model, various hyperparameters are tested with a range of values. Subsequently, each model, configured with a unique combination of hyperparameters, undergoes training using a cross-validation method.
+
+\textbf{Cross-validation} is a robust method for evaluating the performance of a machine learning model by partitioning the dataset into subsets. The dataset is typically divided into k equal-sized folds. The model is trained on k-1 folds and validated on the remaining fold. This process is repeated k times, with each fold serving as the validation set once. The final performance metric is obtained by averaging the results from all k iterations, providing a comprehensive assessment of the model's generalization capability.
+
+The parameters that will be varied during the GridSearch include the learning rate for the Adam optimizer, the number of neurons per hidden layer, the activation function, the weight initialization method for each neuron, the batch size, the number of training epochs, the dropout rate (including 0 for no dropout), and the regularization functions (including an option for no regularization). The final objective is to identify the optimal combination of values for these parameters.
+
+\begin{table}[H]
+	\centering
+	\caption{Hyperparameters and their choice of values}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Hyperparameters} & \textbf{Choice of values} \\
+		\hline
+		Batch size & 30, 50, 60 \\
+		\hline
+		Epochs & 300, 400, 450 \\
+		\hline
+		Learning rate & 0.001, 0.004, 0.01 \\
+		\hline
+		Activation function & relu, elu, leakyrelu, prelu \\
+		\hline
+		Number of neurons & 64, 128, 512 \\
+		\hline
+		Dropout rate & 0.0, 0.2, 0.5 \\
+		\hline
+		Weight initialization & HeNormal, GlorotUniform \\
+		\hline
+		Regularization & None, L1,  L2 \\
+		\hline
+	\end{tabular}
+	\label{tab:hyperparameters}
+\end{table}
+
+At the conclusion of the GridSearch process, the model exhibiting the highest performance is selected. The performance metric utilized for all models is the Mean Squared Error (MSE) as shown in \cref{tab:LossFunctions}, which serves as the loss function.
+%
+%
+
+
+\subsection{Gaussian Process Regression Training}
+\label{subsec:GaussianProcessRegressionTraining}
+As seen in \cref{subsec:GaussianProcessRegression}, a Gaussian Process Regression Model consists of two parts: the constant kernel and the variable part of the kernel. This variable part can have several natures, and the best nature for a specific case must be determined with its corresponding parameters.
+
+The Gaussian Process Regression is used in two cases: the estimation of the gait phase and the estimation of the gait period. The variation will depend on the data used.
+\begin{itemize}
+	\item The \texttt{compute\_data\_gait\_period\_training} function extracts subject details (age, height, weight, gender) and walking speed from the database to be used as input, and the gait period to be used as output. The complexity arises from the fact that the data from \cite{Fukuchi.2018} are normalized with respect to time and do not provide this information. Therefore, it is necessary to recognize in the database which time scales have been normalized or not, hence the difference in the database between \texttt{time} and \texttt{time\_norm} in the organization of file \cref{fig:firstVersionDatabase}. This results in 4394 samples compared to the previous 5000+ by removing the data from \cite{Fukuchi.2018}.
+	\item The \texttt{compute\_data\_intent\_recognition} function extracts the data for estimating the gait phase. For a given subject and experiment, all trajectories for one leg will have the same time scale. In this case, we consider the trajectories (with at least a hundred points) of the 3 desired DoFs and their normalized time scale (expressed as a gait percentage). Interpolations are applied to these trajectories via the \texttt{CubicSpline} function from the Python library Scipy \cite{Scipy.24062024}. This allows for easy calculation of the derivative of these trajectories and obtaining the velocity. From there, a gait phase value is selected (one from the initial normalized time scale to obtain the real values for the positions), and the position and velocity values of the different DoFs at the chosen gait phase are selected. Thus, the output is a gait phase and the input consists of the various positions and velocities of the related DoFs. This process can be repeated several times for the same trajectory. If this process is done 10 times, it gives 51420 samples.
+\end{itemize}
+Once the data is obtained, the input data is standardized using \texttt{StandardScaler} from the Python library Scikit-learn \cite{Scikitlearn.05082024}. From here, the training process is the same in both cases. It is done using \texttt{GridSearchCV} from the Python library Scikit-learn. Different possible kernels will be used as grid parameters. These kernels are written in the form: \texttt{C(1.0, (1e-4, 1e2)) * VariableKernel(parameters\_bounds=(1e-6, 1e2))}. \texttt{C} is the abbreviation for \texttt{ConstantKernel}, an object from the Python sub-library \texttt{sklearn.gaussian\_process.kernels} of Scikit-learn, representing the constant part of the kernel of the Gaussian Process Regression. The first value is the initial value of the \texttt{ConstantKernel}, and the pair \texttt{(1e-4, 1e2)} represents the limits within which the value of this constant part will be searched. For the variable part of the kernel, there are several types, all from the Python library Scikit-learn. The types of kernels considered include the Radial Basis Function (RBF) kernel, Matern, RationalQuadratic, ExpSineSquared, and DotProduct. They all have a parameter specifying the bounds within which the \texttt{length\_scale} will be searched, and they have their own specificities. For Matern, there is the \(\nu\) parameter whose value must be specified, often chosen between 0.5, 1.5, and 2.5 (see Section X). For RationalQuadratic, the limits for searching the \(\alpha\) value must be specified, here \((1e-4, 1e2)\). For ExpSineSquared, the limits for searching the periodicity must be specified, here \((1e-2, 1e2)\). From there, GridSearch will determine the best parameters for each kernel's variable and constant parts and determine the best kernel. Also, during training, if a parameter value is too close to the given limits, the program will issue a warning and it can be adjusted.
+
+\subsection{Interpolation Choices}
+\label{subsec:InterpolationChoices}
+As shown in \cref{fig:GrandScheme}, the key points will be interpolated to reconstruct the trajectory. The work of Moissenet \cite{Moissenet.2019} shows that a spline interpolation of degree 5 with fewer key points than those used here gives good results. Here, based on Moissenet's results, a spline interpolation of degree 3 using the Python library Scipy gave better results in our case as in \cref{sec:InterpolationEvaluation}.
+
+%
+%
