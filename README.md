@@ -8,6 +8,8 @@
   <br><em>Method at a glance — key-points → spline trajectory → absolute time via GPR.</em>
 </p>
 
+![Python](https://img.shields.io/badge/Python-3.10%2B-informational)
+
 ---
 
 ## Why this repo?
